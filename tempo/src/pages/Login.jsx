@@ -1,6 +1,5 @@
 import sketch1 from '../assets/logo/sketch1.jpeg';
 import sketch2 from '../assets/logo/sketch2.jpeg';
-import Logo from '../assets/logo/tempiot.jpg';
 import invoiceLogo from '../assets/logo/invoiceLogo.png';
 import Qr_code from '../assets/logo/Qr.png';
 import { useState } from 'react';
@@ -29,9 +28,25 @@ const Login = ({ onLogin, onSelectsite, handleLogout }) => {
     }
 
     const navigate = useNavigate();
-    const validate_login = async() => {
-        await navigate('/Distributer_Detials');
-        window.location.reload();
+    const validate_login = async () => {
+        if (username === "" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username)) {
+            setinactive_user(false);
+            setinvalidstate(false);
+            setinactive_site(false)
+            setusername_empty(true)
+        } else if (password == "") {
+            setinactive_user(false);
+            setinvalidstate(false);
+            setinactive_site(false)
+            setpassword_empty(true)
+        }
+        else {
+            const body = { username, password }
+            body.username = body.username.trim();
+            body.password = body.password.trim();
+            await navigate('/Distributer_Detials');
+            window.location.reload();
+        }
     }
 
     return (
