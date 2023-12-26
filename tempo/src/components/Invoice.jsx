@@ -1,6 +1,6 @@
 import invoicePic from '../assets/logo/InvoicePic.png'
 import QRCode from 'qrcode.react';
-
+import Qr from '../assets/logo/Qr.png'
 
 const Invoice = () => {
     const a = "hello";
@@ -119,8 +119,8 @@ const Invoice = () => {
                         <div className="paymentDetials">
                             <div className="paymentQrSession">
                                 <div className="makePaymetToTittle">Make Payment to <br />Terion Distributor</div>
-                                <div className="makePaymetToQr">
-                                    Qr
+                                <div className="makePaymetToQr d-flex">
+                                    <img src={Qr} alt="QR Code" className='QrCode'/>
                                 </div>
                             </div>
                             <div className="detialAboutPayment">

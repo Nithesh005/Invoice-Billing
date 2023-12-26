@@ -188,7 +188,10 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
 
     const handleLogout1 = () => {
         handleLogout();
+        setlogoutdiv(!logoutdiv)
         navigate('/', { replace: true });
+        
+        window.location.reload();
     }
 
     const Logout = () => {
@@ -228,7 +231,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                                 key={index}
                                 to={item.links[0].url}
                                 className="link"
-                                style={{borderRadius: "7px" }}
+                                style={{ borderRadius: "7px" }}
                                 onMouseEnter={() => {
                                     const dropdownContent = document.getElementsByClassName('dropdown-content')[index];
                                     dropdownContent.style.display = 'block';
@@ -238,7 +241,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                                     dropdownContent.style.display = 'none';
                                 }}
                             >
-                                {}
+                                { }
                                 <div className="individual_icon">
                                     <div className="icon">{item.icon}</div>
                                 </div>
@@ -260,7 +263,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                                     ))}
                                 </div>
                             </NavLink>
-                            
+
                         ))}
                 </div>
                 <div style={{ position: "relative" }} className='profile' ref={logout_empty_space}>
@@ -273,21 +276,25 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                         />
 
                     </div>
-                    {logoutdiv && <div className="your-div">
-                        <div className='display-flex logout1'>
-                            <FontAwesomeIcon
-                                className="profile_pic"
-                                icon={faCircleUser}
-                                style={{ "--fa-primary-color": "#ffffff", "--fa-secondary-color": "#797a7c" }}
-                                onClick={Logout}
-                            />
-                            <span style={{ fontWeight: "600" }} className='name'>{parsedData.first_name}</span>
+                    {logoutdiv &&
+                        <div className="your-div">
+                            <div className='display-flex logout1'>
+                                <FontAwesomeIcon
+                                    className="profile_pic"
+                                    icon={faCircleUser}
+                                    style={{ "--fa-primary-color": "#ffffff", "--fa-secondary-color": "#797a7c" }}
+                                    onClick={Logout}
+                                />
+                                <span style={{ fontWeight: "600" }} className='name'>Name</span>
+                            </div>
+                            <div className='display-flex logout2'
+                                onClick={handleLogout1}
+                            >
+                                <FontAwesomeIcon className="profile_pic1" icon={faArrowRightFromBracket} />
+                                <div style={{ fontWeight: "600" }} className='name'>Logout</div>
+                            </div>
                         </div>
-                        <div className='display-flex logout2' onClick={handleLogout1}>
-                            <FontAwesomeIcon className="profile_pic1" icon={faArrowRightFromBracket} />
-                            <div style={{ fontWeight: "600" }} className='name'>Logout</div>
-                        </div>
-                    </div>}
+                    }
                 </div>
             </div>
             <main>{children}</main>

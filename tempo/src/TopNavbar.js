@@ -5,11 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import companyLogo from './assets/logo/invoiceLogo.png'
-import {API_URL} from './config'
-
-
+import { API_URL } from './config'
+import { Drawer, IconButton } from '@mui/material';
+import Sidebar from './components/Sidebar';
+import MenuIcon from '@mui/icons-material/Menu'
 const TopNavbar = ({ site, apphandlesite }) => {
-  
+
   const location = useLocation();
   const name1 = sessionStorage.getItem('siteNames');
   const siteNames = JSON.parse(name1);
@@ -91,7 +92,7 @@ const TopNavbar = ({ site, apphandlesite }) => {
 
   const handlesitevalue = (sitevalue) => {
     if (sitevalue.type === "single") {
-      
+
       const show = `${sitevalue.value} - ${sitevalue.name}`
       setdisplaysite(show)
       apphandlesite(sitevalue.value)
@@ -131,7 +132,7 @@ const TopNavbar = ({ site, apphandlesite }) => {
           const datalen = data.filter(item => item.device_status === 1);
           sessionStorage.setItem('state_count', datalen.length)
         }
-       await getdevicelength();
+        await getdevicelength();
         if (response) {
           if (location.pathname.startsWith('/Device')) {
             navigate(`/Device/${data.site_id}`);
@@ -161,15 +162,23 @@ const TopNavbar = ({ site, apphandlesite }) => {
       document.removeEventListener('click', emptySpace_site_dropdown);
     };
   }, []);
-  
-
+  const [isSidebarOpen, setisSidebarOpen] = useState(false);
+  const handleSidebarToggle = () => {
+    setisSidebarOpen(!isSidebarOpen);
+  }
   return (
     <nav className='top-nav flex-class align-center'>
       {/* Product Logo */}
       <div className='navbar_mar mar-left d-flex'>
-        <img src={companyLogo} alt="TempoIoT Logo" width="50" height="45" /> 
-        <div className='name_near_logo d-flex'>{process.env.REACT_APP_NAME || "E- Invoice Software"}</div>
+        <img src={companyLogo} alt="Terion" width="200" height="25" />
+        {/* <div className='name_near_logo d-flex'>{process.env.REACT_APP_NAME || "E- Invoice Software"}</div> */}
       </div>
+      <IconButton color="inherit" onClick={handleSidebarToggle}>
+        <MenuIcon />
+      </IconButton>
+      {/* Search Bar */}
+      {/* <SearchBar /> */}
+
       {/* Site Dropdown */}
       {(showsite && showsite_child) &&
         <div style={{ marginRight: "10px", width: "170px" }} ref={site_dropdown}>
@@ -188,9 +197,18 @@ const TopNavbar = ({ site, apphandlesite }) => {
               ))}
           </div>}
         </div>
+
       }
+      <Drawer anchor="left" open={isSidebarOpen} onClose={handleSidebarToggle}>
+        <div className="p-4" style={{width:'300px'}}>
+          {/* Sidebar content goes here */}
+          <p>Sidebar Content</p>
+          {/* <Sidebar/> */}
+        </div>
+      </Drawer>
+
+
     </nav>
   );
 };
-
 export default TopNavbar;

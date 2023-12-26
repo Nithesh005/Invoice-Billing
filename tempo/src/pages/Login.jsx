@@ -1,6 +1,7 @@
 import sketch1 from '../assets/logo/sketch1.jpeg';
 import sketch2 from '../assets/logo/sketch2.jpeg';
 import Logo from '../assets/logo/tempiot.jpg';
+import invoiceLogo from '../assets/logo/invoiceLogo.png';
 import Qr_code from '../assets/logo/Qr.png';
 import { useState } from 'react';
 import { API_URL } from '../config'
@@ -140,7 +141,7 @@ const Login = ({ onLogin, onSelectsite, handleLogout }) => {
         <>
             <div className='content'>
                 <div className='digital_scan'>
-                    <div className="TempoIot">TempoIoT</div>
+                    <div className="TempoIot">TERION</div>
                     <div className="ds">digital Simplified</div>
                     <img src={Qr_code} style={{ height: '100px', width: '100px' }} alt="Qr" />
                     <div className="para">It's beginning of machines taking over the world</div>
@@ -151,7 +152,7 @@ const Login = ({ onLogin, onSelectsite, handleLogout }) => {
                 <div className='login_inputs'>
                     <div className="all_inputs">
                         <div className="logo">
-                            <img src={Logo} alt="Logo" />
+                            <img src={invoiceLogo} alt="Logo" />
                         </div>
                         <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem" }}>
                             <div className='login_input_div'>

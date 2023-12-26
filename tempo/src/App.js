@@ -14,7 +14,7 @@ import Products from './pages/Products.jsx';
 import Add_Distributer_Detials from './pages/Add_Distributer_Detials';
 import Edit_Distributer_Detials from './pages/Edit_Distributer_Detials';
 import Edit_site from './pages/Edit_site';
-import Add_site from './pages/Add_site.jsx';
+import Add_site from './pages/Add_Products.jsx';
 import Invoice from "./components/Invoice.jsx";
 import InvoiceGenerator from "./components/InvoiceGenerator.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
@@ -215,23 +215,35 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <TopNavbar site={site} apphandlesite={Apphandlesite} />
-      <Sidebar handleLogout={handleLogout}>
-        <Routes>
-          <Route path='/' element={<Login />}></Route>
-          <Route path='/Distributer_Detials' element={<Distributer_Detials />}></Route>
-          <Route path='/Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
-          <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
-          <Route path='/Products' element={<Products />}></Route>
-          <Route path='/Add_Products' element={<Add_site />}></Route>
-          <Route path='/Edit_Products' element={<Edit_site />}></Route>
-          <Route path='/Invoice' element={<Invoice />}></Route>
-          <Route path='/InvoiceGenerator' element={<InvoiceGenerator />}></Route>
-          <Route path='/ProfilePage' element={<ProfilePage/>}></Route>
-          <Route path='/TransactionHistory' element={<TransactionHistory />}></Route>
-          {/* <Route path='/Contact_us' element={<Add_site />}></Route> */}
-        </Routes>
-      </Sidebar>
+      {window.location.href !== 'http://localhost:3001/' ? (
+        <>
+          <TopNavbar site={site} apphandlesite={Apphandlesite} />
+          <Sidebar handleLogout={handleLogout}>
+            <Routes>
+              <Route path='/Distributer_Detials' element={<Distributer_Detials />}></Route>
+              <Route path='/Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
+              <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
+              <Route path='/Products' element={<Products />}></Route>
+              <Route path='/Add_Products' element={<Add_site />}></Route>
+              <Route path='/Edit_Products' element={<Add_site />}></Route> 
+              {/* Edit_site */}
+              <Route path='/Invoice' element={<Invoice />}></Route>
+              <Route path='/InvoiceGenerator' element={<InvoiceGenerator />}></Route>
+              <Route path='/ProfilePage' element={<ProfilePage />}></Route>
+              <Route path='/TransactionHistory' element={<TransactionHistory />}></Route>
+              {/* <Route path='/Contact_us' element={<Add_site />}></Route> */}
+            </Routes>
+          </Sidebar>
+        </>
+      ) : (
+        <>
+          <Routes>
+            <Route path='/' element={<Login />}></Route>
+          </Routes>
+        </>
+      )}
+
+
       {/* {loading ? (
         <h1><Loading /></h1>
       ) : (

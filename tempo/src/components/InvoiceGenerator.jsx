@@ -76,8 +76,8 @@ const InvoiceGenerator = () => {
           <table className="invoice-table">
             <thead>
               <tr>
-                <th>PRODUCT NAME</th>
                 <th>DISTRIBUTER ID</th>
+                <th>PRODUCT NAME</th>
                 <th>ADDRESS</th>
                 <th>QUANTITY</th>
                 <th>AMOUNT</th>
@@ -91,22 +91,24 @@ const InvoiceGenerator = () => {
                   <td>
                     <input
                       type="text"
+                      placeholder="0"
+                      name="unit"
+                      className="unit-input"
+                      value={row.distributerName}
+                      onChange={(e) => updateRow(index, 'distributerName', e.target.value)}
+                    />
+                  </td>
+
+                  <td>
+                    <input
+                      type="text"
                       placeholder="Product name"
                       className="product-input"
                       value={row.productname}
                       onChange={(e) => updateRow(index, 'productname', e.target.value)}
                     />
                   </td>
-                  <td>
-                    <input
-                      type="number"
-                      placeholder="0"
-                      name="unit"
-                      className="unit-input"
-                      value={row.distributerName}
-                      onChange={(e) => updateRow(index, 'distributerName', parseFloat(e.target.value))}
-                    />
-                  </td>
+                  
                   <td>
                     <input
                       type="text"
@@ -114,17 +116,17 @@ const InvoiceGenerator = () => {
                       name="price"
                       className="price-input"
                       value={row.address}
-                      onChange={(e) => updateRow(index, 'address', parseFloat(e.target.value))}
+                      onChange={(e) => updateRow(index, 'address', e.target.value)}
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
+                      type="text"
                       placeholder="0"
                       name="amount"
                       className="amount-input"
                       value={row.quantity}
-                      onChange={(e) => updateRow1(index, 'quantity', parseFloat(e.target.value))}
+                      onChange={(e) => updateRow1(index, 'quantity', e.target.value)}
 
                     />
                   </td>
@@ -179,7 +181,7 @@ const InvoiceGenerator = () => {
             <IoIosAdd className="add-icon" style={{
               fontSize: '40px',   
               color: 'white',       
-              backgroundColor: '#96c480', 
+              backgroundColor: '#ef3131', 
               borderRadius: '50%',  
               padding: '10px'       
             }} />

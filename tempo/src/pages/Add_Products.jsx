@@ -29,7 +29,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 
 
-const Add_site = () => {
+const Add_Products = () => {
     // set var
     const [company_name, setcompanyname] = useState("");
     const [role_in_input, setrole_in_input] = useState("");
@@ -668,4 +668,4 @@ const Add_site = () => {
 
     );
 };
-export default Add_site;
+export default Add_Products;

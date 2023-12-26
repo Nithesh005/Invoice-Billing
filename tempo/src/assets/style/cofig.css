@@ -1,11 +1,11 @@
 :root {
-  --THEME_COLOUR: #96c480;    /* SIDEBAR COLOUR                                        011D63 */
+  --THEME_COLOUR: #ef3131;    /* SIDEBAR COLOUR                                        011D63 */
   --INNER_COLOUR: #ffffff;    
-  --HOVER_COLOUR:#098b07e8;     /* SIDEBAR HOVER COLOUR FOR BACKGROUND                       rgb(129, 222, 248)*/
-  --HOVER_COLOUR_FOR_ACTIVE:#1b9317e8;     /* SIDEBAR COLOUR FOR ACTIVE CONTENT                                    */
-  --SIDEBAR_HEADING_COLOUR:#ffffff; /*   SIDEBAR HEADING COLOUR                                                                      rgb(96, 164, 236)*/
-  --COLOR_BEFORE_HOVER: #042e9a;    /* COLOUR IN HOVERABLE CONTENT BEFORE HOVERING         154fdf*/
-  --COLOR_AFTER_HOVER: #ffffff;    /* COLOUR IN HOVERABLE CONTENT AFTER HOVERING         154fdf*/
+  --HOVER_COLOUR:#9f9595b4;     /* SIDEBAR HOVER COLOUR FOR BACKGROUND                       rgb(129, 222, 248)*/
+  --HOVER_COLOUR_FOR_ACTIVE:#757875e8;     /* SIDEBAR COLOUR FOR ACTIVE CONTENT                                    */
+  --SIDEBAR_HEADING_COLOUR:#042e9a; /*   SIDEBAR HEADING COLOUR                                                                      rgb(96, 164, 236)*/
+  --COLOR_BEFORE_HOVER: #fff;    /* COLOUR IN HOVERABLE CONTENT BEFORE HOVERING         154fdf*/
+  --COLOR_AFTER_HOVER: #042e9a;    /* COLOUR IN HOVERABLE CONTENT AFTER HOVERING         154fdf*/
   --PAGE_TITTLE_COLOUR: #042e9a;     /*PAGE TITTLE COLOUR                             rgb(50, 12, 175)*/
   --THEME_SEC_COLOR: #2E3191;
   --TOP_NAVBAR_BTN_CLR: #2D065C;

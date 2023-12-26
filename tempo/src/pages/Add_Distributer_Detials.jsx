@@ -36,6 +36,29 @@ const Add_Distributer_Detials = () => {
         MF_Id: '',
         M_Email: '',
         M_Phone_No: '',
+        M_Pan_Number: '',
+        M_Aadhar_Number: '',
+        M_Name: '',
+        M_Position: '',
+        M_Alternate_Phone_No: '',
+        M_User_Name: '',
+        M_Password: '',
+        M_Business_Type: '',
+        M_GST_Number: '',
+        M_Organization_Name: '',
+        M_Account_Name: '',
+        M_Account_Number: '',
+        M_Linked_Phone_no: '',
+        M_Pass_Img: '',
+        M_Upi_Id: '',
+        M_PR_Street_Address: '',
+        M_PR_City: '',
+        M_PR_State: '',
+        M_PR_PostalCode: '',
+        M_CD_Street_Address: '',
+        M_CD_City: '',
+        M_CD_State: '',
+        M_CD_PostalCode: '',
     });
 
     const handleInputChange = (e) => {
@@ -51,16 +74,53 @@ const Add_Distributer_Detials = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(e);
-
-        try {
-            const response = await axios.post('http://localhost:4000/admin/insert', postData);
-            console.log('Data sent successfully:', response.data);
-            // Optionally, you can update your component state or show a success message
-        } catch (error) {
-            console.error('Error sending data:', error);
-            // Handle error, show error message, etc.
+        const isValidMF_Id = /^[a-zA-Z]+$/.test(postData.MF_Id)
+        const isValidUserName = /^[a-zA-Z]+$/.test(postData.M_User_Name)
+        const isValidAadhar = /^[a-zA-Z]+$/.test(postData.M_Aadhar_Number)
+        const isValidPosition = /^[a-zA-Z]+$/i.test(postData.M_Position)
+        const isValidGST = /^[a-zA-Z]+$/.test(postData.M_GST_Number)
+        const isValidBussinessType = /^[a-zA-Z]+$/.test(postData.M_Business_Type)
+        const isValidEmail = /^[a-zA-Z]+$/.test(postData.M_Email)
+        const isValidAcc_No = /^[a-zA-Z]+$/.test(postData.M_Account_Number)
+        const isValidPhoneNo = /^[a-zA-Z]+$/.test(postData.M_Phone_No)
+        const isValidPANno = /^[a-zA-Z]+$/.test(postData.M_Pan_Number)
+        const isValidOrganisationNo = /^[a-zA-Z]+$/.test(postData.M_Organization_Name)
+        const isValidUpiId = /^[a-zA-Z]+$/.test(postData.M_Upi_Id)
+        if (!isValidMF_Id || !isValidUserName || !isValidAadhar
+              || !isValidPosition || !isValidGST || !isValidBussinessType || !isValidEmail || !isValidAcc_No || !isValidPhoneNo || !isValidPANno || !isValidOrganisationNo || !isValidUpiId
+            ) {
+            alert("Enter the valid data");
+        } else {
+            try {
+                const response = await axios.post('http://localhost:4000/admin/insert', postData);
+                console.log('Data sent successfully:', response.data);
+                window.alert("Details Added Successfully");
+                // Optionally, you can update your component state or show a success message
+            } catch (error) {
+                console.error('Error sending data:', error);
+                // Handle error, show error message, etc.
+            }
         }
+
+
     };
+
+    const inputFields = [
+        { label: "Register ID", name: "MF_Id", value: postData.MF_Id, icon: ic_home_work },
+        { label: "Distributor Name", name: "M_User_Name", value: postData.M_User_Name, icon: person },
+        { label: "Aadhar Number", name: "M_Aadhar_Number", value: postData.M_Aadhar_Number, icon: pen_3 },
+        { label: "Position", name: "M_Position", value: postData.M_Position, icon: ic_wysiwyg },
+        // Add more input field objects as needed
+        { label: "GST Number", name: "M_GST_Number", value: postData.M_GST_Number, icon: pen_3 },
+        { label: "Bussiness Type", name: "M_Business_Type", value: postData.M_Business_Type, icon: pen_3 },
+        { label: "Email", name: "M_Email", value: postData.M_Email, icon: pen_3 },
+        { label: "Account Number", name: "M_Account_Number", value: postData.M_Account_Number, icon: pen_3 },
+        // row 3
+        { label: "Contact Number", name: "M_Phone_No", value: postData.M_Phone_No, icon: pen_3 },
+        { label: "PAN Number", name: "M_Pan_Number", value: postData.M_Pan_Number, icon: pen_3 },
+        { label: "Organization Name", name: "M_Organization_Name", value: postData.M_Organization_Name, icon: pen_3 },
+        { label: "UPI ID", name: "M_Upi_Id", value: postData.M_Upi_Id, icon: pen_3 },
+    ];
 
     const [admin_value, setadmin] = useState([]);
     const [loc_name, setlocationName] = useState([]);
@@ -345,6 +405,11 @@ const Add_Distributer_Detials = () => {
         setSelectedOption_dashboard(event.target.value);
     };
 
+    const cancel_btn = {
+        "color": "gray",
+        "border": "1px solid gray",
+    }
+
     return (
         <div className='Add_device1 '>
             {/* Exit Conformation */}
@@ -511,109 +576,89 @@ const Add_Distributer_Detials = () => {
                         </div>
                         <div className="input-boxes">
                             <div className="cmpny_and_site_name display-flex">
-                                <div class="dsa_row_1 inputbox display-flex input">
-                                    <div class="dsa_1st_input">
-                                        <label for="input1">Register ID</label>
-                                        <div class="inputs-group display-flex">
-                                            <span class="input-group-loc"><Icon icon={ic_home_work} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input type="text" class="form-control-loc" value={postData.MF_Id} onChange={handleInputChange} name="MF_Id" id="company_name" />
-                                            {/* <div className="error-message"><span className={first_name_error ? "error" : ""}>{first_name_error}</span></div> */}
+                                {inputFields.slice(0,4).map((field, index) => (
+                                    <div key={index} className="inputbox display-flex input">
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control-loc"
+                                                    value={field.value}
+                                                    onChange={handleInputChange}
+                                                    name={field.name}
+                                                    id={`input${index + 1}`}
+                                                />
+                                                {/* Add error handling if needed */}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="dsa_2nd_input inputbox display-flex input">
+                                ))}
 
-                                    <label for="input1">Distributer Name</label>
-                                    <div className="inputs-group display-flex">
-                                        <span class="input-group-loc"><Icon icon={ic_domain} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={last_name} onChange={handle_last_name} id="site_name" />
-                                        <div className="error-message"><span className={last_name_error ? "error" : ""}>{last_name_error}</span></div>
-                                    </div>
-                                </div>
-
-                                <div className="dsa_3rd_input inputbox display-flex input">
+                                {/* <div className="dsa_3rd_input inputbox display-flex input">
                                     <div class="dropdown-filter" ref={dropdownRef3}>
                                         <div className="name_row" >
                                             <label for="input1">Aadhar Number</label>
                                             <div class="inputs-group relative-loc arrow_inside_input_box">
                                                 <span class="input-group-loc"><Icon icon={pen_3} size={20} style={{ color: "lightgray" }} /></span>
-                                                <input type="text" value={site_id} className="form-control-loc" id="site_admin_name" />
+                                                <input type="text" value={postData.M_Aadhar_Number} className="form-control-loc" id="site_admin_name" onChange={handleInputChange} name="M_Aadhar_Number" />
                                             </div>
                                         </div>
-
-                                        {isOpen5 && (
-                                            <div class="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors" style={{ cursor: "pointer", width: "230px" }}>
-                                                <div className='device_scroll'>
-                                                    {site_user_type.value.map((data, index) => (
-                                                        <div className='device_scroll' key={index}>
-                                                            <div>
-                                                                <div className='device_dropdown' key={index} onClick={() => set_site_value(data)}>
-                                                                    <div className="div_sts"> {data.site_id}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                        )
-                                        }
                                     </div>
-                                </div>
-                                <div className="dsa_3rd_input inputbox display-flex input">
+                                </div> */}
+                                {/* <div className="dsa_3rd_input inputbox display-flex input">
                                     <div class="dropdown-filter" ref={dropdownRef3}>
                                         <div className="name_row" >
                                             <label for="input1">Position</label>
                                             <div class="inputs-group relative-loc arrow_inside_input_box">
                                                 <span class="input-group-loc"><Icon icon={pen_3} size={20} style={{ color: "lightgray" }} /></span>
-                                                <input type="text" value={site_id} className="form-control-loc" id="site_admin_name" />
+                                                <input type="text" value={postData.M_Position} className="form-control-loc" id="site_admin_name" onChange={handleInputChange} name="M_Position" />
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
 
 
                             <div className="dsa_row_3 display-flex">
+                                
+                                {inputFields.slice(4,8).map((field, index) => (
+                                    <div key={index} className="inputbox display-flex input">
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control-loc"
+                                                    value={field.value}
+                                                    onChange={(e) => handleInputChange(e, field.name)}
+                                                    name={field.name}
+                                                    id={`input${index + 1}`}
+                                                />
+                                                {/* Add error handling if needed */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
 
-                                <div class="dropdown-filter" ref={dropdownRef3}>
+
+                                {/* <div class="dropdown-filter" ref={dropdownRef3}>
                                     <div className="name_row">
                                         <label for="input1">GST Number</label>
                                         <div class="inputs-group relative-loc arrow_inside_input_box" onClick={dropdown3} >
                                             <span class="input-group-loc"><Icon icon={pen_3} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input type="text" class="form-control-loc" id="site_admin_name" value={Add_user_value} />
-                                            {/* <FontAwesomeIcon
-
-                                                icon={faChevronDown}
-                                                class="dropdown-icon down_arrow arrow_inside_input"
-                                            /> */}
+                                            <input type="text" class="form-control-loc" id="site_admin_name" value={postData.M_GST_Number} onChange={handleInputChange} name="M_GST_Number" />
                                         </div>
                                     </div>
-
-                                    {isOpen3 && (
-                                        <div class="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors" style={{ cursor: "pointer", width: "230px" }}>
-                                            <div className='device_scroll'>
-                                                {roles_value.map((data, index) => (
-                                                    <div className='device_scroll' key={index}>
-                                                        <div>
-                                                            <div className='device_dropdown' key={index} onClick={() => set_value(data)}>
-                                                                <div className="div_sts"> {data.role}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                    )
-                                    }
                                 </div>
 
                                 <div className="dsa_3rd_input inputbox display-flex input">
                                     <label for="input1">Bussiness Type</label>
                                     <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={location} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={contact} onChange={handle_contact} id="site_address" />
+                                        <input type="text" class="form-control-loc" value={postData.M_Business_Type} onChange={handleInputChange} name="M_Business_Type" id="site_address" />
                                         <div className="error-message"><span className={contact_error ? "error" : ""}>{contact_error}</span></div>
                                     </div>
                                 </div>
@@ -621,7 +666,7 @@ const Add_Distributer_Detials = () => {
                                     <label for="input1">Email</label>
                                     <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={Designation} onChange={handle_Designation} id="site_address" />
+                                        <input type="text" class="form-control-loc" value={postData.M_Email} onChange={handleInputChange} id="site_address" name="M_Email" />
                                         <div className="error-message"><span className={designation_error ? "error" : ""}>{designation_error}</span></div>
                                     </div>
                                 </div>
@@ -629,17 +674,36 @@ const Add_Distributer_Detials = () => {
                                     <label for="input1">Account Number</label>
                                     <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={Designation} onChange={handle_Designation} id="site_address" />
+                                        <input type="text" class="form-control-loc" value={postData.M_Account_Number} onChange={handleInputChange} id="site_address" name="M_Account_Number" />
                                         <div className="error-message"><span className={designation_error ? "error" : ""}>{designation_error}</span></div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="dsa_row_3 display-flex">
-                                <div className="dsa_3rd_input inputbox display-flex input">
+                            {inputFields.slice(8,12).map((field, index) => (
+                                    <div key={index} className="inputbox display-flex input">
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control-loc"
+                                                    value={field.value}
+                                                    onChange={(e) => handleInputChange(e, field.name)}
+                                                    name={field.name}
+                                                    id={`input${index + 1}`}
+                                                />
+                                                {/* Add error handling if needed */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                                {/* <div className="dsa_3rd_input inputbox display-flex input">
                                     <label for="input1">Contact Number</label>
                                     <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={email} onChange={handle_email} id="site_address" />
+                                        <input type="text" class="form-control-loc" value={postData.M_Phone_No} onChange={handleInputChange} id="site_address" name="M_Phone_No" />
                                         <div className="error-message"><span className={email_error ? "error" : ""}>{email_error}</span></div>
                                     </div>
                                 </div>
@@ -647,7 +711,7 @@ const Add_Distributer_Detials = () => {
                                     <label for="input1">PAN Number</label>
                                     <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={email} onChange={handle_email} id="site_address" />
+                                        <input type="text" class="form-control-loc" value={postData.M_Pan_Number} onChange={handleInputChange} id="site_address" name="M_Pan_Number" />
                                         <div className="error-message"><span className={email_error ? "error" : ""}>{email_error}</span></div>
                                     </div>
                                 </div>
@@ -655,7 +719,7 @@ const Add_Distributer_Detials = () => {
                                     <label for="input1">Organization Name</label>
                                     <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={email} onChange={handle_email} id="site_address" />
+                                        <input type="text" class="form-control-loc" value={postData.M_Organization_Name} onChange={handleInputChange} id="site_address" name="M_Organization_Name" />
                                         <div className="error-message"><span className={email_error ? "error" : ""}>{email_error}</span></div>
                                     </div>
                                 </div>
@@ -663,14 +727,8 @@ const Add_Distributer_Detials = () => {
                                     <label for="input1">UPI ID</label>
                                     <div className="inputs-group display-flex">
                                         <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={email} onChange={handle_email} id="site_address" />
+                                        <input type="text" class="form-control-loc" value={postData.M_Upi_Id} onChange={handleInputChange} id="site_address" name="M_Upi_Id" />
                                         <div className="error-message"><span className={email_error ? "error" : ""}>{email_error}</span></div>
-                                    </div>
-                                </div>
-                                {/* <div className="dsa_3rd_input inputbox display-flex input">
-                                    <label for="input1">User Access</label>
-                                    <div className="inputs-group display-flex">
-                                        <input type="button" value="Access Credentials" data-bs-toggle="modal" data-bs-target="#User_Access_Modal" />
                                     </div>
                                 </div> */}
                             </div>
@@ -681,8 +739,9 @@ const Add_Distributer_Detials = () => {
                     <div className="operating_buttons display-flex padding-loc">
                         <div className="save_cancel_btn display-flex site_button">
                             <button className="btn-loc active-loc btn btn-outline-success" onClick={(e) => handleSubmit(e)}>Save</button>
+                            {/* <button type="button" class="btn-loc inactive-loc btn btn-outline-danger" data-bs-dismiss="modal">Close</button> */}
 
-                            <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
+                            <button className="btn-loc inactive-loc btn " style={cancel_btn} data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
                         </div>
                     </div>
                 </div>

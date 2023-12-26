@@ -1,7 +1,8 @@
 import React from 'react';
 import '../assets/style/App.css';
 import { API_URL } from '../config'
-
+import { Modal } from "bootstrap";
+import '../assets/style/cofig.css';
 
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
@@ -14,7 +15,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
-
+import Add_Distributer_Detials from './Add_Distributer_Detials';
+import Add_distributer_detials_model from './Add_distributer_detials_model';
 const Distributer_Detials_content = () => {
     //states
     const [alldata, setalldata] = useState([]);
@@ -36,6 +38,8 @@ const Distributer_Detials_content = () => {
     const [deviceName_data, setdevicename] = useState([]);
     const [active_inactive, setactive_inactive] = useState([]);
     const [selectedOption, setSelectedOption] = useState('All');
+
+
 
     // const { site_id_check } = useParams();
     // useEffect(() => {
@@ -128,6 +132,8 @@ const Distributer_Detials_content = () => {
     const handleclick = () => {
         navigate('/Add_Distributer_Detials');
     }
+
+
 
     // // Fetch data from node js
     // async function fetchData(Option, index) {
@@ -236,7 +242,7 @@ const Distributer_Detials_content = () => {
             setdevice_active('Inactive')
         }
         setRotatedIndex(!rotatedIndex);
-        
+
     };
 
 
@@ -343,9 +349,30 @@ const Distributer_Detials_content = () => {
     //     }
     // });
 
-
     return (
         <div className='bar'>
+            <div class="modal fade modal-lg" id="Add_distributor_model" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style={{ marginLeft: 'calc(30% - 275px)' }}>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            {/* <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
+                            <div className="modal-header" style={{ border: "none" }}>
+                                <h5 className="modal-title header_popup fnt_fam" id="AddMachineModal1">ADD MACHINE</h5>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <Add_distributer_detials_model />
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
                     <div className="row_with_count_status">
@@ -463,12 +490,16 @@ const Distributer_Detials_content = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* {access_to_addDevice && ( */}
-                            <div className='filters2 display-flex' onClick={handleclick}>
-                                <button className='btn btn-fill'>Add Distributer</button>
-                            </div>
-                        {/* )} */}
+
+                        <div className='filters2 display-flex' onClick={handleclick}>
+                            <button className='btn btn-fill'>Add Distributer</button>
+                            {/* <button type="button" class="btn btn-primary add_distributer_btn" style={add_distributor_btn} data-bs-toggle="modal" data-bs-target="#Add_distributor_model">
+                                Add Distributer
+                            </button> */}
+                        </div>
                     </div>
+
+
                     <div className='col-headings'>
                         <div className="col-head">Registration ID</div>
                         <div className="col-head">Distributer Name</div>
@@ -494,16 +525,16 @@ const Distributer_Detials_content = () => {
                             </div>
                             <div className="col-head display-flex device_action_dropdown_parent">
                                 <div className="sts_icon"
-                                onClick={() => true && handleIconClick()}
+                                    onClick={() => true && handleIconClick()}
                                 >
-                                    <Icon icon={ic_label_important} style={{ transform: rotatedIndex == true? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex == true? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} className='device_content_arrow' size={25} />
+                                    <Icon icon={ic_label_important} style={{ transform: rotatedIndex == true ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex == true ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
                                 </div>
                                 <div>{(rotatedIndex) &&
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                             <div className='device_content_dropdown display-flex'
-                                            onClick={() => Distributer_Detials_edit_page()}
+                                                onClick={() => Distributer_Detials_edit_page()}
                                             >Edit Distributer Detials</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>

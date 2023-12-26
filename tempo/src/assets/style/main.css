@@ -100,7 +100,8 @@ main {
     color: var(--INNER_COLOUR);
     width: auto;
     min-height: 90vh;
-    height: inherit;
+    /* inherit */
+    height: auto;
     transition: all 0.5s;
     z-index: 2;
     flex-direction: column;
