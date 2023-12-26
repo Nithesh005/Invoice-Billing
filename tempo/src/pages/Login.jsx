@@ -29,112 +29,9 @@ const Login = ({ onLogin, onSelectsite, handleLogout }) => {
     }
 
     const navigate = useNavigate();
-    const validate_login = async () => {
-        if (username === "" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username)) {
-            setinactive_user(false);
-            setinvalidstate(false);
-            setinactive_site(false)
-            setusername_empty(true)
-        } else if (password == "") {
-            setinactive_user(false);
-            setinvalidstate(false);
-            setinactive_site(false)
-            setpassword_empty(true)
-        }
-        else {
-            const body = { username, password }
-            body.username = body.username.trim();
-            body.password = body.password.trim();
-            navigate('/User');
-            // try {
-            //     const response = await fetch(`${API_URL}/validate_login`, {
-            //         method: "POST",
-            //         headers: { "content-Type": "application/json" },
-            //         body: JSON.stringify(body)
-            //     });
-            //     const result = await response.json();
-            //     if (result['status'] === true) {
-            //         setinvalidstate(false)
-            //         if (result['data']['status'] === '1') {
-            //             setinactive_user(false)
-            //             sessionStorage.setItem('access_control', JSON.stringify(result.data))
-            //             const role = result.data.role_id;
-            //             const data = await fetch(`${API_URL}/admin`)
-            //             const res = await data.json();
-            //             const name1=JSON.stringify(res);
-            //             sessionStorage.setItem('siteNames', name1);
-            //             if (role == 'RI001' || role == 'RI002') {
-            //                 try {
-            //                     const resJSONString = JSON.stringify(res);
-            //                     sessionStorage.setItem('site_db', resJSONString);
-            //                     onSelectsite(res)
-            //                     onLogin(role)
-            //                 } catch (error) {
-            //                     console.log(error)
-            //                 }
-            //             }
-            //             else {
-            //                 if (result['data']['site_id'].includes(",")) {
-            //                     const values1 = result['data']['site_id'].split(",").map((item) => (item.trim()));
-            //                     {
-            //                         res.map((valuees) => {
-            //                             values1.forEach(element => {
-            //                                 if (valuees.site_id === element) {
-            //                                     if (valuees.site_status != '1') {
-            //                                         alert(`Your Site ${valuees.site_id} is Inactive`)
-            //                                         const index = values1.indexOf(valuees.site_id);
-            //                                         if (index !== -1) {
-            //                                             values1.splice(index, 1);
-            //                                         }
-            //                                     } else {
-            //                                         //nothing
-            //                                     }
-            //                                 }
-            //                             });
-            //                         })
-            //                     }
-            //                     const updated_site_id = values1.length > 0 ? values1.join(",") : '';
-            //                     if (updated_site_id != '') {
-            //                         setinactive_site(false);
-            //                         const corresponding_db = updated_site_id;
-            //                         const resJSONString = JSON.stringify(corresponding_db);
-            //                         sessionStorage.setItem('site_db', resJSONString);
-            //                         onSelectsite(corresponding_db)
-            //                         onLogin(role)
-            //                     } else {
-            //                         setinactive_site(true);
-            //                         handleLogout();
-            //                     }
-
-            //                 } else {
-            //                     res.map((valuees) => {
-            //                         if (valuees.site_id === result['data']['site_id']) {
-            //                             if (valuees.site_status === '1') {
-            //                                 setinactive_site(false)
-            //                                 const corresponding_db = result['data']['site_id'];
-            //                                 const resJSONString = JSON.stringify(corresponding_db);
-            //                                 sessionStorage.setItem('site_db', resJSONString);
-            //                                 onSelectsite(corresponding_db)
-            //                                 onLogin(role)
-            //                             } else {
-            //                                 setinactive_site(true)
-            //                                 handleLogout();
-            //                             }
-            //                         }
-            //                     })
-            //                 }
-            //             }
-            //         } else {
-            //             setinactive_user(true)
-            //         }
-            //     } else {
-            //         setinvalidstate(true)
-            //     }
-            // } catch (error) {
-            //     console.error('Error:', error.message);
-            // }
-        }
-
+    const validate_login = async() => {
+        await navigate('/Distributer_Detials');
+        window.location.reload();
     }
 
     return (
@@ -180,9 +77,8 @@ const Login = ({ onLogin, onSelectsite, handleLogout }) => {
                                 <span className='display-flex' style={{ justifyContent: "end" }}>Forgot Password</span>
                             </div>
                         </div>
-                        <div className="login_btn_div">
-                            <input type="submit" className='login_btn' value={"Login"} onClick={validate_login} />
-
+                        <div className="login_btn_div" onClick={validate_login}>
+                            <input type="submit" className='login_btn' value={"Login"} />
                         </div>
                     </div>
 

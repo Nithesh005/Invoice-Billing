@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { json, useNavigate } from 'react-router-dom';
-import tempiot from './assets/logo/tempiot.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import companyLogo from './assets/logo/invoiceLogo.png'
 import { API_URL } from './config'
 import { Drawer, IconButton } from '@mui/material';
-import Sidebar from './components/Sidebar';
 import MenuIcon from '@mui/icons-material/Menu'
 const TopNavbar = ({ site, apphandlesite }) => {
 

@@ -3,9 +3,6 @@ import axios from 'axios';
 import '../assets/style/App.css';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
-import ReactDOMServer from 'react-dom/server';
-import Mailcontent from '../components/Mailcontent';
-import { API_URL } from '../config';
 
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
@@ -249,38 +246,38 @@ const Add_Distributer_Detials = () => {
         if (!isValidfirst_name || !isValidlast_name || !isValidroleid || !isValidcontact || !isValidDesignation || !isValidemail) {
             alert("Please check out that you have entered all feild correctly");
         }
-        else {
-            try {
-                const body = { first_name, last_name, site_id, roleid, contact, Designation, email, selectedOption_site, selectedOption_user, selectedOption_device, selectedOption_dashboard }
-                const response = await fetch(`${API_URL}/add_user`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body),
-                });
-                const data = response.status;
-                if (data === 200) {
-                    alert("You have received an email to set password")
-                    navigate('/User');
-                    const html = ReactDOMServer.renderToStaticMarkup(<Mailcontent email={email} Designation={Designation} siteid={siteid} first_name={first_name} last_name={last_name} mailstate={true} />);
-                    const subject = "SET PASSWORD";
-                    const body1 = { email, subject, html }
-                    const response1 = await fetch(`${API_URL}/sendemail`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(body1)
-                    });
-                }
-                else {
-                    alert("Email ID already exist")
-                }
-            }
-            catch (error) {
-                console.log(error)
-            }
+        // else {
+        //     try {
+        //         const body = { first_name, last_name, site_id, roleid, contact, Designation, email, selectedOption_site, selectedOption_user, selectedOption_device, selectedOption_dashboard }
+        //         const response = await fetch(`${API_URL}/add_user`, {
+        //             method: "POST",
+        //             headers: { "Content-Type": "application/json" },
+        //             body: JSON.stringify(body),
+        //         });
+        //         const data = response.status;
+        //         if (data === 200) {
+        //             alert("You have received an email to set password")
+        //             navigate('/User');
+        //             const html = ReactDOMServer.renderToStaticMarkup(<Mailcontent email={email} Designation={Designation} siteid={siteid} first_name={first_name} last_name={last_name} mailstate={true} />);
+        //             const subject = "SET PASSWORD";
+        //             const body1 = { email, subject, html }
+        //             const response1 = await fetch(`${API_URL}/sendemail`, {
+        //                 method: 'POST',
+        //                 headers: {
+        //                     'Content-Type': 'application/json'
+        //                 },
+        //                 body: JSON.stringify(body1)
+        //             });
+        //         }
+        //         else {
+        //             alert("Email ID already exist")
+        //         }
+        //     }
+        //     catch (error) {
+        //         console.log(error)
+        //     }
 
-        }
+        // }
     }
 
 

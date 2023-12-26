@@ -3,7 +3,6 @@ import '../assets/style/App.css';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
-import Mailcontent from '../components/Mailcontent';
 import {API_URL} from '../config'
 
 //import icons from fontawesome and react icon kit
@@ -251,49 +250,49 @@ const Add_Products = () => {
             alert("Enter the valid data ")
         }
 
-        else {
-            try {
-                const body = {
-                    company_name,
-                    site_name,
-                    location_name,
-                    first_name,
-                    last_name,
-                    Desigination,
-                    contact,
-                    email,
-                    site_address,
-                    role_id,
-                    checkemail,
-                };
-                const response = await fetch(`${API_URL}/site`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body),
-                });
-                const data = await response.json();
-                if (data) {
-                    navigate('/Site');
-                    const html = ReactDOMServer.renderToStaticMarkup(<Mailcontent email={email} Designation={"admin"} siteid={site_name} first_name={first_name} last_name={last_name} mailstate={mailstate} />);
-                    const subject = "SET PASSWORD";
-                    const body1 = { email, subject, html }
-                    const response1 = await fetch(`${API_URL}/sendemail`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(body1)
-                    });
-                    const data1 = await response1.json();
-                    console.log(data1);
-                }
+        // else {
+        //     try {
+        //         const body = {
+        //             company_name,
+        //             site_name,
+        //             location_name,
+        //             first_name,
+        //             last_name,
+        //             Desigination,
+        //             contact,
+        //             email,
+        //             site_address,
+        //             role_id,
+        //             checkemail,
+        //         };
+        //         const response = await fetch(`${API_URL}/site`, {
+        //             method: "POST",
+        //             headers: { "Content-Type": "application/json" },
+        //             body: JSON.stringify(body),
+        //         });
+        //         const data = await response.json();
+        //         if (data) {
+        //             navigate('/Site');
+        //             const html = ReactDOMServer.renderToStaticMarkup(<Mailcontent email={email} Designation={"admin"} siteid={site_name} first_name={first_name} last_name={last_name} mailstate={mailstate} />);
+        //             const subject = "SET PASSWORD";
+        //             const body1 = { email, subject, html }
+        //             const response1 = await fetch(`${API_URL}/sendemail`, {
+        //                 method: 'POST',
+        //                 headers: {
+        //                     'Content-Type': 'application/json'
+        //                 },
+        //                 body: JSON.stringify(body1)
+        //             });
+        //             const data1 = await response1.json();
+        //             console.log(data1);
+        //         }
 
-            } catch (error) {
-                console.log(error)
-            }
+        //     } catch (error) {
+        //         console.log(error)
+        //     }
 
 
-        }
+        // }
     }
 
 

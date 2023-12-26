@@ -1,5 +1,5 @@
 import invoicePic from '../assets/logo/InvoicePic.png'
-import QRCode from 'qrcode.react';
+// import QRCode from 'qrcode.react';
 import Qr from '../assets/logo/Qr.png'
 
 const Invoice = () => {

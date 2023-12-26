@@ -8,11 +8,6 @@ const ProfilePage = () => {
          <div className="container">
             <div className="main-body">
                 <nav aria-label="breadcrumb" className="main-breadcrumb">
-                    {/* <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li className="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-                        <li className="breadcrumb-item active" aria-current="page">User Profile</li>
-                    </ol> */}
                 </nav>
                 <br />
                 <div className="row gutters-sm">
@@ -31,14 +26,6 @@ const ProfilePage = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="card mt-3">
-                            <ul className="list-group list-group-flush">
-                                <li className="profile_blw_list">Linkedin</li>
-                                <li className="profile_blw_list">2</li>
-                                <li className="profile_blw_list">3</li>
-                                <li className="profile_blw_list">4</li>
-                            </ul>
-                        </div> */}
                     </div>
                     <div className="col-md-8">
     <div className="card mb-3">

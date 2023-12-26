@@ -36,51 +36,11 @@ const Products = () => {
     const [deviceName_data, setdevicename] = useState([]);
     const [active_inactive, setactive_inactive] = useState([]);
     const [selectedOption, setSelectedOption] = useState('All');
-
-    // const { site_id_check } = useParams();
-    // useEffect(() => {
-    //     fetchData();
-    // }, [site_id_check])
-
     // const dropdownRef1 = useRef(null);
     const dropdown1 = () => {
         setIsOpen1(!isOpen1);
         setIsDropdownOpen1(!isDropdownOpen1);
     };
-    // const empty_space_down1 = (event) => {
-    //     if (!dropdownRef1.current.contains(event.target)) {
-    //         setIsOpen1(false);
-    //         setIsDropdownOpen1(false)
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     document.addEventListener('click', empty_space_down1);
-    //     return () => {
-    //         document.removeEventListener('click', empty_space_down1);
-    //     };
-    // }, []);
-
-    // const dropdownRef2 = useRef(null);
-    // const dropdown2 = () => {
-    //     setIsOpen2(!isOpen2);
-    //     setIsDropdownOpen2(!isDropdownOpen2)
-
-    // };
-
-    // const empty_space_down2 = (event) => {
-    //     if (!dropdownRef2.current.contains(event.target)) {
-    //         setIsOpen2(false);
-    //         setIsDropdownOpen2(false)
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     document.addEventListener('click', empty_space_down2);
-    //     return () => {
-    //         document.removeEventListener('click', empty_space_down2);
-    //     };
-    // }, []);
 
 
     const [isOpen3, setIsOpen3] = useState(false);
@@ -98,133 +58,12 @@ const Products = () => {
         }
     };
 
-    // useEffect(() => {
-    //     document.addEventListener('click', empty_space_down3);
-    //     return () => {
-    //         document.removeEventListener('click', empty_space_down3);
-    //     };
-    // }, []);
-
-    // const dropdownRef4 = useRef(null);
-    // const dropdown4 = () => {
-    //     setIsOpen4(!isOpen4);
-    //     setIsDropdownOpen4(!isDropdownOpen4);
-    // };
-    // const empty_space_down4 = (event) => {
-    //     if (!dropdownRef4.current.contains(event.target)) {
-    //         setIsOpen4(false);
-    //         setIsDropdownOpen4(false)
-    //     }
-    // }
-    // useEffect(() => {
-    //     document.addEventListener("click", empty_space_down4);
-    //     return () => {
-    //         document.removeEventListener("click", empty_space_down4);
-    //     }
-    // }, [])
 
     // //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
         navigate('/Add_Products');
     }
-
-    // // Fetch data from node js
-    // async function fetchData(Option, index) {
-    //     try {
-    //         const response = await fetch(`${API_URL}/user`);
-    //         const deviceModel = await fetch(`${API_URL}/device_modeldata`);
-    //         const deviceName = await fetch(`${API_URL}/device_namedata`);
-    //         const network = await fetch(`${API_URL}/network`);
-    //         const network_data = await network.json();
-    //         const data = await response.json();
-
-    //         const model_data = await deviceModel.json();
-    //         const deviceName_data = await deviceName.json();
-
-    //         const datalen = data.filter(item => item.device_status === 1);
-
-    //         sessionStorage.setItem('state_count', datalen.length)
-
-
-    //         let filteredData;
-    //         if (index === '0') {
-    //             if (Option === 'Active') {
-    //                 filteredData = data.filter(item => item.device_status === 1);
-    //             } else if (Option === 'Inactive') {
-    //                 filteredData = data.filter(item => item.device_status === 0);
-    //             } else {
-    //                 filteredData = data;
-    //             }
-    //         } else if (index === '1') {
-    //             filteredData = data.filter(item => item.device_name === Option);
-    //         } else {
-    //             filteredData = data;
-    //         }
-
-    //         const modifiedData = filteredData.map((item) => {
-    //             const date = new Date(item.last_updated_on);
-    //             const year = date.getFullYear();
-    //             const month = date.getMonth() + 1;
-    //             const day = date.getDate();
-    //             const formattedDate = `${day}-${month}-${year}`;
-    //             return { ...item, last_updated_on: formattedDate };
-    //         });
-    //         // Update active and inactive counts
-    //         const activeCount = data.filter(item => item.device_status === 1).length;
-    //         const inactiveCount = data.filter(item => item.device_status !== 1).length;
-    //         setactiveCount(activeCount);
-    //         setinactiveCount(inactiveCount);
-    //         setdevicemodel(model_data);
-
-    //         setdevicename(deviceName_data);
-    //         setnetwork(network_data);
-    //         setalldata(modifiedData);
-    //     } catch (error) {
-    //         console.log(error);
-
-    //     }
-    // }
-    // useEffect(() => {
-    //     if (alldata) {
-    //         setactive_inactive(alldata.map(item => item.device_status === 1))
-    //     }
-    // }, [alldata])
-
-    // //functions to set the device status avtive and inactive
-    // const Editinactivedata = async (data, index) => {
-    //     const devicestatus = "0";
-    //     const body = { devicestatus };
-    //     fetch(`${API_URL}/userdata/${data.r_no}`, {
-    //         method: "PUT",
-    //         headers: { "content-Type": "application/json" },
-    //         body: JSON.stringify(body)
-    //     })
-    //     const response = window.confirm("Deactivate successful")
-    //     if (response) {
-    //         await fetchData()
-    //     }
-    // }
-
-    // const Editactivedata = async (data, index) => {
-    //     const devicestatus = "1";
-    //     const body = { devicestatus };
-    //     fetch(`${API_URL}/userdata/${data.r_no}`, {
-    //         method: "PUT",
-    //         headers: { "content-Type": "application/json" },
-    //         body: JSON.stringify(body)
-    //     })
-    //     const response = window.confirm("Activate successful")
-    //     if (response) {
-    //         await fetchData()
-    //     }
-
-    // }
-
-    // //useeffect
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
 
     // //rotate the arrow in the device action
     const handleIconClick = () => {
@@ -273,86 +112,12 @@ const Products = () => {
         navigate(`/Edit_Products`);
     }
 
-
-    // const [device_name, setdevice_name] = useState("")
-    // const [device_model, setdevice_model] = useState("")
-    // const [device_firmware_version, setdevice_firmware_version] = useState("")
-    // const [device_mac_address, setdevice_mac_address] = useState("")
-
-    // const get_device_data = (index) => {
-    //     alldata.map((item, item_index) => {
-    //         if (item_index === index) {
-    //             setdevice_name(item.device_name);
-    //             setdevice_model(item.device_model);
-    //             setdevice_firmware_version(item.device_firmware_version);
-    //             setdevice_mac_address(item.device_mac_address);
-    //             setdevice_updated_on(item.last_updated_on);
-    //         }
-
-    //     })
-    // }
-
-    // const [client_id, setclient_id] = useState("")
-    // const get_device1_data = (index) => {
-    //     allnetdata.map((item, item_index) => {
-    //         if (item_index === index) {
-    //             setclient_id(item.client_id);
-    //         }
-
-    //     })
-    // }
-
-    // const filter_active_inactive = (option, index) => {
-    //     fetchData(option, index);
-    // };
-
-    // const handleOptionChange = (option) => {
-    //     if (option === selectedOption) {
-    //         setSelectedOption('All'); // Uncheck the selected option if it was already selected
-    //         filter_active_inactive('All', '0');
-    //     } else {
-    //         setSelectedOption(option);
-    //         filter_active_inactive(option, '0');
-    //     }
-    // };
-
-    // const [selectedDevice, setSelectedDevice] = useState('');
-
-    // const handleDeviceChange = (device_name) => {
-    //     if (device_name === selectedDevice) {
-    //         setSelectedDevice('');
-    //         filter_active_inactive('All', '0');
-    //     } else {
-    //         setSelectedDevice(device_name);
-    //         filter_active_inactive(device_name.trim(), '1');
-    //     }
-    // };
-
-    // const storedData = sessionStorage.getItem('access_control');
-    // const parsedData = JSON.parse(storedData);
-    // const [access_to_addDevice, setaccess_to_addDevice] = useState(true);
-    // const [access_to_editStatus, setaccess_to_editStatus] = useState(true);
-    // useEffect(() => {
-    //     if (parsedData.user_management < 3) {
-    //         setaccess_to_addDevice(false);
-    //         if (parsedData.user_management < 2) {
-    //             setaccess_to_editStatus(false);
-    //         }
-
-    //     }
-    // });
-
-
     return (
         <div className='bar'>
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
                     <div className="row_with_count_status">
                         <span className='module_tittle'>Products</span>
-                        {/* <div className='status-btns display-flex'>
-                            <div className='btn-loc active-loc display-flex '> <div style={{ fontSize: "20px" }}>{isless_than_10_active ? `0${activeCount}` : `${activeCount}`}&nbsp;</div>Active</div>
-                            <div className='btn-loc inactive-loc display-flex'><div style={{ fontSize: "20px" }}>{isgreater_than_10_inactive ? `0${inactiveCount}` : `${inactiveCount}`}&nbsp;</div> Inactive</div>
-                        </div> */}
                     </div>
                     <div className='filters display-flex' >
                         <div className="pagination_with_filters">

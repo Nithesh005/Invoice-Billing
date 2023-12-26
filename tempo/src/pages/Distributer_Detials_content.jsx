@@ -16,7 +16,6 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import Add_Distributer_Detials from './Add_Distributer_Detials';
-import Add_distributer_detials_model from './Add_distributer_detials_model';
 const Distributer_Detials_content = () => {
     //states
     const [alldata, setalldata] = useState([]);
@@ -51,42 +50,6 @@ const Distributer_Detials_content = () => {
         setIsOpen1(!isOpen1);
         setIsDropdownOpen1(!isDropdownOpen1);
     };
-    // const empty_space_down1 = (event) => {
-    //     if (!dropdownRef1.current.contains(event.target)) {
-    //         setIsOpen1(false);
-    //         setIsDropdownOpen1(false)
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     document.addEventListener('click', empty_space_down1);
-    //     return () => {
-    //         document.removeEventListener('click', empty_space_down1);
-    //     };
-    // }, []);
-
-    // const dropdownRef2 = useRef(null);
-    // const dropdown2 = () => {
-    //     setIsOpen2(!isOpen2);
-    //     setIsDropdownOpen2(!isDropdownOpen2)
-
-    // };
-
-    // const empty_space_down2 = (event) => {
-    //     if (!dropdownRef2.current.contains(event.target)) {
-    //         setIsOpen2(false);
-    //         setIsDropdownOpen2(false)
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     document.addEventListener('click', empty_space_down2);
-    //     return () => {
-    //         document.removeEventListener('click', empty_space_down2);
-    //     };
-    // }, []);
-
-
     const [isOpen3, setIsOpen3] = useState(false);
     const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
     const dropdownRef3 = useRef(null);
@@ -102,30 +65,6 @@ const Distributer_Detials_content = () => {
         }
     };
 
-    // useEffect(() => {
-    //     document.addEventListener('click', empty_space_down3);
-    //     return () => {
-    //         document.removeEventListener('click', empty_space_down3);
-    //     };
-    // }, []);
-
-    // const dropdownRef4 = useRef(null);
-    // const dropdown4 = () => {
-    //     setIsOpen4(!isOpen4);
-    //     setIsDropdownOpen4(!isDropdownOpen4);
-    // };
-    // const empty_space_down4 = (event) => {
-    //     if (!dropdownRef4.current.contains(event.target)) {
-    //         setIsOpen4(false);
-    //         setIsDropdownOpen4(false)
-    //     }
-    // }
-    // useEffect(() => {
-    //     document.addEventListener("click", empty_space_down4);
-    //     return () => {
-    //         document.removeEventListener("click", empty_space_down4);
-    //     }
-    // }, [])
 
     // //Navigate to Add Device Page
     const navigate = useNavigate();
@@ -133,6 +72,7 @@ const Distributer_Detials_content = () => {
         navigate('/Add_Distributer_Detials');
     }
 
+    
 
 
     // // Fetch data from node js
@@ -351,28 +291,6 @@ const Distributer_Detials_content = () => {
 
     return (
         <div className='bar'>
-            <div class="modal fade modal-lg" id="Add_distributor_model" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" style={{ marginLeft: 'calc(30% - 275px)' }}>
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            {/* <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
-                            <div className="modal-header" style={{ border: "none" }}>
-                                <h5 className="modal-title header_popup fnt_fam" id="AddMachineModal1">ADD MACHINE</h5>
-                            </div>
-                        </div>
-                        <div class="modal-body">
-                            <Add_distributer_detials_model />
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
                     <div className="row_with_count_status">
