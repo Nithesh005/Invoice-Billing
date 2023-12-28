@@ -38,13 +38,13 @@ const App = () => {
   const [site, setsite] = useState(local);
   const [sitevalue, setsitevalue] = useState(local);
 
-  const handleLogin = (role) => {
-    storedData = sessionStorage.getItem('access_control');
-    const parsedAccessData = JSON.parse(storedData);
-    setParsedData(parsedAccessData)
-    setUserType(role);
-    sessionStorage.setItem('userType', role);
-  };
+  // const handleLogin = (role) => {
+  //   storedData = sessionStorage.getItem('access_control');
+  //   const parsedAccessData = JSON.parse(storedData);
+  //   setParsedData(parsedAccessData)
+  //   setUserType(role);
+  //   sessionStorage.setItem('userType', role);
+  // };
   const handleLogout = () => {
     setUserType(null);
     setsitevalue(null);
@@ -53,21 +53,21 @@ const App = () => {
     sessionStorage.removeItem('access_control');
     sessionStorage.removeItem('state_count');
   };
-  const handlemultiplesite = (res) => {
-    setsite(res);
-    if (typeof res === "string") {
-      if (res.includes(",")) {
-        const myBooleanValue = true;
-        sessionStorage.setItem('boolean', JSON.stringify(myBooleanValue))
-      } else {
-        const myBooleanValue = false;
-        sessionStorage.setItem('boolean', JSON.stringify(myBooleanValue))
-      }
-    } else {
-      const myBooleanValue = true;
-      sessionStorage.setItem('boolean', JSON.stringify(myBooleanValue))
-    }
-  }
+  // const handlemultiplesite = (res) => {
+  //   setsite(res);
+  //   if (typeof res === "string") {
+  //     if (res.includes(",")) {
+  //       const myBooleanValue = true;
+  //       sessionStorage.setItem('boolean', JSON.stringify(myBooleanValue))
+  //     } else {
+  //       const myBooleanValue = false;
+  //       sessionStorage.setItem('boolean', JSON.stringify(myBooleanValue))
+  //     }
+  //   } else {
+  //     const myBooleanValue = true;
+  //     sessionStorage.setItem('boolean', JSON.stringify(myBooleanValue))
+  //   }
+  // }
   const Apphandlesite = (value) => {
     setsitevalue(value);
   }
@@ -90,13 +90,17 @@ const App = () => {
           <TopNavbar site={site} apphandlesite={Apphandlesite} />
           <Sidebar handleLogout={handleLogout}>
             <Routes>
+            {/* Distributer module */}
               <Route path='/Distributer_Detials' element={<Distributer_Detials />}></Route>
               <Route path='/Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
               <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
+
+              {/* Products Module */}
               <Route path='/Products' element={<Products />}></Route>
               <Route path='/Add_Products' element={<Add_site />}></Route>
               <Route path='/Edit_Products' element={<Add_site />}></Route>
-              {/* Edit_site */}
+
+              {/* Invoice Module */}
               <Route path='/Invoice' element={<Invoice />}></Route>
               <Route path='/InvoiceGenerator' element={<InvoiceGenerator />}></Route>
               <Route path='/ProfilePage' element={<ProfilePage />}></Route>

@@ -83,9 +83,10 @@ const Add_Distributer_Detials = () => {
         const isValidPANno = /^[a-zA-Z]+$/.test(postData.M_Pan_Number)
         const isValidOrganisationNo = /^[a-zA-Z]+$/.test(postData.M_Organization_Name)
         const isValidUpiId = /^[a-zA-Z]+$/.test(postData.M_Upi_Id)
+        console.log(isValidEmail);
         if (!isValidMF_Id || !isValidUserName || !isValidAadhar
-              || !isValidPosition || !isValidGST || !isValidBussinessType || !isValidEmail || !isValidAcc_No || !isValidPhoneNo || !isValidPANno || !isValidOrganisationNo || !isValidUpiId
-            ) {
+            || !isValidPosition || !isValidGST || !isValidBussinessType || !isValidEmail || !isValidAcc_No || !isValidPhoneNo || !isValidPANno || !isValidOrganisationNo || !isValidUpiId
+        ) {
             alert("Enter the valid data");
         } else {
             try {
@@ -407,6 +408,8 @@ const Add_Distributer_Detials = () => {
         "border": "1px solid gray",
     }
 
+
+
     return (
         <div className='Add_device1 '>
             {/* Exit Conformation */}
@@ -573,7 +576,7 @@ const Add_Distributer_Detials = () => {
                         </div>
                         <div className="input-boxes">
                             <div className="cmpny_and_site_name display-flex">
-                                {inputFields.slice(0,4).map((field, index) => (
+                                {inputFields.slice(0, 4).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
                                             <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
@@ -619,8 +622,8 @@ const Add_Distributer_Detials = () => {
 
 
                             <div className="dsa_row_3 display-flex">
-                                
-                                {inputFields.slice(4,8).map((field, index) => (
+
+                                {inputFields.slice(4, 8).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
                                             <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
@@ -677,7 +680,7 @@ const Add_Distributer_Detials = () => {
                                 </div> */}
                             </div>
                             <div className="dsa_row_3 display-flex">
-                            {inputFields.slice(8,12).map((field, index) => (
+                                {inputFields.slice(8, 12).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
                                             <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
