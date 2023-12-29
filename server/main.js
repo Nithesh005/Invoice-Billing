@@ -3,68 +3,116 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
-const geting = require('./getFunctions');
+const getdata = require('./getFunctions');
 
 // Insert into DB
 app.post('/add/:entity(user|credentials)', async (req, res) => {
     const entity = req.params.entity; // Corrected from req.params.elements
     const dataFromClient = req.body; // Assuming the data to be inserted is in the request body
     console.log(entity);
-    if (elements === 'user') {
-        try {
-            const gettingdata = await geting.getdata(req, res);
-            res.json(gettingdata);
-        } catch (error) {
-            console.error('Error retrieving user details:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    }
-    else if (elements === 'credentials') {
-        console.log("two");
-    }
-    else {
-        res.status(400).send('Invalid elements value');
-    }
+    // if (elements === 'user') {
+    //     try {
+    //         const gettingdata = await geting.getdata(req, res);
+    //         res.json(gettingdata);
+    //     } catch (error) {
+    //         console.error('Error retrieving user details:', error);
+    //         res.status(500).send('Internal Server Error');
+    //     }
+    // }
+    // else if (elements === 'credentials') {
+    //     console.log("two");
+    // }
+    // else {
+    //     res.status(400).send('Invalid elements value');
+    // }
 
 });
 
 // Get Data From DB
-app.get('/get/:entity(user|credentials|state|district|access_control)', async (req, res) => {
+app.get('/get/:entity(bike|credentials|state|district|access_control)', async (req, res) => {
     const entity = req.params.entity;
     const requestData = req.body;
-    console.log(entity);
-    if (entity === 'user') {
-        console.log("ss");
-        res.send("sucess");
+    if(entity === 'bike'){
+        try{
+            var a =  getdata.getUserData(req,res);
+            console.log(a);
+            res.send((await a).rows);
+        }
+        catch(error){
+            res.send("error")
+            console.error("Error retrieving data");
+        }
     }
-    else {
-        res.status(400).send('Invalid elements value');
+    else if(entity === 'credentials'){
+        try{
+            res.send("getcredentialsdata");
+            console.log("getcredentialsdata");
+        }
+        catch(error){
+            res.send("error");
+            console.error("Error retrieving data");
+        }
     }
-});
+    else if(entity === 'state'){
+        try{
+            res.send("getstatesdata");
+            console.log("getstatedata");
+        }
+        catch(error){
+            res.send("error");
+            console.error("Error retrieving data");
+        }
+    }
+    else if(entity =='district'){
+        try{
+            res.send("getdistrictdata");
+            console.log("getdistrictdata");
+        }
+        catch(error){
+            res.send("error");
+            console.error("Error retrieving data");
+        }
+    }
+    else if(entity === 'access_control'){
+        try{
+            res.send("getaccess_controldata");
+            console.log("getaccess_controldata");
+        }
+        catch(error){
+            res.send("error");
+            console.error("Error retrieving data");
+        }
+    }
+    else{
+            res.send(error)
+        }
+    }
+  
+);
 
 
 // Update Data from DB
 app.get('/update/:elements', async (req, res) => {
     const elements = req.params.elements;
     const requestData = req.body; // Assuming the data to be inserted is in the request body
-    if (elements === 'user') {
-        insertDataIntoTable(requestData);
-        res.send('Data insertion initiated');
-    }
-    else if (elements === 'credentials') {
-        insetintocdential();
-    }
-    else if (elements === 'userdetials') {
-        try {
-            await getdata(req, res);
-        } catch (error) {
-            console.error('Error retrieving user details:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    }
-    else {
-        res.status(400).send('Invalid elements value');
-    }
+    // if (elements === 'user') {
+    //     insertDataIntoTable(requestData);
+    //     res.send('Data insertion initiated');
+    // }
+    // else if (elements === 'credentials') {
+    //     insetintocdential();
+    // }
+    // else if (elements === 'userdetials') {
+    //     try {
+    //         await getdata(req, res);
+    //     } catch (error) {
+    //         console.error('Error retrieving user details:', error);
+    //         res.status(500).send('Internal Server Error');
+    //     }
+    // }
+    // else {
+    //     res.status(400).send('Invalid elements value');
+    // }
 });
 
 
