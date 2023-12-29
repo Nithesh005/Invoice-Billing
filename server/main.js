@@ -39,7 +39,7 @@ app.get('/get/:entity(bike|credentials|state|district|access_control)', async (r
             res.send((await a).rows);
         }
         catch(error){
-            res.send("error")
+            res.send("error");
             console.error("Error retrieving data");
         }
     }
