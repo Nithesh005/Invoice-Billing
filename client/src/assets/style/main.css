@@ -173,9 +173,9 @@ main {
     opacity: 100%;
     border-style: solid;
 }
-.active-link{
+/* .active-link{
     color: #ffffff;
-}
+} */
 
 /* slidebar hover */
 .icon {
@@ -213,10 +213,10 @@ main {
     background-color: var(--HOVER_COLOUR);    /*rgb(129, 222, 248)*/
 }
 
-.link:hover .dropdown-content,
+/* .link:hover .dropdown-content,
 .link:focus {
     display: block;
-}
+} */
 
 .sidebar_head {
     background-color: var(--THEME_COLOUR);
@@ -255,13 +255,13 @@ main {
     transition: all 0.5s;
 }
 
-a.link.active:hover {
-    background-color: var(--HOVER_COLOUR);  /*rgb(129, 222, 248) */
+/* a.link.active:hover {
+    background-color: var(--HOVER_COLOUR); 
     width: 100%;
     align-items: flex-start;
     border-radius: 7px;
     justify-content: center;
-}
+} */
 
 .active {
     background: var(--HOVER_COLOUR_FOR_ACTIVE);

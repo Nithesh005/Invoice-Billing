@@ -190,7 +190,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
         handleLogout();
         setlogoutdiv(!logoutdiv)
         navigate('/', { replace: true });
-        
+
         window.location.reload();
     }
 
@@ -241,7 +241,6 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                                     dropdownContent.style.display = 'none';
                                 }}
                             >
-                                { }
                                 <div className="individual_icon">
                                     <div className="icon">{item.icon}</div>
                                 </div>
