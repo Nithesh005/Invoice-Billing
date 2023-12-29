@@ -9,7 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 
 
-//Management
+//Managements
 import Distributer_Detials from './pages/Distributer_Detials.jsx';
 import Products from './pages/Products.jsx';
 import Add_Distributer_Detials from './pages/Add_Distributer_Detials';
