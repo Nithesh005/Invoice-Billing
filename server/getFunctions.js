@@ -1,24 +1,9 @@
 // In getFunctions.js (or wherever you have your getdata function)
 const userdbInstance = require('./dbInstance');
 
-// async function getdata(req, res) {
-//     try {
-//         console.log("hai");
-//         const client = await userdb.connect();
-//         const data = await client.query('SELECT * FROM manufacturer');
-//         console.log(data.rows);
-//         res.json(data.rows);
-//         client.release(); // Release the client back to the pool
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// }
-
-async function getdata(req) {
+async function getUserData(req,res) {
     try {
-        const data = await userdbInstance.userdb.query('SELECT * FROM manufacturer');
-        console.log(data.rows);
+        const data = await userdbInstance.userdb.query(`SELECT * FROM public."user" where userid='12'`);
         return data.rows;
     } catch (error) {
         console.error('Error executing database query:', error);
@@ -26,4 +11,4 @@ async function getdata(req) {
     }
 }
 
-module.exports = { getdata };
+module.exports = { getUserData };

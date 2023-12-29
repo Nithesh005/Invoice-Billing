@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
-const geting = require('./getFunctions');
+const getdata = require('./getFunctions');
 
 // Insert into DB
 app.post('/add/:entity(user|credentials)', async (req, res) => {
@@ -32,10 +32,16 @@ app.post('/add/:entity(user|credentials)', async (req, res) => {
 app.get('/get/:entity(user|credentials|state|district|access_control)', async (req, res) => {
     const entity = req.params.entity;
     const requestData = req.body;
-    console.log(entity);
+    // console.log(entity);
     if (entity === 'user') {
-        console.log("ss");
-        res.send("sucess");
+        try{
+            var userdata = await getdata.getUserData(req,res);
+            res.send(userdata);
+        }
+        catch(error){
+            res.send("error");
+            console.error("Error retrieving data");
+        }
     }
     else {
         res.status(400).send('Invalid elements value');
