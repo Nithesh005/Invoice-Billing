@@ -5,7 +5,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 
-//Management
+
+
+
+//Managements
 import Distributer_Detials from './pages/Distributer_Detials.jsx';
 import Products from './pages/Products.jsx';
 import Add_Distributer_Detials from './pages/Add_Distributer_Detials';
