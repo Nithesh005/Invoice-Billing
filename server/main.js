@@ -95,10 +95,10 @@ app.get('/get/:entity(bike|credentials|state|district|access_control)', async (r
 app.get('/update/:elements', async (req, res) => {
     const elements = req.params.elements;
     const requestData = req.body; // Assuming the data to be inserted is in the request body
-    // if (elements === 'user') {
-    //     insertDataIntoTable(requestData);
-    //     res.send('Data insertion initiated');
-    // }
+     if (elements === 'state') {
+         updatestate(req,res);
+         res.send('Data insertion initiated');
+     }
     // else if (elements === 'credentials') {
     //     insetintocdential();
     // }
@@ -110,9 +110,9 @@ app.get('/update/:elements', async (req, res) => {
     //         res.status(500).send('Internal Server Error');
     //     }
     // }
-    // else {
-    //     res.status(400).send('Invalid elements value');
-    // }
+     else {
+        res.status(400).send('Invalid elements value');
+     }
 });
 
 
