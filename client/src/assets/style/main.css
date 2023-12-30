@@ -157,7 +157,7 @@ main {
     border-radius: 0px 0px 15px 15px;
 }
 .logout1:hover,.logout2:hover{
-    background-color:rgb(129, 222, 248);
+    background-color:var(--HOVER_COLOUR);
 }
 .profile_pic {
     font-size: 200%;

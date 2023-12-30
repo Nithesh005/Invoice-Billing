@@ -5,6 +5,7 @@ import Qr_code from '../assets/logo/Qr.png';
 import { useState } from 'react';
 import { API_URL } from '../config'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -44,13 +45,48 @@ const Login = () => {
             setpassword_empty(true)
         }
     }
+    const [responseMessage, setResponseMessage] = useState('');
     const validate_login = async () => {
-        const body = { username, password }
+        const body = { username, password };
         body.username = body.username.trim();
         body.password = body.password.trim();
-        await navigate('/Distributer_Detials');
-        window.location.reload();
-    }
+
+        // const navigate = useNavigate();
+
+        try {
+            const response = await axios.post(
+                'http://localhost:4000/verify/credentials',
+                {
+                    username: username,
+                    password: password,
+                }
+            );
+
+            setResponseMessage(response.data.message);
+
+            if (response.data.success) {
+                sessionStorage.setItem("UserInfo",JSON.stringify({...response.data.data,"isLoggedIn": true}));
+                if (response.data.data.position === "manufacturer") {
+                    navigate("/Distributer_Detials");
+                } else if (response.data.data.position === "customer") {
+                    navigate('/Customer_Detials');
+                    
+                }
+                else{
+                    navigate('/profilePage');
+                }
+                window.location.reload();
+            } else {
+                // console.log(response.data)
+                await setResponseMessage(response.data);
+                alert(response.data.message);
+            }
+        } catch (error) {
+            // Handle error, e.g., show an error message
+            console.error('Login failed:', error.message);
+            setResponseMessage('Login failed. Please try again.');
+        }
+    };
 
     return (
         <>

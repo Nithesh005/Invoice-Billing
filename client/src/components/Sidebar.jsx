@@ -185,12 +185,11 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
 
     };
     // const { menuItem } = userSidebarConfig[give_auth] || {};
-
     const handleLogout1 = () => {
         handleLogout();
         setlogoutdiv(!logoutdiv)
+        sessionStorage.removeItem("UserInfo");
         navigate('/', { replace: true });
-
         window.location.reload();
     }
 
@@ -284,7 +283,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                                     style={{ "--fa-primary-color": "#ffffff", "--fa-secondary-color": "#797a7c" }}
                                     onClick={Logout}
                                 />
-                                <span style={{ fontWeight: "600" }} className='name'>Name</span>
+                                <span style={{ fontWeight: "600" }} className='name'>{JSON.parse(sessionStorage.getItem("UserInfo")).name}</span>
                             </div>
                             <div className='display-flex logout2'
                                 onClick={handleLogout1}
@@ -298,6 +297,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
             </div>
             <main>{children}</main>
         </div>
+
 
     );
 };

@@ -48,63 +48,70 @@ const App = () => {
       "invoice": "3"
     }
   ]
+  const userInfoString = sessionStorage.getItem("UserInfo");
+  const userInfo = JSON.parse(userInfoString);
+  // console.log(userInfo.distributer);
+
   return (
     <BrowserRouter>
       {window.location.href !== 'http://localhost:3001/' ? (
         <>
-          <TopNavbar />
-          <Sidebar handleLogout={handleLogout}>
-            {userdata[0].distributer > 0 && (
-              <div>
-                <Routes>
-                  {/* Distributer module */}
-                  <Route path='/Distributer_Detials' element={<Distributer_Detials />}></Route>
-                  <Route path='/Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
-                  <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
-                </Routes>
-                {/* {userdata[0].distributer > 2 && (
+          {userInfo.isLoggedIn && (
+            <div>
+              <TopNavbar />
+              <Sidebar handleLogout={handleLogout}>
+                {userInfo.distributer > 0 && (
+                  <div>
+                    <Routes>
+                      {/* Distributer module */}
+                      <Route path='/Distributer_Detials' element={<Distributer_Detials />}></Route>
+                      <Route path='/Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
+                      <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
+                    </Routes>
+                    {/* {userdata[0].distributer > 2 && (
                   <div>Create/Delete</div>
                 )}
                 {userdata[0].distributer > 1 && (
                   <div>Edit</div>
                 )} */}
-              </div>
-            )}
-            {userdata[0].product > 0 && (
-              <div>
-                <Routes>
-                  {/* Products Module */}
-                  <Route path='/Products' element={<Products />}></Route>
-                  <Route path='/Add_Products' element={<Add_site />}></Route>
-                  <Route path='/Edit_Products' element={<Add_site />}></Route>
-                </Routes>
-                {/* {userdata[0].product > 2 && (
+                  </div>
+                )}
+                {userInfo.product > 0 && (
+                  <div>
+                    <Routes>
+                      {/* Products Module */}
+                      <Route path='/Products' element={<Products />}></Route>
+                      <Route path='/Add_Products' element={<Add_site />}></Route>
+                      <Route path='/Edit_Products' element={<Add_site />}></Route>
+                    </Routes>
+                    {/* {userdata[0].product > 2 && (
                   <div>Create/Delete</div>
                 )}
                 {userdata[0].product > 1 && (
                   <div>Edit</div>
                 )} */}
-              </div>
-            )}
-            {userdata[0].product > 0 && (
-              <div>
-                <Routes>
-                  {/* Invoice Module */}
-                  <Route path='/Invoice' element={<Invoice />}></Route>
-                  <Route path='/InvoiceGenerator' element={<InvoiceGenerator />}></Route>
-                  <Route path='/ProfilePage' element={<ProfilePage />}></Route>
-                  <Route path='/TransactionHistory' element={<TransactionHistory />}></Route>
-                </Routes>
-                {/* {userdata[0].product > 2 && (
+                  </div>
+                )}
+                {userInfo.product > 0 && (
+                  <div>
+                    <Routes>
+                      {/* Invoice Module */}
+                      <Route path='/Invoice' element={<Invoice />}></Route>
+                      <Route path='/InvoiceGenerator' element={<InvoiceGenerator />}></Route>
+                      <Route path='/ProfilePage' element={<ProfilePage />}></Route>
+                      <Route path='/TransactionHistory' element={<TransactionHistory />}></Route>
+                    </Routes>
+                    {/* {userdata[0].product > 2 && (
                   <div>Create/Delete</div>
                 )}
                 {userdata[0].product > 1 && (
                   <div>Edit</div>
                 )} */}
-              </div>
-            )}
-          </Sidebar>
-
+                  </div>
+                )}
+              </Sidebar>
+            </div>
+          )}
         </>
       ) : (
         <>
@@ -118,5 +125,6 @@ const App = () => {
   );
 
 };
+
 
 export default App;
