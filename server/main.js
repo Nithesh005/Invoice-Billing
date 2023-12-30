@@ -4,13 +4,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const getdata = require('./getFunctions');
+const verifyData = require('./verifyFunction');
 
 // Insert into DB
-app.post('/add/:entity(user|credentials)', async (req, res) => {
+app.post('/verify/:entity(user|credentials)', async (req, res) => {
     const entity = req.params.entity; // Corrected from req.params.elements
     const dataFromClient = req.body; // Assuming the data to be inserted is in the request body
     console.log(entity);
-    if (elements === 'user') {
+    if (entity === 'user') {
         try {
             const gettingdata = await geting.getdata(req, res);
             res.json(gettingdata);
@@ -19,8 +20,9 @@ app.post('/add/:entity(user|credentials)', async (req, res) => {
             res.status(500).send('Internal Server Error');
         }
     }
-    else if (elements === 'credentials') {
-        console.log("two");
+    else if (entity === 'credentials') {
+        let result = await verifyData.checkCredentials(req, res);
+        res.json({ message: "Data added successfully" , data: result });
     }
     else {
         res.status(400).send('Invalid elements value');

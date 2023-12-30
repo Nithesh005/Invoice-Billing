@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { API_URL } from '../config'
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ onLogin, onSelectsite, handleLogout }) => {
+const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [invalid_state, setinvalidstate] = useState(false);
@@ -28,25 +28,28 @@ const Login = ({ onLogin, onSelectsite, handleLogout }) => {
     }
 
     const navigate = useNavigate();
-    const validate_login = async () => {
+    const LoginUsername = () => {
         if (username === "" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username)) {
             setinactive_user(false);
             setinvalidstate(false);
             setinactive_site(false)
             setusername_empty(true)
-        } else if (password == "") {
+        }
+    }
+    const LoginPassword = () => {
+        if (password == "") {
             setinactive_user(false);
             setinvalidstate(false);
             setinactive_site(false)
             setpassword_empty(true)
         }
-        else {
-            const body = { username, password }
-            body.username = body.username.trim();
-            body.password = body.password.trim();
-            await navigate('/Distributer_Detials');
-            window.location.reload();
-        }
+    }
+    const validate_login = async () => {
+        const body = { username, password }
+        body.username = body.username.trim();
+        body.password = body.password.trim();
+        await navigate('/Distributer_Detials');
+        window.location.reload();
     }
 
     return (
@@ -68,11 +71,11 @@ const Login = ({ onLogin, onSelectsite, handleLogout }) => {
                         </div>
                         <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem" }}>
                             <div className='login_input_div'>
-                                <input type="text" placeholder='Email' className='login_inputs_individual' value={username} onChange={handleUserName} />
+                                <input type="text" placeholder='Email' className='login_inputs_individual' value={username} onChange={handleUserName} onBlur={LoginUsername} />
                                 <div className="login_error-message">{username_empty && "Enter Valid Email*"}</div>
                             </div>
                             <div className='login_input_div'>
-                                <input type="password" placeholder='Password' className='login_inputs_individual' value={password} onChange={handlepassword} />
+                                <input type="password" placeholder='Password' className='login_inputs_individual' value={password} onChange={handlepassword} onBlur={LoginPassword} />
                                 <div className="login_error-message">{password_empty && "Enter Valid Password*"}</div>
                             </div>
                         </div>
