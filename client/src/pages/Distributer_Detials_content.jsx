@@ -158,7 +158,7 @@ const Distributer_Detials_content = () => {
                             <div className="col-head">Self Employed</div>
                             <div className="col-head">Quantanics@gmail.com</div>
 
-                            <div className="col-head display-flex">
+                            <div className="col-head">
                                 {/* <FontAwesomeIcon icon={faDiamond} size="xs" />  */}
                                 987654321
                             </div>

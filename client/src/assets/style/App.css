@@ -338,7 +338,7 @@
 
 .device_action_dropdown {
     margin-left: -250px;
-    position: absolute;
+    position: fixed;
     border-radius: 5px;
     color: var(--COLOR_BEFORE_HOVER);
     background-color: var(--THEME_COLOUR);
@@ -640,11 +640,14 @@
 }
 
 .col-head {
-    width: 100%;
+    width: 145px;
     padding: 10px;
-    display: flex;
+    flex: 1;
+    text-align: center;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
@@ -685,7 +688,7 @@
 /* scroll bar */
 .scroll_div {
     height: calc(100vh - 360px);
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     scroll-behavior: smooth;
 }
 
