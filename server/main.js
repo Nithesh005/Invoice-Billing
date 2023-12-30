@@ -10,7 +10,7 @@ const verifyData = require('./verifyFunction');
 app.post('/verify/:entity(user|credentials)', async (req, res) => {
     const entity = req.params.entity; // Corrected from req.params.elements
     const dataFromClient = req.body; // Assuming the data to be inserted is in the request body
-    console.log(entity);
+    // console.log(entity);
     if (entity === 'user') {
         try {
             const gettingdata = await geting.getdata(req, res);

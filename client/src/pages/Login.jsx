@@ -68,7 +68,7 @@ const Login = () => {
                 sessionStorage.setItem("UserInfo",JSON.stringify({...response.data.data,"isLoggedIn": true}));
                 if (response.data.data.position === "manufacturer") {
                     navigate("/Distributer_Detials");
-                } else if (response.data.data.position === "customer") {
+                } else if (response.data.data.position === "distributer") {
                     navigate('/Customer_Detials');
                     
                 }

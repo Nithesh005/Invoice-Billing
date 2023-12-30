@@ -23,19 +23,20 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                     icon: <FaUserAlt />,
                     head: 'Management',
                     links: [
-                        { url: '/Distributer_Detials', text: 'Distributer Detials' },
-                        { url: '/Products', text: 'Products' },
-                        { url: '/ProfilePage', text: 'Profile Info' },
-                        { url: '/Contact_us', text: 'Contact us' },
+                        { url: '/Distributer_Detials', text: 'Distributer Detials' ,condition:true},
+                        { url: '/Products', text: 'Products' , condition:true},
+                        // { url: '/Products', text: 'Products' },
+                        { url: '/ProfilePage', text: 'Profile Info',condition:true },
+                        { url: '/Contact_us', text: 'Contact us' ,condition:true},
                     ],
                 },
                 {
                     icon: <FaRegChartBar />,
                     head: 'PaySlip',
                     links: [
-                        { url: '/TransactionHistory', text: 'PaySlip Log' },
-                        { url: '/InvoiceGenerator', text: 'Invoice Generator' },
-                        { url: '/Invoice', text: 'Invoice' },
+                        { url: '/TransactionHistory', text: 'PaySlip Log' ,condition:true},
+                        { url: '/InvoiceGenerator', text: 'Invoice Generator' ,condition:true},
+                        { url: '/Invoice', text: 'Invoice' ,condition:true},
                     ],
                 },
             ],
@@ -247,7 +248,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                                 <div className="dropdown-content" style={{ display: 'none' }}>
                                     <div className="sidebar_head">{item.head}</div>
                                     {item.links.map((link, i) => (
-                                        (link.show === undefined || link.show) && (
+                                        (link.condition !== false) && (
                                             <React.Fragment key={i}>
                                                 <div>
                                                     <Link to={link.url}
@@ -261,7 +262,6 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                                     ))}
                                 </div>
                             </NavLink>
-
                         ))}
                 </div>
                 <div style={{ position: "relative" }} className='profile' ref={logout_empty_space}>
