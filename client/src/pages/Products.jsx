@@ -231,6 +231,7 @@ const Products = () => {
                         </div>
                     </div>
                     <div className='col-headings'>
+                        <div className="col-head">HSN Code</div>
                         <div className="col-head">Product Name</div>
                         <div className="col-head">Category</div>
                         <div className="col-head">Description</div>
@@ -239,40 +240,41 @@ const Products = () => {
                         <div className="col-head">Action</div>
                     </div>
                     <div className="scroll_div">
-                    <div className="datas skeleton-block">
-                                <div className="col-head">Ink Machine</div>
-                                <div className="col-head">Education</div>
-                                <div className="col-head">Reuseability</div>
-                                <div className="col-head">507</div>
-                                <div className="col-head">$1500</div>
+                        <div className="datas skeleton-block">
+                            <div className="col-head">84199090</div>
+                            <div className="col-head">Ink Machine</div>
+                            <div className="col-head">Education</div>
+                            <div className="col-head">Reuseability</div>
+                            <div className="col-head">507</div>
+                            <div className="col-head">$1500</div>
 
-                                {/* <div className="col-head display-flex">
+                            {/* <div className="col-head display-flex">
                                     <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
                                     <div className={`device_active`} style={{ color: data.device_status === 1 ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
                                 </div> */}
-                                <div className="col-head display-flex device_action_dropdown_parent">
-                                    <div className="sts_icon"
+                            <div className="col-head display-flex device_action_dropdown_parent">
+                                <div className="sts_icon"
                                     onClick={() => true && handleIconClick()}
-                                    >
-                                        <Icon icon={ic_label_important} style={{ transform: rotatedIndex == true? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex == true? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
-                                    </div>
-                                    <div>{(rotatedIndex) &&
-                                        (<div className='device_action_dropdown'>
-                                            <div className='display-flex device_action_dropdown1 dropdown_action'>
-                                                <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                                <div className='device_content_dropdown display-flex'
+                                >
+                                    <Icon icon={ic_label_important} style={{ transform: rotatedIndex == true ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex == true ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
+                                </div>
+                                <div>{(rotatedIndex) &&
+                                    (<div className='device_action_dropdown'>
+                                        <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                            <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                            <div className='device_content_dropdown display-flex'
                                                 onClick={() => Products_edit_page()}
-                                                >Edit Product Count</div>
-                                            </div>
-                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
-                                                <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                                <div className='device_content_dropdown display-flex'
-                                                // onClick={() => { Editinactivedata(data, index) }}
-                                                >Remove Product</div>
-                                            </div>
-                                        </div>)}
-                                    </div>
-                                    {/* <div>{(rotatedIndex) &&
+                                            >Edit Product Count</div>
+                                        </div>
+                                        <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                            <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                            <div className='device_content_dropdown display-flex'
+                                            // onClick={() => { Editinactivedata(data, index) }}
+                                            >Remove Product</div>
+                                        </div>
+                                    </div>)}
+                                </div>
+                                {/* <div>{(rotatedIndex) &&
                                         (<div className='device_action_dropdown'>
                                             <div className='display-flex device_action_dropdown1 dropdown_action'>
                                                 <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
@@ -289,8 +291,8 @@ const Products = () => {
                                             </div>
                                         </div>)}
                                     </div> */}
-                                </div>
                             </div>
+                        </div>
                         {/* {alldata.map((data, index) => (
                             <div className="datas skeleton-block">
                                 <div className="col-head" key={index}>{data.device_id}</div>

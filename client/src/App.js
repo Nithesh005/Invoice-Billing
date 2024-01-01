@@ -35,19 +35,20 @@ const App = () => {
     sessionStorage.removeItem('access_control');
     sessionStorage.removeItem('state_count');
   };
-  const userdata = [
-    {
-      "userid": "123",
-      "email": "admin@gmail.com",
-      "phno": "9876543210",
-      "name": "jai",
-      "position": "manufacturer",
-      "userprofile": "jai2004",
-      "distributer": "3",
-      "product": "3",
-      "invoice": "3"
-    }
-  ]
+  // const userdata = [
+  //   {
+  //     "userid": "123",
+  //     "email": "admin@gmail.com",
+  //     "phno": "9876543210",
+  //     "name": "jai",
+  //     "position": "manufacturer",
+  //     "userprofile": "jai2004",
+  //     "distributer": "3",
+  //     "product": "3",
+  //     "invoice": "3",
+  //      "customer":"3"
+  //   }
+  // ]
   const userInfoString = sessionStorage.getItem("UserInfo");
   const userInfo = JSON.parse(userInfoString);
   // console.log(userInfo.distributer);

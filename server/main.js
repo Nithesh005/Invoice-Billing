@@ -2,28 +2,31 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const fs = require('fs');  // Require the 'fs' module to read files
-const path = require('path'); 
+const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
-const getdata = require('./getFunctions');
+const addData = require('./insertFunctions');
 const verifyData = require('./verifyFunction');
-
-// Insert into DB
-app.post('/verify/:entity(user|credentials)', async (req, res) => {
-    const entity = req.params.entity; // Corrected from req.params.elements
-    const dataFromClient = req.body; // Assuming the data to be inserted is in the request body
-    // console.log(entity);
+const deleteData = require('./deletefunctions');
+app.post('/add/:entity(user)', async (req, res) => {
+    const entity = req.params.entity;
     if (entity === 'user') {
         try {
-            const gettingdata = await geting.getdata(req, res);
-            res.json(gettingdata);
+            const addUser = await addData.addUser(req, res);
+            // res.json(addUser);
         } catch (error) {
             console.error('Error retrieving user details:', error);
             res.status(500).send('Internal Server Error');
         }
     }
-    else if (entity === 'credentials') {
+})
+// Insert into DB
+app.post('/verify/:entity(user|credentials)', async (req, res) => {
+    const entity = req.params.entity; // Corrected from req.params.elements
+    const dataFromClient = req.body; // Assuming the data to be inserted is in the request body
+    // console.log(entity);
+    if (entity === 'credentials') {
         let result = await verifyData.checkCredentials(req, res);
         res.json(result);
     }
@@ -39,11 +42,11 @@ app.get('/get/:entity(user|credentials|state|district|access_control)', async (r
     const requestData = req.body;
     // console.log(entity);
     if (entity === 'user') {
-        try{
-            var userdata = await getdata.getUserData(req,res);
+        try {
+            var userdata = await getdata.getUserData(req, res);
             res.send(userdata);
         }
-        catch(error){
+        catch (error) {
             res.send("error");
             console.error("Error retrieving data");
         }
@@ -81,34 +84,47 @@ app.get('/update/:elements', async (req, res) => {
 
 app.post('/send-email', async (req, res) => {
     // console.log("Sss");
-    const { to, data ,subject } = req.body;
+    const { to, data, subject } = req.body;
     console.log(data);
     const filePath = path.join(__dirname, 'mail-template.html');
     const htmlContent = fs.readFileSync(filePath, 'utf-8');
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'terionorganization@gmail.com', // Replace with your Gmail email
-        pass: 'imkq rydg xtla lvmx', // Replace with your Gmail password or app-specific password
-      },
+        service: 'gmail',
+        auth: {
+            user: 'terionorganization@gmail.com', // Replace with your Gmail email
+            pass: 'imkq rydg xtla lvmx', // Replace with your Gmail password or app-specific password
+        },
     });
     const mailOptions = {
-      from: 'terionorganization@gmail.com',
-      to:to,
-      subject:"Official mail from Terion Organization",
-      html: htmlContent, // Include HTML content in the email body
+        from: 'terionorganization@gmail.com',
+        to: to,
+        subject: "Official mail from Terion Organization",
+        html: htmlContent, // Include HTML content in the email body
     };
-  
+
     try {
-      // Send email
-      await transporter.sendMail(mailOptions);
-      res.status(200).json({ message: 'Email sent successfully' });
+        // Send email
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Email sent successfully' });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Failed to send email' });
+        console.error(error);
+        res.status(500).json({ message: 'Failed to send email' });
     }
-  });
-  
+});
+
+app.post('/delete/:entity(user)',async(req,res)=>{
+    const entity = req.params.entity;
+    if (entity === 'user') {
+        try {
+            const deleteUser = await deleteData.deleteUser(req, res);
+            // res.json(deleteUser);
+        } catch (error) {
+            console.error('Error retrieving user details:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+})
+
 
 
 app.listen(4000, () => {
