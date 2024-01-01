@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../assets/style/App.css';
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
 import { ic_label_important } from 'react-icons-kit/md/ic_label_important';
@@ -34,7 +34,7 @@ const Distributer_Detials_content = () => {
         navigate('/Add_Distributer_Detials');
     }
 
-    const handleIconClick = () => {      
+    const handleIconClick = () => {
         setRotatedIndex(!rotatedIndex);
     };
 
@@ -156,7 +156,7 @@ const Distributer_Detials_content = () => {
                             <div className="col-head">xxxx xxxx xx04</div>
                             <div className="col-head">GST546-291-341</div>
                             <div className="col-head">Self Employed</div>
-                            <div className="col-head">Quantanics@gmail.com</div>
+                            <div className="col-head" title="Quantanics@gmail.com">Quantanics@gmail.com</div>
 
                             <div className="col-head">
                                 {/* <FontAwesomeIcon icon={faDiamond} size="xs" />  */}

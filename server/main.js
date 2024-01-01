@@ -1,5 +1,8 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 const cors = require('cors');
+const fs = require('fs');  // Require the 'fs' module to read files
+const path = require('path'); 
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -74,6 +77,38 @@ app.get('/update/:elements', async (req, res) => {
         res.status(400).send('Invalid elements value');
     }
 });
+
+
+app.post('/send-email', async (req, res) => {
+    // console.log("Sss");
+    const { to, data ,subject } = req.body;
+    console.log(data);
+    const filePath = path.join(__dirname, 'mail-template.html');
+    const htmlContent = fs.readFileSync(filePath, 'utf-8');
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'terionorganization@gmail.com', // Replace with your Gmail email
+        pass: 'imkq rydg xtla lvmx', // Replace with your Gmail password or app-specific password
+      },
+    });
+    const mailOptions = {
+      from: 'terionorganization@gmail.com',
+      to:to,
+      subject:"Official mail from Terion Organization",
+      html: htmlContent, // Include HTML content in the email body
+    };
+  
+    try {
+      // Send email
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ message: 'Email sent successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Failed to send email' });
+    }
+  });
+  
 
 
 app.listen(4000, () => {

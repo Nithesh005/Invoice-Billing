@@ -2268,6 +2268,7 @@ input[type='number'] {
     }
 }
 
+/* end invoice */
 .add_distributer_btn {
     background-color: var(--THEME_COLOUR);
     border: 1px solid;

@@ -16,6 +16,9 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
     const storedData = sessionStorage.getItem('access_control');
     const parsedData = JSON.parse(storedData);
     const navigate = useNavigate();
+    const userInfoString = sessionStorage.getItem("UserInfo");
+    const userInfo = JSON.parse(userInfoString);
+    // console.log(userInfo.distributer);
     const userSidebarConfig = {
         RI001: {
             menuItem: [
@@ -23,20 +26,20 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                     icon: <FaUserAlt />,
                     head: 'Management',
                     links: [
-                        { url: '/Distributer_Detials', text: 'Distributer Detials' ,condition:true},
-                        { url: '/Products', text: 'Products' , condition:true},
+                        { url: '/Distributer_Detials', text: 'Distributer Detials', condition: userInfo.distributer > 0 },
+                        { url: '/Products', text: 'Products', condition: userInfo.product>0 },
                         // { url: '/Products', text: 'Products' },
-                        { url: '/ProfilePage', text: 'Profile Info',condition:true },
-                        { url: '/Contact_us', text: 'Contact us' ,condition:true},
+                        { url: '/ProfilePage', text: 'Profile Info', condition: true },
+                        { url: '/Contact_us', text: 'Contact us', condition: true },
                     ],
                 },
                 {
                     icon: <FaRegChartBar />,
                     head: 'PaySlip',
                     links: [
-                        { url: '/TransactionHistory', text: 'PaySlip Log' ,condition:true},
-                        { url: '/InvoiceGenerator', text: 'Invoice Generator' ,condition:true},
-                        { url: '/Invoice', text: 'Invoice' ,condition:true},
+                        { url: '/TransactionHistory', text: 'PaySlip Log', condition: true },
+                        { url: '/InvoiceGenerator', text: 'Invoice Generator', condition: userInfo.invoice>0 },
+                        { url: '/Invoice', text: 'Invoice', condition: userInfo.invoice>0 },
                     ],
                 },
             ],

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { IoIosAdd } from 'react-icons/io';
+import axios from 'axios';
+import Invoice from './Invoice'
 const InvoiceGenerator = () => {
   const [rows, setRows] = useState([
     {
@@ -49,13 +51,23 @@ const InvoiceGenerator = () => {
     return total.toFixed(2);
   };
 
-  useEffect(() => {
-    // Handle any side effects here
-
-    return () => {
-      // Cleanup functions here
-    };
-  }, []); // Empty dependency array to run effect only once
+  const [invoiceData,setinvoicedata] = useState(<Invoice/>)
+  const GenerateBill = async () => {
+    try {
+      const response = await axios.post('http://localhost:4000/send-email', {
+        data: invoiceData,
+        to:'nitheshwaran003@gmail.com'
+      });
+  
+      if (response.status === 200) {
+        console.log('Data sent successfully');
+      } else {
+        console.error('Failed to send data');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <>
@@ -188,6 +200,7 @@ const InvoiceGenerator = () => {
           </a>
         </div>
       </div>
+      {/* <button onClick={GenerateBill}>Generate</button> */}
     </>
   );
 };
