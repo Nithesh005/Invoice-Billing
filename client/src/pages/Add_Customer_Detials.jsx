@@ -23,11 +23,11 @@ import { followers } from 'react-icons-kit/ikons/followers';
 import { pen_3 } from 'react-icons-kit/ikons/pen_3';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
-// import { handleSubmit } from '../assets/hooksFunctions/validations';
 
 
 
-const Add_Distributer_Detials = () => {
+
+const Add_Customer_Detials = () => {
     // for invoice
     const [postData, setPostData] = useState({
         userid: '',
@@ -70,12 +70,11 @@ const Add_Distributer_Detials = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log("e");
-        const isValidgstNumber = /^([A-Za-z]{2}[0-9]{2})$/.test(postData.gstNumber)
-        const isValidpanNumber = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(postData.panNumber)
-        const isValidaadharNo = /^\d{12}$/.test(postData.aadharNo)
-        const isValidfName = /^[A-Za-z\s'-]+$/.test(postData.fName)
-        const isValidemail = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(postData.email)
+        const isValidMF_Id = /^[a-zA-Z]+$/.test(postData.MF_Id)
+        const isValidUserName = /^[a-zA-Z]+$/.test(postData.M_User_Name)
+        const isValidAadhar = /^[a-zA-Z]+$/.test(postData.M_Aadhar_Number)
+        const isValidPosition = /^[a-zA-Z]+$/i.test(postData.M_Position)
+        const isValidGST = /^[a-zA-Z]+$/.test(postData.M_GST_Number)
         const isValidBussinessType = /^[a-zA-Z]+$/.test(postData.M_Business_Type)
         const isValidEmail = /^[a-zA-Z]+$/.test(postData.M_Email)
         const isValidAcc_No = /^[a-zA-Z]+$/.test(postData.M_Account_Number)
@@ -83,9 +82,9 @@ const Add_Distributer_Detials = () => {
         const isValidPANno = /^[a-zA-Z]+$/.test(postData.M_Pan_Number)
         const isValidOrganisationNo = /^[a-zA-Z]+$/.test(postData.M_Organization_Name)
         const isValidUpiId = /^[a-zA-Z]+$/.test(postData.M_Upi_Id)
-        alert(isValidemail);
-        if (!isValidgstNumber || !isValidpanNumber ||!isValidaadharNo
-            || !isValidfName || !isValidemail || !isValidBussinessType || !isValidEmail || !isValidAcc_No || !isValidPhoneNo || !isValidPANno || !isValidOrganisationNo || !isValidUpiId
+        console.log(isValidEmail);
+        if (!isValidMF_Id || !isValidUserName || !isValidAadhar
+            || !isValidPosition || !isValidGST || !isValidBussinessType || !isValidEmail || !isValidAcc_No || !isValidPhoneNo || !isValidPANno || !isValidOrganisationNo || !isValidUpiId
         ) {
             alert("Enter the valid data");
         } else {
@@ -118,7 +117,8 @@ const Add_Distributer_Detials = () => {
         { label: "UPI Payment Mobile No", name: "upiPaymentNo", value: postData.upiPaymentNo, icon: pen_3 },
         { label: "UPI - Bank Account Name", name: "accName", value: postData.accName, icon: pen_3 },
         { label: "UPI - Bank Account Number", name: "accNo", value: postData.accNo, icon: pen_3 },
-        { label: "Pass Book image", name: "passbookImg", value: postData.passbookImg, icon: pen_3 , inputType:"file"},
+        { label: "Pass Book image", name: "passbookImg", value: postData.passbookImg, icon: pen_3 ,inputType:"file"},
+
 // 3. Address Details:
         { label: "Permanent Address", name: "pAddress", value: postData.pAddress, icon: pen_3 },
         { label: "Street Address", name: "streetAddress", value: postData.streetAddress, icon: pen_3 },
@@ -153,7 +153,7 @@ const Add_Distributer_Detials = () => {
         setcontact("");
         setDesignation("");
         setemail("");
-        navigate('/Distributer_Detials');
+        navigate('/Customer_Detials');
     }
 
 
@@ -190,12 +190,12 @@ const Add_Distributer_Detials = () => {
             {/* User access model */}
 
             <div className="row_with_count_status">
-                <span className='module_tittle'>Distributer Detials</span>
+                <span className='module_tittle'>Customer Detials</span>
             </div>
             <div className="add_device_container1">
                 <div className="new_device_content scroll_div">
                     <div className="row_one display-flex">
-                        <div className="adding_new_device uppercase bold">Add Distributer Detials </div>
+                        <div className="adding_new_device uppercase bold">Add Customer Detials </div>
                     </div>
 
                     <div className="row_two display-flex padding-loc">
@@ -207,7 +207,7 @@ const Add_Distributer_Detials = () => {
                                 {inputFields.slice(0, 4).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input
@@ -231,7 +231,7 @@ const Add_Distributer_Detials = () => {
                                 {inputFields.slice(4, 8).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input
@@ -253,7 +253,7 @@ const Add_Distributer_Detials = () => {
                                 {inputFields.slice(8, 10).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input
@@ -278,7 +278,7 @@ const Add_Distributer_Detials = () => {
                             {inputFields.slice(10, 14).map((field, index) => (
                                 <div key={index} className="inputbox display-flex input">
                                     <div className="dsa_1st_input">
-                                        <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
+                                        <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
                                         <div className="inputs-group display-flex">
                                             <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                             <input
@@ -302,7 +302,7 @@ const Add_Distributer_Detials = () => {
                             {inputFields.slice(14, 18).map((field, index) => (
                                 <div key={index} className="inputbox display-flex input">
                                     <div className="dsa_1st_input">
-                                        <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
+                                        <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
                                         <div className="inputs-group display-flex">
                                             <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                             <input
@@ -336,4 +336,4 @@ const Add_Distributer_Detials = () => {
 
     );
 };
-export default Add_Distributer_Detials;
+export default Add_Customer_Detials;

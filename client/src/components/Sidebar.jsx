@@ -27,7 +27,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                     head: 'Management',
                     links: [
                         { url: '/Distributer_Detials', text: 'Distributer Detials', condition: userInfo.distributer > 0 },
-                        { url: '/Customers', text: 'Customer Detials', condition: userInfo.customer > 0 },
+                        { url: '/Customer_Detials', text: 'Customer Detials', condition: userInfo.customer > 0 },
                         { url: '/Products', text: 'Products', condition: userInfo.product>0 },
                         // { url: '/Products', text: 'Products' },
                         { url: '/ProfilePage', text: 'Profile Info', condition: true },

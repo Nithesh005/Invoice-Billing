@@ -2412,3 +2412,7 @@ input[type='number'] {
 .float-end {
     float: right!important;
 }
+
+.required{
+    color: red;
+}

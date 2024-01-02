@@ -10,6 +10,8 @@ import Distributer_Detials from './pages/Distributer_Detials.jsx';
 import Products from './pages/Products.jsx';
 import Add_Distributer_Detials from './pages/Add_Distributer_Detials';
 import Edit_Distributer_Detials from './pages/Edit_Distributer_Detials';
+import CustomerDetails from './pages/CustomerDetails';
+import Add_Customer_Detials from './pages/Add_Customer_Detials';
 import Add_site from './pages/Add_Products.jsx';
 import Invoice from "./components/Invoice.jsx";
 import InvoiceGenerator from "./components/InvoiceGenerator.jsx";
@@ -67,6 +69,22 @@ const App = () => {
                       {/* Distributer module */}
                       <Route path='/Distributer_Detials' element={<Distributer_Detials />}></Route>
                       <Route path='/Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
+                      <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
+                    </Routes>
+                    {/* {userdata[0].distributer > 2 && (
+                  <div>Create/Delete</div>
+                )}
+                {userdata[0].distributer > 1 && (
+                  <div>Edit</div>
+                )} */}
+                  </div>
+                )}
+                {userInfo.customer > 0 && (
+                  <div>
+                    <Routes>
+                      {/* Customer module */}
+                      <Route path='/Customer_Detials' element={<CustomerDetails />}></Route>
+                      <Route path='/Add_Customer_Detials' element={<Add_Customer_Detials/>}></Route>
                       <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                     {/* {userdata[0].distributer > 2 && (
