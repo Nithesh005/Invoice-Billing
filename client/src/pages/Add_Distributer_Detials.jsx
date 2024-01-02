@@ -30,32 +30,32 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 const Add_Distributer_Detials = () => {
     // for invoice
     const [postData, setPostData] = useState({
-        MF_Id: '',
-        M_Email: '',
-        M_Phone_No: '',
-        M_Pan_Number: '',
-        M_Aadhar_Number: '',
-        M_Name: '',
-        M_Position: '',
-        M_Alternate_Phone_No: '',
-        M_User_Name: '',
-        M_Password: '',
-        M_Business_Type: '',
-        M_GST_Number: '',
-        M_Organization_Name: '',
-        M_Account_Name: '',
-        M_Account_Number: '',
-        M_Linked_Phone_no: '',
-        M_Pass_Img: '',
-        M_Upi_Id: '',
-        M_PR_Street_Address: '',
-        M_PR_City: '',
-        M_PR_State: '',
-        M_PR_PostalCode: '',
-        M_CD_Street_Address: '',
-        M_CD_City: '',
-        M_CD_State: '',
-        M_CD_PostalCode: '',
+        userid: '',
+        OrganizationName: '',
+        gstNumber: '',
+        panNumber: '',
+        aadharNo: '',
+        fName: '',
+        lName: '',
+        Position: '',
+        email: '',
+        mobileNo: '',
+        upiPaymentNo: '',
+        accName: '',
+        accNo: '',
+        passbookImg: '',
+
+        pAddress: '',
+        streetAddress: '',
+        City: '',
+        State: '',
+
+        pCode: '',
+        CommunicationAddress: '',
+        StreetAddress2: '',
+        City2: '',
+        State2: '',
+        PostalCode2: '',
     });
 
     const handleInputChange = (e) => {
@@ -102,20 +102,35 @@ const Add_Distributer_Detials = () => {
     };
 
     const inputFields = [
-        { label: "Register ID", name: "MF_Id", value: postData.MF_Id, icon: ic_home_work },
-        { label: "Distributor Name", name: "M_User_Name", value: postData.M_User_Name, icon: person },
-        { label: "Aadhar Number", name: "M_Aadhar_Number", value: postData.M_Aadhar_Number, icon: pen_3 },
-        { label: "Position", name: "M_Position", value: postData.M_Position, icon: ic_wysiwyg },
+        { label: "User ID", name: "userid", value: postData.userid, icon: ic_home_work },
+        { label: "Organization Name", name: "OrganizationName", value: postData.OrganizationName, icon: person },
+        { label: "GST Number", name: "gstNumber", value: postData.gstNumber, icon: pen_3 },
+        { label: "PAN Number", name: "panNumber", value: postData.panNumber, icon: ic_wysiwyg },
         // Add more input field objects as needed
-        { label: "GST Number", name: "M_GST_Number", value: postData.M_GST_Number, icon: pen_3 },
-        { label: "Bussiness Type", name: "M_Business_Type", value: postData.M_Business_Type, icon: pen_3 },
-        { label: "Email", name: "M_Email", value: postData.M_Email, icon: pen_3 },
-        { label: "Account Number", name: "M_Account_Number", value: postData.M_Account_Number, icon: pen_3 },
+        { label: "Aadhar Number", name: "aadharNo", value: postData.aadharNo, icon: pen_3 },
+        { label: "First Name", name: "fName", value: postData.fName, icon: pen_3 },
+        { label: "Last Name", name: "lName", value: postData.lName, icon: pen_3 },
+        { label: "Position", name: "Position", value: postData.Position, icon: pen_3 },
         // row 3
-        { label: "Contact Number", name: "M_Phone_No", value: postData.M_Phone_No, icon: pen_3 },
-        { label: "PAN Number", name: "M_Pan_Number", value: postData.M_Pan_Number, icon: pen_3 },
-        { label: "Organization Name", name: "M_Organization_Name", value: postData.M_Organization_Name, icon: pen_3 },
-        { label: "UPI ID", name: "M_Upi_Id", value: postData.M_Upi_Id, icon: pen_3 },
+        { label: "Email", name: "email", value: postData.email, icon: pen_3 },
+        { label: "Mobile Number", name: "mobileNo", value: postData.mobileNo, icon: pen_3 },
+// 2. UPI Payment Details:
+        { label: "UPI Payment Mobile No", name: "upiPaymentNo", value: postData.upiPaymentNo, icon: pen_3 },
+        { label: "UPI - Bank Account Name", name: "accName", value: postData.accName, icon: pen_3 },
+        { label: "UPI - Bank Account Number", name: "accNo", value: postData.accNo, icon: pen_3 },
+        { label: "Pass Book image", name: "passbookImg", value: postData.passbookImg, icon: pen_3 },
+// 3. Address Details:
+        { label: "Permanent Address", name: "pAddress", value: postData.pAddress, icon: pen_3 },
+        { label: "Street Address", name: "streetAddress", value: postData.streetAddress, icon: pen_3 },
+        { label: "City", name: "City", value: postData.City, icon: pen_3 },
+        { label: "State", name: "State", value: postData.State, icon: pen_3 },
+
+        { label: "Postal Code", name: "pCode", value: postData.pCode, icon: pen_3 },
+        { label: "Communication Address", name: "CommunicationAddress", value: postData.CommunicationAddress, icon: pen_3 },
+        { label: "Street Address", name: "StreetAddress2", value: postData.StreetAddress2, icon: pen_3 },
+        { label: "City", name: "City2", value: postData.City, icon: pen_3 },
+        { label: "State", name: "State2", value: postData.State2, icon: pen_3 },
+        { label: "Postal Code", name: "PostalCode2", value: postData.PostalCode2, icon: pen_3 },
     ];
 
     // set var
@@ -141,7 +156,7 @@ const Add_Distributer_Detials = () => {
         navigate('/Distributer_Detials');
     }
 
-  
+
 
     //redirect to device content page
     const navigate = useNavigate();
@@ -235,7 +250,7 @@ const Add_Distributer_Detials = () => {
 
                             </div>
                             <div className="dsa_row_3 display-flex">
-                                {inputFields.slice(8, 12).map((field, index) => (
+                                {inputFields.slice(8, 10).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
                                             <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
@@ -255,8 +270,56 @@ const Add_Distributer_Detials = () => {
                                     </div>
                                 ))}
                             </div>
-
                         </div>
+                        <div className="device_info uppercase light-grey mb-loc-5">
+                            UPI Payment Details
+                        </div>
+                        <div className="dsa_row_3 display-flex">
+                            {inputFields.slice(10, 14).map((field, index) => (
+                                <div key={index} className="inputbox display-flex input">
+                                    <div className="dsa_1st_input">
+                                        <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                        <div className="inputs-group display-flex">
+                                            <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
+                                            <input
+                                                type="text"
+                                                className="form-control-loc"
+                                                value={field.value}
+                                                onChange={(e) => handleInputChange(e, field.name)}
+                                                name={field.name}
+                                                id={`input${index + 1}`}
+                                            />
+                                            {/* Add error handling if needed */}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="device_info uppercase light-grey mb-loc-5">
+                            Address Details
+                        </div>
+                        <div className="dsa_row_3 display-flex">
+                            {inputFields.slice(14, 18).map((field, index) => (
+                                <div key={index} className="inputbox display-flex input">
+                                    <div className="dsa_1st_input">
+                                        <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                        <div className="inputs-group display-flex">
+                                            <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
+                                            <input
+                                                type="text"
+                                                className="form-control-loc"
+                                                value={field.value}
+                                                onChange={(e) => handleInputChange(e, field.name)}
+                                                name={field.name}
+                                                id={`input${index + 1}`}
+                                            />
+                                            {/* Add error handling if needed */}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
                     </div>
 
                     <div className="operating_buttons display-flex padding-loc">
