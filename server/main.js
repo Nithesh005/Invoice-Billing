@@ -102,7 +102,7 @@ app.post('/add/:entity(user|credentials)', async (req, res) => {
 
 
 // Update Data from DB
-app.get('/update/:entity(state | bike)', async (req, res) => {
+app.post('/update/:entity(state | bike)', async (req, res) => {
     const entity = req.params.entity;
 
     try {
