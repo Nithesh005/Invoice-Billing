@@ -29,20 +29,24 @@ app.post('/add/:entity(user|credentials)', async (req, res) => {
 });
 
 // Get Data From DB
-app.get('/get/:entity(bike|credentials|state|district|access_control)', async (req, res) => {
-    const entity = req.params.entity;
-    const requestData = req.body;
-    if(entity === 'bike'){
-        try{
-            var a =  getdata.getUserData(req,res);
-            console.log(a);
-            res.send((await a).rows);
+    app.get('/get/:entity(user|credentials|state|district|accesscontroll)', async (req, res) => {
+        const entity = req.params.entity;
+        const requestData = req.body;
+    
+        if (entity === 'user') {
+            try {
+                var userDataPromise = getdata.getUserData(req, res);
+                var userData = await userDataPromise;
+                
+                console.log(userData);
+                res.send(userData.rows[0]);
+            } catch (error) {
+                res.send("error");
+                console.error("Error retrieving data", error);
+            }
         }
-        catch(error){
-            res.send("error");
-            console.error("Error retrieving data");
-        }
-    }
+    
+    
     else if(entity === 'credentials'){
         try{
             var a =  getdata.getUserData1(req,res);
@@ -76,7 +80,7 @@ app.get('/get/:entity(bike|credentials|state|district|access_control)', async (r
             console.error("Error retrieving data");
         }
     }
-    else if(entity === 'access_control'){
+    else if(entity === 'accesscontroll'){
         try{
             var a =  getdata.getUserData4(req,res);
             console.log(a);

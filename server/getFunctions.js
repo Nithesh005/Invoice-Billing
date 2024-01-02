@@ -50,7 +50,7 @@ async function getUserData3(req,res) {
 
 async function getUserData4(req,res) {
     try {
-         const data = await userdbInstance.userdb.query('SELECT * FROM access_controll');
+         const data = await userdbInstance.userdb.query('SELECT * FROM accesscontroll');
         //  console.log(data.rows);
          return data;
         
