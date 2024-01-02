@@ -35,11 +35,13 @@ app.post('/add/:entity(user|credentials)', async (req, res) => {
     
         if (entity === 'user') {
             try {
-                var userDataPromise = getdata.getUserData(req, res);
-                var userData = await userDataPromise;
-                
-                console.log(userData);
-                res.send(userData.rows[0]);
+                var a=  getdata.getUserData(req,res);
+                console.log(a);
+                res.send((await a).rows);
+                //var userDataPromise = getdata.getUserData(req, res);
+                //var userData = await userDataPromise;
+                //console.log(userData);
+                //res.send(userData.rows[0]);
             } catch (error) {
                 res.send("error");
                 console.error("Error retrieving data", error);

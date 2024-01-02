@@ -3,7 +3,7 @@ const userdbInstance = require('./dbInstance');
 
 async function getUserData(req,res) {
     try {
-         const data = await userdbInstance.userdb.query('SELECT * FROM user');
+         const data = await userdbInstance.userdb.query('SELECT * FROM public."user"');
         //  console.log(data.rows);
          return data;
         
