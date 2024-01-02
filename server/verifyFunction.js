@@ -1,4 +1,5 @@
 const userdbInstance = require('./dbInstance');
+const setPasswordMailing = require('./services/emailservice');
 
 async function checkCredentials(req, res) {
   const { username, password } = req.body;
@@ -35,9 +36,9 @@ async function checkCredentials(req, res) {
           }
         }
       }
-
-      console.log("password is empty");
-      return { success: false, message: 'Set the password' };
+      // const sendingmail = await setPasswordMailing.emailservice(req,res);
+      console.log("password is empty : ");
+      return { success: false,password:null, message: 'Set the password' };
     } else {
       console.log("Email doesn't exist");
       res.send({ message: "Email doesn't exist" });

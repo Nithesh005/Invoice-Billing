@@ -22,6 +22,7 @@ import TransactionHistory from "./pages/TransactionHistory.jsx";
 import Sidebar from './components/Sidebar';
 import Login from './pages/Login';
 import TopNavbar from './TopNavbar';
+import UpdatePassword from './pages/UpdatePassword.jsx';
 
 const App = () => {
   // const handleLogin = (role) => {
@@ -136,6 +137,7 @@ const App = () => {
         <>
           <Routes>
             <Route path='/' element={<Login />}></Route>
+            <Route path='/UpdatePassword' element={<UpdatePassword />}></Route>
           </Routes>
         </>
       )}

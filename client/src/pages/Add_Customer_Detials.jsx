@@ -28,6 +28,8 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 
 const Add_Customer_Detials = () => {
+    const userInfoString = sessionStorage.getItem("UserInfo");
+    const userInfo = JSON.parse(userInfoString);
     // for invoice
     const [postData, setPostData] = useState({
         userid: '',
@@ -37,7 +39,8 @@ const Add_Customer_Detials = () => {
         aadharNo: '',
         fName: '',
         lName: '',
-        Position: '',
+        Positionid: '3',
+        adminid: userInfo.userid,
         email: '',
         mobileNo: '',
         upiPaymentNo: '',
@@ -58,6 +61,38 @@ const Add_Customer_Detials = () => {
         PostalCode2: '',
     });
 
+    const handleClear = () => {
+        setPostData({
+            userid: '',
+            OrganizationName: '',
+            gstNumber: '',
+            panNumber: '',
+            aadharNo: '',
+            fName: '',
+            lName: '',
+            Positionid: '3',
+            adminid: userInfo.userid,
+            email: '',
+            mobileNo: '',
+            upiPaymentNo: '',
+            accName: '',
+            accNo: '',
+            passbookImg: '',
+
+            pAddress: '',
+            streetAddress: '',
+            City: '',
+            State: '',
+
+            pCode: '',
+            CommunicationAddress: '',
+            StreetAddress2: '',
+            City2: '',
+            State2: '',
+            PostalCode2: '',
+        });
+    }
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         // alert(`hai ${value}`);
@@ -70,28 +105,54 @@ const Add_Customer_Detials = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const isValidMF_Id = /^[a-zA-Z]+$/.test(postData.MF_Id)
-        const isValidUserName = /^[a-zA-Z]+$/.test(postData.M_User_Name)
-        const isValidAadhar = /^[a-zA-Z]+$/.test(postData.M_Aadhar_Number)
-        const isValidPosition = /^[a-zA-Z]+$/i.test(postData.M_Position)
-        const isValidGST = /^[a-zA-Z]+$/.test(postData.M_GST_Number)
-        const isValidBussinessType = /^[a-zA-Z]+$/.test(postData.M_Business_Type)
-        const isValidEmail = /^[a-zA-Z]+$/.test(postData.M_Email)
-        const isValidAcc_No = /^[a-zA-Z]+$/.test(postData.M_Account_Number)
-        const isValidPhoneNo = /^[a-zA-Z]+$/.test(postData.M_Phone_No)
-        const isValidPANno = /^[a-zA-Z]+$/.test(postData.M_Pan_Number)
-        const isValidOrganisationNo = /^[a-zA-Z]+$/.test(postData.M_Organization_Name)
-        const isValidUpiId = /^[a-zA-Z]+$/.test(postData.M_Upi_Id)
-        console.log(isValidEmail);
-        if (!isValidMF_Id || !isValidUserName || !isValidAadhar
-            || !isValidPosition || !isValidGST || !isValidBussinessType || !isValidEmail || !isValidAcc_No || !isValidPhoneNo || !isValidPANno || !isValidOrganisationNo || !isValidUpiId
+        const isValidgstNumber = /^([A-Za-z]{2}[0-9]{2}[0-9]{4})$/.test(postData.gstNumber)
+        if (!isValidgstNumber) {
+            alert("enter valid GST Number");
+        }
+        const isValidpanNumber = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(postData.panNumber)
+        if (!isValidpanNumber) {
+            alert("enter valid PAN Number");
+        }
+        const isValidaadharNo = /^\d{12}$/.test(postData.aadharNo)
+        if (!isValidaadharNo) {
+            alert("enter valid Aadhar Number");
+        }
+        const isValidfName = /^[A-Za-z\s'-]+$/.test(postData.fName)
+        if (!isValidfName) {
+            alert("enter valid First Name");
+        }
+        const isValidemail = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(postData.email)
+        if (!isValidemail) {
+            alert("enter valid Email");
+        }
+        const isValidupiPaymentNo = /^\d{10}$/.test(postData.upiPaymentNo)
+        if (!isValidupiPaymentNo) {
+            alert("enter valid UPI payment Number");
+        }
+        const isValidaccName = /^[A-Za-z\s'-]+$/.test(postData.accName)
+        if (!isValidaccName) {
+            alert("enter valid Account Name");
+        }
+        const isValidaccNo = /^\d*$/.test(postData.accNo)
+        if (!isValidaccNo) {
+            alert("enter valid Account Number");
+        }
+
+
+        // alert(isValidgstNumber);
+        if (!isValidgstNumber || !isValidpanNumber || !isValidaadharNo
+            || !isValidfName || !isValidemail || !isValidupiPaymentNo || !isValidaccName || !isValidaccNo
         ) {
-            alert("Enter the valid data");
+            // alert("Insert Properly");
         } else {
             try {
-                const response = await axios.post('http://localhost:4000/admin/insert', postData);
-                console.log('Data sent successfully:', response.data);
-                window.alert("Details Added Successfully");
+                const response = await axios.post('http://localhost:4000/add/user', postData);
+                alert(response.data.message);
+                // console.log(response.data.status);
+                if (response.data.status) {
+                    handleClear()
+                }
+                // window.alert("Details Added Successfully");
             } catch (error) {
                 console.error('Error sending data:', error);
             }
@@ -109,17 +170,17 @@ const Add_Customer_Detials = () => {
         { label: "Aadhar Number", name: "aadharNo", value: postData.aadharNo, icon: pen_3 },
         { label: "First Name", name: "fName", value: postData.fName, icon: pen_3 },
         { label: "Last Name", name: "lName", value: postData.lName, icon: pen_3 },
-        { label: "Position", name: "Position", value: postData.Position, icon: pen_3 },
+        // { label: "Position", name: "Position", value: postData.Position, icon: pen_3 },
         // row 3
         { label: "Email", name: "email", value: postData.email, icon: pen_3 },
         { label: "Mobile Number", name: "mobileNo", value: postData.mobileNo, icon: pen_3 },
-// 2. UPI Payment Details:
+        // 2. UPI Payment Details:
         { label: "UPI Payment Mobile No", name: "upiPaymentNo", value: postData.upiPaymentNo, icon: pen_3 },
         { label: "UPI - Bank Account Name", name: "accName", value: postData.accName, icon: pen_3 },
         { label: "UPI - Bank Account Number", name: "accNo", value: postData.accNo, icon: pen_3 },
-        { label: "Pass Book image", name: "passbookImg", value: postData.passbookImg, icon: pen_3 ,inputType:"file"},
+        { label: "Pass Book image", name: "passbookImg", value: postData.passbookImg, icon: pen_3, inputType: "file" },
 
-// 3. Address Details:
+        // 3. Address Details:
         { label: "Permanent Address", name: "pAddress", value: postData.pAddress, icon: pen_3 },
         { label: "Street Address", name: "streetAddress", value: postData.streetAddress, icon: pen_3 },
         { label: "City", name: "City", value: postData.City, icon: pen_3 },
@@ -250,7 +311,7 @@ const Add_Customer_Detials = () => {
 
                             </div>
                             <div className="dsa_row_3 display-flex">
-                                {inputFields.slice(8, 10).map((field, index) => (
+                                {inputFields.slice(8, 9).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
                                             <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
@@ -275,7 +336,7 @@ const Add_Customer_Detials = () => {
                             UPI Payment Details
                         </div>
                         <div className="dsa_row_3 display-flex">
-                            {inputFields.slice(10, 14).map((field, index) => (
+                            {inputFields.slice(9, 13).map((field, index) => (
                                 <div key={index} className="inputbox display-flex input">
                                     <div className="dsa_1st_input">
                                         <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>

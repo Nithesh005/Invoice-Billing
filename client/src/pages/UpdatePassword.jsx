@@ -7,7 +7,7 @@ import { API_URL } from '../config'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Login = () => {
+const UpdatePassword = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [invalid_state, setinvalidstate] = useState(false);
@@ -111,11 +111,11 @@ const Login = () => {
                         </div>
                         <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "1.2rem" }}>
                             <div className='login_input_div'>
-                                <input type="text" placeholder='Email' className='login_inputs_individual' value={username} onChange={handleUserName} onBlur={LoginUsername} />
+                                <input type="password" placeholder='Password' className='login_inputs_individual' value={username} onChange={handleUserName} onBlur={LoginUsername} />
                                 <div className="login_error-message">{username_empty && "Enter Valid Email*"}</div>
                             </div>
                             <div className='login_input_div'>
-                                <input type="password" placeholder='Password' className='login_inputs_individual' value={password} onChange={handlepassword} onBlur={LoginPassword} />
+                                <input type="password" placeholder='Re-Enter Password' className='login_inputs_individual' value={password} onChange={handlepassword} onBlur={LoginPassword} />
                                 <div className="login_error-message">{password_empty && "Enter Valid Password*"}</div>
                             </div>
                         </div>
@@ -131,12 +131,9 @@ const Login = () => {
                                     <span className='display-flex' style={{ justifyContent: "start" }}>*Inactive Site</span>
                                 )}
                             </div>
-                            <div className="forget">
-                                <span className='display-flex' style={{ justifyContent: "end" }}>Forgot Password</span>
-                            </div>
                         </div>
                         <div className="login_btn_div" onClick={validate_login}>
-                            <input type="submit" className='login_btn' value={"Login"} />
+                            <input type="submit" className='login_btn' value={"Update Password"} />
                         </div>
                     </div>
 
@@ -149,4 +146,4 @@ const Login = () => {
         </>
     )
 }
-export default Login;
+export default UpdatePassword;
