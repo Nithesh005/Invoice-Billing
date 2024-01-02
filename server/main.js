@@ -45,8 +45,9 @@ app.get('/get/:entity(bike|credentials|state|district|access_control)', async (r
     }
     else if(entity === 'credentials'){
         try{
-            res.send("getcredentialsdata");
-            console.log("getcredentialsdata");
+            var a =  getdata.getUserData1(req,res);
+            console.log(a);
+            res.send((await a).rows);
         }
         catch(error){
             res.send("error");
@@ -55,8 +56,9 @@ app.get('/get/:entity(bike|credentials|state|district|access_control)', async (r
     }
     else if(entity === 'state'){
         try{
-            res.send("getstatesdata");
-            console.log("getstatedata");
+            var a =  getdata.getUserData2(req,res);
+            console.log(a);
+            res.send((await a).rows);
         }
         catch(error){
             res.send("error");
@@ -65,8 +67,9 @@ app.get('/get/:entity(bike|credentials|state|district|access_control)', async (r
     }
     else if(entity =='district'){
         try{
-            res.send("getdistrictdata");
-            console.log("getdistrictdata");
+            var a =  getdata.getUserData3(req,res);
+            console.log(a);
+            res.send((await a).rows);
         }
         catch(error){
             res.send("error");
@@ -75,8 +78,9 @@ app.get('/get/:entity(bike|credentials|state|district|access_control)', async (r
     }
     else if(entity === 'access_control'){
         try{
-            res.send("getaccess_controldata");
-            console.log("getaccess_controldata");
+            var a =  getdata.getUserData4(req,res);
+            console.log(a);
+            res.send((await a).rows);
         }
         catch(error){
             res.send("error");
@@ -92,13 +96,23 @@ app.get('/get/:entity(bike|credentials|state|district|access_control)', async (r
 
 
 // Update Data from DB
-app.get('/update/:elements', async (req, res) => {
-    const elements = req.params.elements;
-    const requestData = req.body; // Assuming the data to be inserted is in the request body
-     if (elements === 'state') {
-         updatestate(req,res);
-         res.send('Data insertion initiated');
-     }
+app.get('/update/:entity(state | bike)', async (req, res) => {
+    const entity = req.params.entity;
+
+    try {
+        if (entity === 'state') {
+            await getdata.updatestate(req, res);
+            // No need to await here, as updatestate already handles the response
+            console.log('Update completed successfully');
+        } else {
+            res.status(400).send('Invalid element type');
+        }
+    } catch (error) {
+        console.error('Error in update route:', error);
+        res.status(500).send(`Error updating data: ${error.message}`);
+    }
+});
+
     // else if (elements === 'credentials') {
     //     insetintocdential();
     // }
@@ -110,10 +124,10 @@ app.get('/update/:elements', async (req, res) => {
     //         res.status(500).send('Internal Server Error');
     //     }
     // }
-     else {
-        res.status(400).send('Invalid elements value');
-     }
-});
+    // else {
+        //res.status(400).send('Invalid elements value');
+     //}
+//});
 
 
 app.listen(4000, () => {
