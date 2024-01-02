@@ -66,9 +66,10 @@ const Login = () => {
 
             if (response.data.success) {
                 sessionStorage.setItem("UserInfo",JSON.stringify({...response.data.data,"isLoggedIn": true}));
-                if (response.data.data.position === "manufacturer") {
+                console.log(response.data);
+                if (response.data.data.position === "manifacture") { 
                     navigate("/Distributer_Detials");
-                } else if (response.data.data.position === "distributer") {
+                } else if (response.data.data.position === "distributor") {
                     navigate('/Customer_Detials');
                     
                 }
