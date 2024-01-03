@@ -29,7 +29,35 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 const Add_Distributer_Detials = () => {
     // for invoice
-    const [postData, setPostData] = useState({
+    const [postData, setPostData,] = useState({
+        MF_Id: '',
+        M_Email: '',
+        M_Phone_No: '',
+        M_Pan_Number: '',
+        M_Aadhar_Number: '',
+        M_Name: '',
+        M_Position: '',
+        M_Alternate_Phone_No: '',
+        M_User_Name: '',
+        M_Password: '',
+        M_Business_Type: '',
+        M_GST_Number: '',
+        M_Organization_Name: '',
+        M_Account_Name: '',
+        M_Account_Number: '',
+        M_Linked_Phone_no: '',
+        M_Pass_Img: '',
+        M_Upi_Id: '',
+        M_PR_Street_Address: '',
+        M_PR_City: '',
+        M_PR_State: '',
+        M_PR_PostalCode: '',
+        M_CD_Street_Address: '',
+        M_CD_City: '',
+        M_CD_State: '',
+        M_CD_PostalCode: '',
+    });
+    const [inputErrors, setInputErrors] = useState({
         MF_Id: '',
         M_Email: '',
         M_Phone_No: '',
@@ -66,7 +94,86 @@ const Add_Distributer_Detials = () => {
             ...postData,
             [name]: value,
         });
+        validateInput(name,value);
     };
+    const validateInput = (name, value) => {
+        switch (name) { 
+            case 'M_Organization_Name':
+             setInputErrors((prevErrors) => ({
+                ...prevErrors,
+                [name]: /^[a-zA-Z]+$/.test(value) ? '' : 'Invalid Organization name',
+            }));
+            break;
+            case 'M_Email':
+                setInputErrors((prevErrors) => ({
+                    ...prevErrors,
+                    [name]: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? '' : 'Invalid email address',
+                }));
+                break;
+            case 'M_Mobile_Number':
+                setInputErrors((prevErrors) => ({
+                    ...prevErrors,
+                    [name]: /^[0-9]+$/.test(value) ? '' : 'Invalid Mobile number',
+                }));
+                break;
+            case 'M_Aadhar_Number':
+                
+                setInputErrors((prevErrors) => ({
+                    ...prevErrors,
+                    [name]: /^[0-9]{12}$/.test(value) ? '' : 'Invalid Aadhar number',
+                }));
+                break;
+            
+            case 'M_Pan_Number':
+                setInputErrors((prevErrors) => ({
+                    ...prevErrors,
+                    [name]: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value) ? '' : 'Invalid PAN number',
+                }));
+                break;
+                case 'M_first_name':
+                    setInputErrors((prevErrors) => ({
+                        ...prevErrors,
+                        [name]: /^[a-zA-Z]+$/.test(value) ? '' : 'Invalid first name',
+                    }));
+                    break;
+                    case 'M_last_namer':
+                        setInputErrors((prevErrors) => ({
+                            ...prevErrors,
+                            [name]:/^[a-zA-Z]+$/.test(value) ? '' : 'Invalid  last name',
+                        }));
+                        break;
+                    case 'M_Position':
+                        setInputErrors((prevErrors) => ({
+                            ...prevErrors,
+                            [name]:/^[a-zA-Z]+$/.test(value) ? '' : 'Invalid  position',
+                        }));
+                        break;
+                        case 'M_UPI_Payment_Mobile_Number':
+                            setInputErrors((prevErrors) => ({
+                                ...prevErrors,
+                                [name]: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value) ? '' : 'Invalid  UPI Payment Mobile Number',
+                            }));
+                            break;
+                            case 'M_UPI_bank_account_number':
+                                setInputErrors((prevErrors) => ({
+                                    ...prevErrors,
+                                    [name]: /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value) ? '' : 'Invalid  UPI Payment Mobile Number',
+                                }));
+                                break;
+                                case 'M_Permanent_address':
+                                    setInputErrors((prevErrors) => ({
+                                        ...prevErrors,
+                                        [name]:/^[a-zA-Z]+$/.test(value) ? '' : 'Invalid permanent address',
+                                    }));
+                                    break;
+                    
+
+            default:
+                break;
+        }
+    };
+    
+        
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -102,22 +209,34 @@ const Add_Distributer_Detials = () => {
     };
 
     const inputFields = [
-        { label: "Register ID", name: "MF_Id", value: postData.MF_Id, icon: ic_home_work },
-        { label: "Distributor Name", name: "M_User_Name", value: postData.M_User_Name, icon: person },
-        { label: "Aadhar Number", name: "M_Aadhar_Number", value: postData.M_Aadhar_Number, icon: pen_3 },
-        { label: "Position", name: "M_Position", value: postData.M_Position, icon: ic_wysiwyg },
-        // Add more input field objects as needed
-        { label: "GST Number", name: "M_GST_Number", value: postData.M_GST_Number, icon: pen_3 },
-        { label: "Bussiness Type", name: "M_Business_Type", value: postData.M_Business_Type, icon: pen_3 },
-        { label: "Email", name: "M_Email", value: postData.M_Email, icon: pen_3 },
-        { label: "Account Number", name: "M_Account_Number", value: postData.M_Account_Number, icon: pen_3 },
-        // row 3
-        { label: "Contact Number", name: "M_Phone_No", value: postData.M_Phone_No, icon: pen_3 },
-        { label: "PAN Number", name: "M_Pan_Number", value: postData.M_Pan_Number, icon: pen_3 },
-        { label: "Organization Name", name: "M_Organization_Name", value: postData.M_Organization_Name, icon: pen_3 },
-        { label: "UPI ID", name: "M_Upi_Id", value: postData.M_Upi_Id, icon: pen_3 },
-    ];
+        { label: "Organization Name", name: "M_organization_Name", value: postData.M_Organization_Name, icon: pen_3,type:"text" },
+        { label: "Business Type", name: "M_Business_Type", value: postData.M_Business_Type, icon: pen_3,type:"text" },
+        { label: "GST Number", name: "M_GST_Number", value: postData.M_GST_Number, icon: pen_3,type:"" },
+        { label: "PAN Number", name: "M_Pan_Number", value: postData.M_Pan_Number, icon: pen_3,type:"tel" },
+        { label: "Aadhar Number", name: "M_Aadhar_Number", value: postData.M_Aadhar_Number, icon: pen_3,type:"text" },
+        { label: "First Name", name: "M_First_Name", value: postData.M_First_Name, icon: pen_3,type:"text" },
+        { label: "Last Name", name: "M_Last_Name", value: postData.M_Last_Name, icon: pen_3,type:"text" },
 
+        { label: "Position", name: "M_Position", value: postData.M_Position, icon: ic_wysiwyg,type:"text" },
+        { label: "Email", name: "M_Email", value: postData.M_Email, icon: pen_3,type:"email" },
+        { label: "MobileNumber", name: "M_Mobile_Number", value: postData.M_Mobile_Number, icon: pen_3,type:"tel" },
+        { label: "UPI payment mobile number(linked to UPI)", name: "M_UPI_Payment_Mobile_Number", value: postData.M_M_UPI_Payment_Mobile_Number, icon: pen_3,type:"tel" },
+        { label: "UPI bank account name", name: "M_UPI_bank_account_name", value: postData.M_M_UPI_bank_account_name, icon: pen_3,type:"text"},
+        { label: "UPI bank account number", name: "M_UPI_bank_account_number", value: postData.M_M_UPI_bank_account_Number, icon: pen_3, type:""},
+        { label: "1st page of passbook image in JPEG photo:", name: "M_1st page of passbook image in JPEG photo", value: postData.M_M_UPI_Payment_Mobile_Number, icon: pen_3,type:"file" },
+       
+
+        { label: "Permanent Address", name: "M_Permanent_address", value: postData.M_permanent_Address, icon: pen_3, type:"text"},
+        { label: "Street Address", name: "M_street_address", value: postData.M_PR_Street_Address, icon: pen_3, type:"text" },
+        { label: "city", name: "M_city", value: postData.M_city, icon: pen_3, type:"text" },
+        { label: "state", name: "M_state", value: postData.M_state, icon: pen_3, type:"text"},
+        { label: "postal code", name: "M_postal_code", value: postData.M_PR_PostalCode, icon: pen_3, type:"text"},
+        { label: "communication address(if different from permanent)", name: "M_communication_Address", value: postData.M_communication_address, icon: pen_3,type:"text" },
+       
+    ];
+    const handleBlur = (name, value) => {
+        validateInput(name, value);
+    };
     // set var
     const [first_name, setfirst_name] = useState("");
     const [last_name, setlast_name] = useState("");
@@ -172,21 +291,25 @@ const Add_Distributer_Detials = () => {
                     </div>
                 </div>
             </div>
+            
             {/* User access model */}
 
             <div className="row_with_count_status">
-                <span className='module_tittle'>Distributer Detials</span>
+                <span className='module_title'>Distributer Details</span>
             </div>
             <div className="add_device_container1">
                 <div className="new_device_content scroll_div">
                     <div className="row_one display-flex">
-                        <div className="adding_new_device uppercase bold">Add Distributer Detials </div>
+                        <div className="adding_new_device uppercase bold">Add Distributer Details </div>
                     </div>
+                    
 
                     <div className="row_two display-flex padding-loc">
                         <div className="device_info uppercase light-grey mb-loc-5">
                             Distributor info
+    
                         </div>
+                       
                         <div className="input-boxes">
                             <div className="cmpny_and_site_name display-flex">
                                 {inputFields.slice(0, 4).map((field, index) => (
@@ -195,12 +318,15 @@ const Add_Distributer_Detials = () => {
                                             <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
+                                        
                                                 <input
-                                                    type="text"
+                                                    type={field.type}
                                                     className="form-control-loc"
                                                     value={field.value}
                                                     onChange={handleInputChange}
+                                                    onBlur={() => handleBlur(field.name, field.value)}
                                                     name={field.name}
+
                                                     id={`input${index + 1}`}
                                                 />
                                                 {/* Add error handling if needed */}
@@ -209,7 +335,7 @@ const Add_Distributer_Detials = () => {
                                     </div>
                                 ))}
                             </div>
-
+                            </div>
 
                             <div className="dsa_row_3 display-flex">
 
@@ -220,10 +346,11 @@ const Add_Distributer_Detials = () => {
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input
-                                                    type="text"
+                                                    type={field.type}
                                                     className="form-control-loc"
                                                     value={field.value}
                                                     onChange={(e) => handleInputChange(e, field.name)}
+                                                    onBlur={() => handleBlur(field.name, field.value)}
                                                     name={field.name}
                                                     id={`input${index + 1}`}
                                                 />
@@ -235,17 +362,18 @@ const Add_Distributer_Detials = () => {
 
                             </div>
                             <div className="dsa_row_3 display-flex">
-                                {inputFields.slice(8, 12).map((field, index) => (
+                                {inputFields.slice(8, 10).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
                                             <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input
-                                                    type="text"
+                                                    type={field.type}
                                                     className="form-control-loc"
                                                     value={field.value}
                                                     onChange={(e) => handleInputChange(e, field.name)}
+                                                    onBlur={() => handleBlur(field.name, field.value)}
                                                     name={field.name}
                                                     id={`input${index + 1}`}
                                                 />
@@ -257,8 +385,95 @@ const Add_Distributer_Detials = () => {
                             </div>
 
                         </div>
-                    </div>
-
+                    
+                    
+                    
+                        <div className="device_info uppercase light-grey mb-loc-5">
+                            UPI Payment details
+    
+                        </div>
+                       
+                        <div className="input-boxes">
+                            <div className="cmpny_and_site_name display-flex">
+                                {inputFields.slice(10,14).map((field, index) => (
+                                    <div key={index} className="inputbox display-flex input">
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
+                                                <input
+                                                    type={field.type}
+                                                    className="form-control-loc"
+                                                    value={field.value}
+                                                    onChange={handleInputChange}
+                                                    onBlur={() => handleBlur(field.name, field.value)}
+                                                    name={field.name}
+                                                    id={`input${index + 1}`}
+                                                />
+                                                {/* Add error handling if needed */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div> 
+                             
+                        <div className="device_info uppercase light-grey mb-loc-5">
+                           Address Details
+    
+                        </div>
+                       
+                        <div className="input-boxes">
+                            <div className="cmpny_and_site_name display-flex">
+                                {inputFields.slice(15,18).map((field, index) => (
+                                    <div key={index} className="inputbox display-flex input">
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
+                                                <input
+                                                    type={field.type}
+                                                    className="form-control-loc"
+                                                    value={field.value}
+                                                    onChange={handleInputChange}
+                                                    onBlur={() => handleBlur(field.name, field.value)}
+                                                    name={field.name}
+                                                    id={`input${index + 1}`}
+                                                />
+                                                {/* Add error handling if needed */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                                 {inputFields.slice(19,21).map((field, index) => (
+                                    <div key={index} className="inputbox display-flex input">
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
+                                                <input
+                                                    type={field.type}
+                                                    className="form-control-loc"
+                                                    value={field.value}
+                                                    onChange={handleInputChange}
+                                                    onBlur={() => handleBlur(field.name, field.value)}
+                                                    name={field.name}
+                                                    id={`input${index + 1}`}
+                                                />
+                                                 {inputErrors[field.name] && (
+                                        <div className="invalid-feedback">
+                                            {inputErrors[field.name]}
+                                            Invalid data for the field
+                                        </div>
+                                    )}
+                                                {/* Add error handling if needed */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                                
+                            </div> 
+            </div>
+        </div>
                     <div className="operating_buttons display-flex padding-loc">
                         <div className="save_cancel_btn display-flex site_button">
                             <button className="btn-loc active-loc btn btn-outline-success" onClick={(e) => handleSubmit(e)}>Save</button>
@@ -270,7 +485,8 @@ const Add_Distributer_Detials = () => {
                 </div>
             </div>
         </div >
-
+    
+ 
     );
 };
-export default Add_Distributer_Detials;
+export default Add_Distributer_Detials; 

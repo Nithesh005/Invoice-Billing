@@ -1,0 +1,11 @@
+.new_device_content.scroll_div {
+    height: 400px;
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column; 
+}
+
+.red-star {
+    color: red;
+}
+
