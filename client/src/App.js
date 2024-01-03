@@ -58,7 +58,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      {window.location.href !== 'http://localhost:3001/' ? (
+      {window.location.href !== 'http://localhost:3000/' ? (
         <>
           {userInfo.isLoggedIn && (
             <div>
