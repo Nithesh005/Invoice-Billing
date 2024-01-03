@@ -59,7 +59,7 @@ const InvoiceGenerator = () => {
 
   return (
     <>
-      <div className="row_with_count_status">
+      {/* <div className="row_with_count_status">
         <span className='module_tittle'>INVOICE Generator</span>
       </div>
 
@@ -140,23 +140,7 @@ const InvoiceGenerator = () => {
                       disabled
                     />
                   </td>
-                  {/* <td>
-                    <input
-                      type="number"
-                      placeholder="0"
-                      name="amount"
-                      className="amount-input"
-                      value={row.amount}
-                      disabled
-                    />
-                  </td> */}
                   <td style={{ textAlign: 'right' }}>
-                    {/* <span
-                      className="material-icons delete-icon"
-                      onClick={() => deleteRow(index)}
-                    >
-                      delete_outline
-                    </span> */}
                     <MdDelete className="delete-icon" size={24} color="red" onClick={() => deleteRow(index)} />
                   </td>
                 </tr>
@@ -177,7 +161,6 @@ const InvoiceGenerator = () => {
         </div>
         <div className="add-row-button">
           <a href="#" onClick={addNewRow}>
-            {/* <span className="material-icons plus">add</span> Add Row */}
             <IoIosAdd className="add-icon" style={{
               fontSize: '40px',   
               color: 'white',       
@@ -187,7 +170,9 @@ const InvoiceGenerator = () => {
             }} />
           </a>
         </div>
-      </div>
+      </div> */}
+
+      hii
     </>
   );
 };
