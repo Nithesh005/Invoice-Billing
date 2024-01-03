@@ -59,64 +59,63 @@ async function getUserData4(req,res) {
         throw error; // Propagate the error to the calling function
     }
 }
-async function updatestate(req, res) {
-    console.log("function called");
 
-    try {
-        const {
-            rno,
-            stateid,
-            statecode,
-            statename,
-            lastupdateby,
-            updatedon,
-            newrno,
-            newstateid,
-            newstatecode,
-            newstatename,
-            newlastupdateby,
-            newupdatedon
-        } = req.params;
 
-        console.log('Received Parameters:', req.params);
 
-        // Check if required parameters are provided
-        if (!rno || !stateid || !statecode || !statename || !lastupdateby || !updatedon || !newrno || !newstateid || !newstatecode || !newstatename || !newlastupdateby || !newupdatedon) {
-            console.log('Missing parameters');
-            res.status(400).send('Missing parameters');
-            return;
-        }
 
-        const updateQuery =
-            'UPDATE state SET rno = $1, stateid = $2, statecode = $3, statename = $4, lastupdateby = $5, updatedon = $6 WHERE rno = $7 AND statecode = $8 AND statename = $9 AND lastupdateby = $10 AND updatedon = $11';
 
-        const updateValues = [
-            newrno,
-            newstateid,
-            newstatecode,
-            newstatename,
-            newlastupdateby,
-            newupdatedon,
-            rno,
-            stateid,
-            statecode,
-            statename,
-            lastupdateby,
-            updatedon
-        ];
-
-        console.log('Update Query:', updateQuery);
-        console.log('Update Values:', updateValues);
-
-        const updateResult = await userdbInstance.userdb.query(updateQuery, updateValues);
-
-        console.log('Update successful');
-        res.send('Update successful');
-    } catch (error) {
-        console.error('Error in updatestate function:', error);
-        res.status(500).send(`Error updating data: ${error.message}`);
+    
+    
+    
+    async function deleteuser(req,res){
+    console.log("fucntion called");
+    const {userid,email} = req.body;
+    console.log(userid);
+    console.log(email);
+    
+        
+            try {        
+                    const updateQuery =
+                  'DELETE FROM public."user" WHERE email=$1 AND userid=$2';
+                    
+                const updateValues = [
+                    email,
+                    userid
+                ];
+        
+                console.log('Delete Query:', updateQuery);
+                console.log('Delete Values:', updateValues);
+        
+                const updateResult = await userdbInstance.userdb.query(updateQuery, updateValues);
+        
+                console.log('delete successfull');
+                res.send('delete successful');
+            }
+         
+          catch (error) {
+                console.error('Error in updatestate function:', error);
+                res.status(500).send(`Error updating data: ${error.message}`);
+            }
+        
+        
+        
+        
     }
-}
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+    
 
 
 
@@ -129,4 +128,10 @@ async function updatestate(req, res) {
 
 
 
-module.exports = { getUserData , getUserData1, getUserData2, getUserData3, getUserData4, updatestate };
+
+
+
+
+
+
+module.exports = { getUserData , getUserData1, getUserData2, getUserData3, getUserData4,deleteuser };

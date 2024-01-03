@@ -4,6 +4,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const getdata = require('./getFunctions');
+const updatedata=require('./updateFunctions');
+const insertdata=require('./insertFunctions');
 
 // Insert into DB
 app.post('/add/:entity(user|credentials)', async (req, res) => {
@@ -25,8 +27,26 @@ app.post('/add/:entity(user|credentials)', async (req, res) => {
     // else {
     //     res.status(400).send('Invalid elements value');
     // }
+    if(entity === 'user'){
+        try{
+        var a=insertdata.adduserdata(req,res);
+        res.send((await a),rows);
+    }catch(error){
+        res.send("error");
+}
+    }
+    else if(entity === 'credentials'){
+        try{
+            var a=insertdata.addcredentialsdata(req,res);
+            res.send((await a).rows);
+        }
+        catch{
+            res.send("error");
+        }
+    }
 
 });
+
 
 // Get Data From DB
     app.get('/get/:entity(user|credentials|state|district|accesscontroll)', async (req, res) => {
@@ -99,46 +119,75 @@ app.post('/add/:entity(user|credentials)', async (req, res) => {
     }
   
 );
+const bodyParser = require('body-parser');
+const { Pool } = require('pg');
+
+const port = 3000;
+
+app.use(bodyParser.json());
 
 
-// Update Data from DB
-app.post('/update/:entity(state | bike)', async (req, res) => {
+
+
+
+app.post('/update/:entity(user|accesscontroll)', async (req, res) => {
     const entity = req.params.entity;
-
+    console.log("hello");
     try {
-        if (entity === 'state') {
-            await getdata.updatestate(req, res);
-            // No need to await here, as updatestate already handles the response
-            console.log('Update completed successfully');
-        } else {
-            res.status(400).send('Invalid element type');
+         if (entity === 'user') {
+             var a=updatedata.updateuser(req,res);
+             // No need to await here, as updatestate already handles the response
+           console.log('Update user completed successfully');
         }
-    } catch (error) {
-        console.error('Error in update route:', error);
-        res.status(500).send(`Error updating data: ${error.message}`);
-    }
+        else if( entity === 'accesscontroll'){
+            
+                var a=updatedata.updateaccesscontroll(req,res);
+                res.send((await a).rows);
+            
+            
+         }
+          else {
+            res.status(400).send('Invalid element type');
+       }
+     } catch (error) {
+         console.error('Error in update route:', error);
+         res.status(500).send(`Error updating data: ${error.message}`);
+     }
+
 });
 
-    // else if (elements === 'credentials') {
-    //     insetintocdential();
-    // }
-    // else if (elements === 'userdetials') {
-    //     try {
-    //         await getdata(req, res);
-    //     } catch (error) {
-    //         console.error('Error retrieving user details:', error);
-    //         res.status(500).send('Internal Server Error');
-    //     }
-    // }
-    // else {
-        //res.status(400).send('Invalid elements value');
-     //}
-//});
 
 
-app.listen(4000, () => {
-    console.log("server is running on port 4000");
+app.post('/delete/:entity(user)', async (req, res) => {
+    const entity = req.params.entity;
+    console.log("hello");
+    try {
+         if (entity === 'user') {
+          await getdata.deleteuser(req, res);
+             // No need to await here, as updatestate already handles the response
+           console.log('delete user completed successfully');
+        }
+        
+          else {
+            res.status(400).send('Invalid element type');
+       }
+     } catch (error) {
+         console.error('Error in delete route:', error);
+         res.status(500).send(`Error deleting data: ${error.message}`);
+     }
+
 });
+
+
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+  });
+  
+
+
+
+
 
 
 
