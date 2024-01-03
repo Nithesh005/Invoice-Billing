@@ -11,7 +11,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 
-const Distributer_Detials_content = () => {
+const Staff_Detials = () => {
     //states
     const [rotatedIndex, setRotatedIndex] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -31,11 +31,17 @@ const Distributer_Detials_content = () => {
     // //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
-        navigate('/Add_Distributer_Detials');
+        navigate('/Add_Staff_Detials');
     }
 
     const handleIconClick = () => {
-        setRotatedIndex(!rotatedIndex);
+        // userInfo.staff
+        if (2 > 2) {
+            setRotatedIndex(!rotatedIndex);
+        }else{
+            alert("Option Disabled for Staff")
+        }
+
     };
 
     const handleDivClick = () => {
@@ -47,8 +53,8 @@ const Distributer_Detials_content = () => {
     };
 
     //navigate to edit page
-    const Distributer_Detials_edit_page = async (data) => {
-        navigate(`/Edit_Distributer_Detials`);
+    const Staff_Detials_edit_page = async (data) => {
+        navigate(`/Edit_Staff_Detials`);
     }
 
     return (
@@ -56,7 +62,7 @@ const Distributer_Detials_content = () => {
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
                     <div className="row_with_count_status">
-                        <span className='module_tittle'>Distributer Detials</span>
+                        <span className='module_tittle'>Staff Detials</span>
                     </div>
 
                     <div className='filters display-flex' >
@@ -134,7 +140,7 @@ const Distributer_Detials_content = () => {
                         </div>
 
                         <div className='filters2 display-flex' onClick={handleclick}>
-                            <button className='btn btn-fill'>Add Distributer</button>
+                            <button className='btn btn-fill'>Add Staff</button>
                         </div>
                     </div>
 
@@ -168,22 +174,25 @@ const Distributer_Detials_content = () => {
                                 >
                                     <Icon icon={ic_label_important} style={{ transform: rotatedIndex == true ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex == true ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
                                 </div>
+
                                 <div>{(rotatedIndex) &&
                                     (<div className='device_action_dropdown'>
                                         <div className='display-flex device_action_dropdown1 dropdown_action'>
                                             <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                             <div className='device_content_dropdown display-flex'
-                                                onClick={() => Distributer_Detials_edit_page()}
+                                                onClick={() => Staff_Detials_edit_page()}
                                             >Edit Distributer Detials</div>
                                         </div>
                                         <div className='display-flex device_action_dropdown2 dropdown_action'>
                                             <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
                                             <div className='device_content_dropdown display-flex'
+                                            // onClick={() => { Editinactivedata(data, index) }}
                                             >Remove Distributer</div>
                                         </div>
                                     </div>
                                     )}
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -268,4 +277,4 @@ const Distributer_Detials_content = () => {
     );
 };
 
-export default Distributer_Detials_content;
+export default Staff_Detials;

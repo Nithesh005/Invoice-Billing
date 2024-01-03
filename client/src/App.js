@@ -23,6 +23,7 @@ import Sidebar from './components/Sidebar';
 import Login from './pages/Login';
 import TopNavbar from './TopNavbar';
 import UpdatePassword from './pages/UpdatePassword.jsx';
+import Staff_Detials from './pages/Staff_Detials.jsx';
 
 const App = () => {
   // const handleLogin = (role) => {
@@ -38,20 +39,20 @@ const App = () => {
     sessionStorage.removeItem('access_control');
     sessionStorage.removeItem('state_count');
   };
-  // const userdata = [
-  //   {
-  //     "userid": "123",
-  //     "email": "admin@gmail.com",
-  //     "phno": "9876543210",
-  //     "name": "jai",
-  //     "position": "manufacturer",
-  //     "userprofile": "jai2004",
-  //     "distributer": "3",
-  //     "product": "3",
-  //     "invoice": "3",
-  //      "customer":"3"
-  //   }
-  // ]
+  // const userInfo1 = {
+  //   customer: "0",
+  //   distributer: "3",
+  //   staff: "2",
+  //   email: "admin@gmail.com",
+  //   invoice: "3",
+  //   isLoggedIn: true,
+  //   name: "admin",
+  //   phno: "123456789",
+  //   position: "manifacture",
+  //   product: "3",
+  //   userid: "123",
+  //   userprofile: "1"
+  // };
   const userInfoString = sessionStorage.getItem("UserInfo");
   const userInfo = JSON.parse(userInfoString);
   // console.log(userInfo.distributer);
@@ -64,6 +65,17 @@ const App = () => {
             <div>
               <TopNavbar />
               <Sidebar handleLogout={handleLogout}>
+                {/* userInfo.staff */}
+                {2 > 0 && (
+                  <div>
+                    <Routes>
+                      {/* Staff module */}
+                      <Route path='/Staff_Detials' element={<Staff_Detials />}></Route>
+                      {/* <Route path='/Add_Staff_Detials' element={<Add_Staff_Detials />}></Route>
+                      <Route path='/Edit_Staff_Detials' element={<Edit_Staff_Detials />}></Route> */}
+                    </Routes>
+                  </div>
+                )}
                 {userInfo.distributer > 0 && (
                   <div>
                     <Routes>
@@ -85,7 +97,7 @@ const App = () => {
                     <Routes>
                       {/* Customer module */}
                       <Route path='/Customer_Detials' element={<CustomerDetails />}></Route>
-                      <Route path='/Add_Customer_Detials' element={<Add_Customer_Detials/>}></Route>
+                      <Route path='/Add_Customer_Detials' element={<Add_Customer_Detials />}></Route>
                       <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                     {/* {userdata[0].distributer > 2 && (

@@ -51,6 +51,11 @@ async function addUser(req, res) {
             distributor_ac =products_ac= customer='0';
             Invoice_ac = '3';
         }
+        else if (Positionid == 4) {
+            distributor_ac = '0';
+            products_ac = customer='0';
+            Invoice_ac = '3';
+        }
         const access_controlTable = await userdbInstance.userdb.query('insert into accesscontroll (distributer,product,invoice,userid,customer) values ($1,$2,$3,$4,$5)',
             [distributor_ac,products_ac,Invoice_ac,userid,customer]);
         
