@@ -21,20 +21,20 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
     console.log(userInfo);
 
     // sample data
-    const userInfo1 = {
-        customer: "0",
-        distributer: "3",
-        staff: "2",
-        email: "admin@gmail.com",
-        invoice: "3",
-        isLoggedIn: true,
-        name: "admin",
-        phno: "123456789",
-        position: "manifacture",
-        product: "3",
-        userid: "123",
-        userprofile: "1"
-    };
+    // const userInfo1 = {
+    //     customer: "0",
+    //     distributer: "3",
+    //     staff: "2",
+    //     email: "admin@gmail.com",
+    //     invoice: "3",
+    //     isLoggedIn: true,
+    //     name: "admin",
+    //     phno: "123456789",
+    //     position: "manifacture",
+    //     product: "3",
+    //     userid: "123",
+    //     userprofile: "1"
+    // };
     const userSidebarConfig = {
         RI001: {
             menuItem: [
@@ -42,10 +42,9 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                     icon: <FaUserAlt />,
                     head: 'Management',
                     links: [
-                        { url: '/Staff_Detials', text: 'Staff Detials', condition: userInfo1.staff > 0 },
-                        { url: '/Distributer_Detials', text: 'Distributer Detials', condition: userInfo.distributer > 0 },
+                        { url: '/Staff_Detials', text: 'Staff Detials', condition: userInfo.staff > 0 },
+                        { url: '/Distributer_Detials', text: 'Distributor Detials', condition: userInfo.distributer > 0 },
                         { url: '/Customer_Detials', text: 'Customer Detials', condition: userInfo.customer > 0 },
-                        { url: '/Products', text: 'Products', condition: userInfo.product > 0 },
                         // { url: '/Products', text: 'Products' },
                         { url: '/ProfilePage', text: 'Profile Info', condition: true },
                         { url: '/Contact_us', text: 'Contact us', condition: true },
@@ -55,6 +54,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
                     icon: <FaRegChartBar />,
                     head: 'PaySlip',
                     links: [
+                        { url: '/Products', text: 'Products', condition: userInfo.product > 0 },
                         { url: '/TransactionHistory', text: 'PaySlip Log', condition: true },
                         { url: '/InvoiceGenerator', text: 'Invoice Generator', condition: userInfo.invoice > 0 },
                         { url: '/Invoice', text: 'Invoice', condition: userInfo.invoice > 0 },

@@ -14,7 +14,7 @@ import CustomerDetails from './pages/CustomerDetails';
 import Add_Customer_Detials from './pages/Add_Customer_Detials';
 import Add_site from './pages/Add_Products.jsx';
 import Invoice from "./components/Invoice.jsx";
-import InvoiceGenerator from "./components/InvoiceGenerator.jsx";
+import InvoiceGenerator from "./pages/InvoiceGenerator.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import TransactionHistory from "./pages/TransactionHistory.jsx";
 
@@ -66,13 +66,13 @@ const App = () => {
               <TopNavbar />
               <Sidebar handleLogout={handleLogout}>
                 {/* userInfo.staff */}
-                {2 > 0 && (
+                {userInfo.staff  > 0 && (
                   <div>
                     <Routes>
                       {/* Staff module */}
                       <Route path='/Staff_Detials' element={<Staff_Detials />}></Route>
-                      {/* <Route path='/Add_Staff_Detials' element={<Add_Staff_Detials />}></Route>
-                      <Route path='/Edit_Staff_Detials' element={<Edit_Staff_Detials />}></Route> */}
+                      <Route path='/Add_Staff_Detials' element={<Add_Distributer_Detials />}></Route>
+                      <Route path='/Edit_Staff_Detials' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                   </div>
                 )}
@@ -124,7 +124,7 @@ const App = () => {
                 )} */}
                   </div>
                 )}
-                {userInfo.product > 0 && (
+                {userInfo.invoice > 0 && (
                   <div>
                     <Routes>
                       {/* Invoice Module */}

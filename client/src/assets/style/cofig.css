@@ -20,4 +20,5 @@
   /*.light-grey */
   --ADD_DEVICE_DETIAL_CLR: #2E317D;
   --CANCEL_BTN_CLR: #ff2a00;
+  --OUTLINE_BORDERS:1px solid gainsboro;
 }

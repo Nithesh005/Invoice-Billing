@@ -106,35 +106,35 @@ const Add_Customer_Detials = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const isValidgstNumber = /^([A-Za-z]{2}[0-9]{2}[0-9]{4})$/.test(postData.gstNumber)
+        const isValidpanNumber = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(postData.panNumber)
+        const isValidaadharNo = /^\d{12}$/.test(postData.aadharNo)
+        const isValidfName = /^[A-Za-z\s'-]+$/.test(postData.fName)
+        const isValidemail = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(postData.email)
+        const isValidupiPaymentNo = /^\d{10}$/.test(postData.upiPaymentNo)
+        const isValidaccName = /^[A-Za-z\s'-]+$/.test(postData.accName)
+        const isValidaccNo = /^\d*$/.test(postData.accNo)
         if (!isValidgstNumber) {
             alert("enter valid GST Number");
         }
-        const isValidpanNumber = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(postData.panNumber)
-        if (!isValidpanNumber) {
+        else if (!isValidpanNumber) {
             alert("enter valid PAN Number");
         }
-        const isValidaadharNo = /^\d{12}$/.test(postData.aadharNo)
-        if (!isValidaadharNo) {
+        else if (!isValidaadharNo) {
             alert("enter valid Aadhar Number");
         }
-        const isValidfName = /^[A-Za-z\s'-]+$/.test(postData.fName)
-        if (!isValidfName) {
+        else if (!isValidfName) {
             alert("enter valid First Name");
         }
-        const isValidemail = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(postData.email)
-        if (!isValidemail) {
+        else if (!isValidemail) {
             alert("enter valid Email");
         }
-        const isValidupiPaymentNo = /^\d{10}$/.test(postData.upiPaymentNo)
-        if (!isValidupiPaymentNo) {
+        else if (!isValidupiPaymentNo) {
             alert("enter valid UPI payment Number");
         }
-        const isValidaccName = /^[A-Za-z\s'-]+$/.test(postData.accName)
-        if (!isValidaccName) {
+        else if (!isValidaccName) {
             alert("enter valid Account Name");
         }
-        const isValidaccNo = /^\d*$/.test(postData.accNo)
-        if (!isValidaccNo) {
+        else if (!isValidaccNo) {
             alert("enter valid Account Number");
         }
 
@@ -268,7 +268,7 @@ const Add_Customer_Detials = () => {
                                 {inputFields.slice(0, 4).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input
@@ -292,7 +292,7 @@ const Add_Customer_Detials = () => {
                                 {inputFields.slice(4, 8).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input
@@ -314,7 +314,7 @@ const Add_Customer_Detials = () => {
                                 {inputFields.slice(8, 9).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                            <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                                 <input
@@ -339,7 +339,7 @@ const Add_Customer_Detials = () => {
                             {inputFields.slice(9, 13).map((field, index) => (
                                 <div key={index} className="inputbox display-flex input">
                                     <div className="dsa_1st_input">
-                                        <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                        <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
                                         <div className="inputs-group display-flex">
                                             <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                             <input
@@ -363,7 +363,7 @@ const Add_Customer_Detials = () => {
                             {inputFields.slice(14, 18).map((field, index) => (
                                 <div key={index} className="inputbox display-flex input">
                                     <div className="dsa_1st_input">
-                                        <label htmlFor={`input${index + 1}`}>{field.label}<span>*</span></label>
+                                        <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
                                         <div className="inputs-group display-flex">
                                             <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
                                             <input
@@ -385,7 +385,7 @@ const Add_Customer_Detials = () => {
 
                     <div className="operating_buttons display-flex padding-loc">
                         <div className="save_cancel_btn display-flex site_button">
-                            <button className="btn-loc active-loc btn btn-outline-success" onClick={(e) => handleSubmit(e)}>Save</button>
+                            <button className="btn-loc active-loc btn btn-outline-success" onClick={(e) => handleSubmit(e)}>Add</button>
                             {/* <button type="button" class="btn-loc inactive-loc btn btn-outline-danger" data-bs-dismiss="modal">Close</button> */}
 
                             <button className="btn-loc inactive-loc btn " style={cancel_btn} data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>

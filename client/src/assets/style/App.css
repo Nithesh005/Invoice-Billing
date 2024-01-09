@@ -2434,3 +2434,116 @@ input[type='number'] {
 .required {
     color: red;
 }
+
+/* Invoice Generator */
+
+.App {
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+.first-div, .second-div, .third-div{
+    width: 80%;
+    border: var(--OUTLINE_BORDERS);
+    border-radius: 7px;
+}
+.addInvoiceHead{
+    font-size: larger;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    border-bottom: var(--OUTLINE_BORDERS);
+    padding: 1rem;
+    text-shadow: #8c8c8c;
+}
+.addIncoiveText{
+    margin-left: 2rem;
+
+}
+.bottomBorder{
+    border-bottom: var(--OUTLINE_BORDERS);
+}
+.cutomerName{
+    display: flex;
+    /* width: 80%; */
+}
+.contentLeft , .contentRight{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contentLeft{
+    width: 40%;
+}
+.contentRight{
+    width: 60%;
+}
+/* .first-div {
+    height: 90vh;
+    margin-bottom: 20px;
+}
+
+.second-div {
+    height: 90vh;
+    margin-bottom: 20px;
+}
+
+.third-div {
+    height: 90vh;
+    margin-bottom: 20px;
+} */
+
+footer {
+    background-color: #f2f2f2;
+    height: 80px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+}
+
+.button-div {
+    width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button1 {
+    border: 1px solid black;
+    height: 40px;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.button2 {
+    border: 1px solid black;
+    height: 40px;
+    width: 150px;
+    border-radius: 5px;
+    background-color: green;
+}
+
+.button3 {
+    border: 1px solid black;
+    height: 40px;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.text-div {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    font-size: 20px;
+}
+/* End Invoice Generator */

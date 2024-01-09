@@ -17,7 +17,7 @@ async function checkCredentials(req, res) {
           "user".userid,"user".email,"user".phno,"user".name,
           (select position from position where positionid = "user".positionid),
           "user".userprofile ,accesscontroll.distributer,accesscontroll.product,
-          accesscontroll.invoice,accesscontroll.customer
+          accesscontroll.invoice,accesscontroll.customer,accesscontroll.staff
           FROM public.credentials
           JOIN public."user" ON credentials.userid = "user".userid
           JOIN public.accesscontroll on accesscontroll.userid = "user".userid

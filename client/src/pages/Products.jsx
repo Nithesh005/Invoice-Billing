@@ -175,7 +175,7 @@ const Products = () => {
                                             </div>
                                         )}
                                     </div> */}
-                                    <div class="dropdown-filter"
+                                    {/* <div class="dropdown-filter"
                                         ref={dropdownRef3}
                                     >
                                         <div class="device_filters" onClick={dropdown3}>
@@ -222,7 +222,7 @@ const Products = () => {
                                                 </div>
                                             </div>
                                         )}
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

@@ -31,15 +31,17 @@ const Add_Distributer_Detials = () => {
     const userInfoString = sessionStorage.getItem("UserInfo");
     const userInfo = JSON.parse(userInfoString);
     // for invoice
+    // console.log(selectedUser);
     const [postData, setPostData] = useState({
         userid: '',
         OrganizationName: '',
+        bussinessType: '',
         gstNumber: '',
         panNumber: '',
         aadharNo: '',
         fName: '',
         lName: '',
-        Positionid: '2',
+        Positionid: '4',
         adminid: userInfo.userid,
         email: '',
         mobileNo: '',
@@ -64,12 +66,13 @@ const Add_Distributer_Detials = () => {
         setPostData({
             userid: '',
             OrganizationName: '',
+            bussinessType: '',
             gstNumber: '',
             panNumber: '',
             aadharNo: '',
             fName: '',
             lName: '',
-            Positionid: '3',
+            Positionid: selectedUser,
             adminid: userInfo.userid,
             email: '',
             mobileNo: '',
@@ -105,41 +108,42 @@ const Add_Distributer_Detials = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const isValidgstNumber = /^([A-Za-z]{2}[0-9]{2}[0-9]{4})$/.test(postData.gstNumber)
+        const isValidpanNumber = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(postData.panNumber)
+        const isValidaadharNo = /^\d{12}$/.test(postData.aadharNo)
+        const isValidfName = /^[A-Za-z\s'-]+$/.test(postData.fName)
+        const isValidemail = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(postData.email)
+        const isValidupiPaymentNo = /^\d{10}$/.test(postData.upiPaymentNo)
+        const isValidaccName = /^[A-Za-z\s'-]+$/.test(postData.accName)
+        const isValidaccNo = /^\d*$/.test(postData.accNo)
+
         if (!isValidgstNumber) {
             alert("enter valid GST Number");
         }
-        const isValidpanNumber = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(postData.panNumber)
-        if (!isValidpanNumber) {
+        else if (!isValidpanNumber) {
             alert("enter valid PAN Number");
         }
-        const isValidaadharNo = /^\d{12}$/.test(postData.aadharNo)
-        if (!isValidaadharNo) {
+        else if (!isValidaadharNo) {
             alert("enter valid Aadhar Number");
         }
-        const isValidfName = /^[A-Za-z\s'-]+$/.test(postData.fName)
-        if (!isValidfName) {
+        else if (!isValidfName) {
             alert("enter valid First Name");
         }
-        const isValidemail = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(postData.email)
-        if (!isValidemail) {
+        else if (!isValidemail) {
             alert("enter valid Email");
         }
-        const isValidupiPaymentNo = /^\d{10}$/.test(postData.upiPaymentNo)
-        if (!isValidupiPaymentNo) {
+        else if (!isValidupiPaymentNo) {
             alert("enter valid UPI payment Number");
         }
-        const isValidaccName = /^[A-Za-z\s'-]+$/.test(postData.accName)
-        if (!isValidaccName) {
+        else if (!isValidaccName) {
             alert("enter valid Account Name");
         }
-        const isValidaccNo = /^\d*$/.test(postData.accNo)
-        if (!isValidaccNo) {
+        else if (!isValidaccNo) {
             alert("enter valid Account Number");
         }
-        
-        
+
+
         // alert(isValidpanNumber);
-        if (!isValidgstNumber || !isValidpanNumber ||!isValidaadharNo
+        if (!isValidgstNumber || !isValidpanNumber || !isValidaadharNo
             || !isValidfName || !isValidemail || !isValidupiPaymentNo || !isValidaccName || !isValidaccNo
         ) {
             // alert("Insert Properly");
@@ -160,6 +164,7 @@ const Add_Distributer_Detials = () => {
     const inputFields = [
         { label: "User ID", name: "userid", value: postData.userid, icon: ic_home_work },
         { label: "Organization Name", name: "OrganizationName", value: postData.OrganizationName, icon: person },
+        { label: "Bussiness Type", name: "bussinessType", value: postData.bussinessType, icon: person },
         { label: "GST Number", name: "gstNumber", value: postData.gstNumber, icon: pen_3 },
         { label: "PAN Number", name: "panNumber", value: postData.panNumber, icon: ic_wysiwyg },
         // Add more input field objects as needed
@@ -170,12 +175,12 @@ const Add_Distributer_Detials = () => {
         // row 3
         { label: "Email", name: "email", value: postData.email, icon: pen_3 },
         { label: "Mobile Number", name: "mobileNo", value: postData.mobileNo, icon: pen_3 },
-// 2. UPI Payment Details:
+        // 2. UPI Payment Details:
         { label: "UPI Payment Mobile No", name: "upiPaymentNo", value: postData.upiPaymentNo, icon: pen_3 },
         { label: "UPI - Bank Account Name", name: "accName", value: postData.accName, icon: pen_3 },
         { label: "UPI - Bank Account Number", name: "accNo", value: postData.accNo, icon: pen_3 },
-        { label: "Pass Book image", name: "passbookImg", value: postData.passbookImg, icon: pen_3 , inputType:"file"},
-// 3. Address Details:
+        { label: "Pass Book image", name: "passbookImg", value: postData.passbookImg, icon: pen_3, inputType: "file" },
+        // 3. Address Details:
         { label: "Permanent Address", name: "pAddress", value: postData.pAddress, icon: pen_3 },
         { label: "Street Address", name: "streetAddress", value: postData.streetAddress, icon: pen_3 },
         { label: "City", name: "City", value: postData.City, icon: pen_3 },
@@ -209,6 +214,7 @@ const Add_Distributer_Detials = () => {
         setcontact("");
         setDesignation("");
         setemail("");
+        // check condition and navigate
         navigate('/Distributer_Detials');
     }
 
@@ -221,6 +227,25 @@ const Add_Distributer_Detials = () => {
         "border": "1px solid gray",
     }
 
+    const [selectedUser, setSelectedUser] = useState(null);
+    var Positionid_val;
+    const handleUserChange = async (event) => {
+        setSelectedUser(event.target.value);
+        if (event.target.value === 'Staff') {
+            Positionid_val = 4;
+        }else if (event.target.value === 'Distributor') {
+            Positionid_val = 2;
+        }
+        // console.log("hello : ",Positionid_val);
+        await setPostData(prevData => ({
+            ...prevData,
+            Positionid: Positionid_val,
+        }));
+    };
+    
+    useEffect(() => {
+        console.log("hai : ", postData.Positionid);
+    }, [postData.Positionid]);
 
 
     return (
@@ -246,12 +271,18 @@ const Add_Distributer_Detials = () => {
             {/* User access model */}
 
             <div className="row_with_count_status">
-                <span className='module_tittle'>Distributer Detials</span>
+                <span className='module_tittle'>User Detials</span>
             </div>
             <div className="add_device_container1">
                 <div className="new_device_content scroll_div">
                     <div className="row_one display-flex">
-                        <div className="adding_new_device uppercase bold">Add Distributer Detials </div>
+                        <div className="adding_new_device uppercase bold">Add User Detials </div>
+                        <select value={selectedUser} onChange={handleUserChange}>
+                            <option defaultValue={"select user"} disabled>Select a User</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Distributor">Distributor</option>
+                            {/* Add more options as needed */}
+                        </select>
                     </div>
 
                     <div className="row_two display-flex padding-loc">

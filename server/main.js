@@ -9,19 +9,9 @@ app.use(express.json());
 const addData = require('./insertFunctions');
 const verifyData = require('./verifyFunction');
 const deleteData = require('./deletefunctions');
-app.post('/add/:entity(user)', async (req, res) => {
-    const entity = req.params.entity;
-    if (entity === 'user') {
-        try {
-            const addUser = await addData.addUser(req, res);
-            // res.json(addUser);
-        } catch (error) {
-            console.error('Error retrieving user details:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    }
-})
-// Insert into DB
+const getData = require('./getFunctions');
+
+
 app.post('/verify/:entity(user|credentials)', async (req, res) => {
     const entity = req.params.entity; // Corrected from req.params.elements
     const dataFromClient = req.body; // Assuming the data to be inserted is in the request body
@@ -36,24 +26,57 @@ app.post('/verify/:entity(user|credentials)', async (req, res) => {
 
 });
 
+// Insert into DB
+app.post('/add/:entity(user|products)', async (req, res) => {
+    const entity = req.params.entity;
+    if (entity === 'user') {
+        try {
+            const addUser = await addData.addUser(req, res);
+            // res.json(addUser);
+        } catch (error) {
+            console.error('Error retrieving user details:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+    if (entity === 'products') {
+        try {
+            const addUser = await addData.addInvoice(req, res);
+            // res.json(addUser);
+        } catch (error) {
+            console.error('Error retrieving products details:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+})
+
 // Get Data From DB
-app.get('/get/:entity(user|credentials|state|district|access_control)', async (req, res) => {
+app.post('/get/:entity(user|credentials|products|state|district|access_control)', async (req, res) => {
     const entity = req.params.entity;
     const requestData = req.body;
     // console.log(entity);
     if (entity === 'user') {
         try {
-            var userdata = await getdata.getUserData(req, res);
-            res.send(userdata);
+            var userdata = await getData.getUserData(req, res);
+            // res.send(userdata);
         }
         catch (error) {
             res.send("error");
             console.error("Error retrieving data");
         }
     }
-    else {
-        res.status(400).send('Invalid elements value');
+    if (entity === 'products') {
+        try {
+            // var userdata = await getdata.getUserData(req, res);
+            // res.send(userdata);
+        }
+        catch (error) {
+            res.send("error");
+            console.error("Error retrieving data");
+        }
     }
+    // else {
+    //     res.status(400).send('Invalid elements value');
+    // }
 });
 
 
@@ -80,6 +103,29 @@ app.get('/update/:elements', async (req, res) => {
         res.status(400).send('Invalid elements value');
     }
 });
+
+// Delete data
+app.post('/delete/:entity(user|products)',async(req,res)=>{
+    const entity = req.params.entity;
+    if (entity === 'user') {
+        try {
+            const deleteUser = await deleteData.deleteUser(req, res);
+            // res.json(deleteUser);
+        } catch (error) {
+            console.error('Error retrieving user details:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+    if (entity === 'products') {
+        try {
+            const deleteUser = await deleteData.deleteInvoice(req, res);
+            // res.json(deleteUser);
+        } catch (error) {
+            console.error('Error retrieving user details:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+})
 
 
 app.post('/send-email', async (req, res) => {
@@ -112,18 +158,6 @@ app.post('/send-email', async (req, res) => {
     }
 });
 
-app.post('/delete/:entity(user)',async(req,res)=>{
-    const entity = req.params.entity;
-    if (entity === 'user') {
-        try {
-            const deleteUser = await deleteData.deleteUser(req, res);
-            // res.json(deleteUser);
-        } catch (error) {
-            console.error('Error retrieving user details:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    }
-})
 
 
 

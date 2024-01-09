@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../assets/style/App.css';
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Distributer_Detials_content = () => {
     //states
@@ -33,10 +34,15 @@ const Distributer_Detials_content = () => {
     const handleclick = () => {
         navigate('/Add_Distributer_Detials');
     }
+    // const [rotatedIndex, setRotatedIndex] = useState(null);
 
-    const handleIconClick = () => {
-        setRotatedIndex(!rotatedIndex);
+    const handleIconClick = (index) => {
+        setRotatedIndex(rotatedIndex === index ? null : index);
     };
+
+    // const handleIconClick = () => {
+    //     setRotatedIndex(!rotatedIndex);
+    // };
 
     const handleDivClick = () => {
         setIsEditing(true);
@@ -50,13 +56,39 @@ const Distributer_Detials_content = () => {
     const Distributer_Detials_edit_page = async (data) => {
         navigate(`/Edit_Distributer_Detials`);
     }
+    useEffect(() => {
+        const adminid = JSON.parse(sessionStorage.getItem("UserInfo")).userid;
+        axios.post('http://localhost:4000/get/user', { adminid:adminid , position : 2 })
+            .then(response => {
+                console.log(response.data.data);
+                setAlldate(response.data.data)
+            })
+            .catch(error => {
+                console.error("Error fetching user data:", error);
+            });
+    }, []);
+
+    const [alldata, setAlldate] = useState([]);
+    // const alldata1 = [{
+    //     description: null,
+    //     device_firmware_version: "parms",
+    //     device_id: "DI12",
+    //     device_mac_address: "parms",
+    //     device_model: "parms",
+    //     device_name: "parms",
+    //     device_status: 1,
+    //     is_service_enabled: "true",
+    //     last_updated_by: null,
+    //     last_updated_on: "19-9-2023",
+    //     r_no: 12
+    // }]
 
     return (
         <div className='bar'>
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
                     <div className="row_with_count_status">
-                        <span className='module_tittle'>Distributer Detials</span>
+                        <span className='module_tittle'>Distributor Detials</span>
                     </div>
 
                     <div className='filters display-flex' >
@@ -84,7 +116,7 @@ const Distributer_Detials_content = () => {
                                     <div class="dropdown-filter"
                                         ref={dropdownRef3}
                                     >
-                                        <div class="device_filters" onClick={dropdown3}>
+                                        {/* <div class="device_filters" onClick={dropdown3}>
                                             <div className="device_name">
                                                 Bussiness Type
                                             </div>
@@ -127,7 +159,7 @@ const Distributer_Detials_content = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        )}
+                                        )} */}
                                     </div>
                                 </div>
                             </div>
@@ -143,49 +175,54 @@ const Distributer_Detials_content = () => {
                         <div className="col-head">Registration ID</div>
                         <div className="col-head">Distributer Name</div>
                         <div className="col-head">Aadhar Number</div>
-                        <div className="col-head">GST Number</div>
-                        <div className="col-head">Business Type </div>
+                        <div className="col-head">PAN Number</div>
+                        <div className="col-head">Postal Code </div>
                         <div className="col-head">Email</div>
                         <div className="col-head">Contact Number</div>
                         <div className="col-head">Action</div>
                     </div>
                     <div className="scroll_div">
-                        <div className="datas skeleton-block">
-                            <div className="col-head">xxxx xx 6024</div>
-                            <div className="col-head">Quantanics</div>
-                            <div className="col-head">xxxx xxxx xx04</div>
-                            <div className="col-head">GST546-291-341</div>
-                            <div className="col-head">Self Employed</div>
-                            <div className="col-head" title="Quantanics@gmail.com">Quantanics@gmail.com</div>
-
-                            <div className="col-head">
-                                {/* <FontAwesomeIcon icon={faDiamond} size="xs" />  */}
-                                987654321
-                            </div>
-                            <div className="col-head display-flex device_action_dropdown_parent">
-                                <div className="sts_icon"
-                                    onClick={() => true && handleIconClick()}
-                                >
-                                    <Icon icon={ic_label_important} style={{ transform: rotatedIndex == true ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex == true ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
+                        {alldata.map((data, index) => (
+                            // <div className="datas skeleton-block">
+                            //      {JSON.stringify(data.device_id)}
+                            // </div>
+                            <div className="datas skeleton-block">
+                                <div className="col-head">{data.userid}</div>
+                                <div className="col-head">{data.name}</div>
+                                <div className="col-head">{data.aadhar}</div>
+                                <div className="col-head">{data.pan}</div>
+                                <div className="col-head">{data.ppostalcode}</div>
+                                <div className="col-head" title="Quantanics@gmail.com">{data.email}</div>
+                                <div className="col-head">
+                                    {/* <FontAwesomeIcon icon={faDiamond} size="xs" />  */}
+                                    {data.phno}
                                 </div>
-                                <div>{(rotatedIndex) &&
-                                    (<div className='device_action_dropdown'>
-                                        <div className='display-flex device_action_dropdown1 dropdown_action'>
-                                            <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                            <div className='device_content_dropdown display-flex'
-                                                onClick={() => Distributer_Detials_edit_page()}
-                                            >Edit Distributer Detials</div>
-                                        </div>
-                                        <div className='display-flex device_action_dropdown2 dropdown_action'>
-                                            <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                            <div className='device_content_dropdown display-flex'
-                                            >Remove Distributer</div>
-                                        </div>
+                                <div className="col-head display-flex device_action_dropdown_parent">
+                                    <div className="sts_icon"
+                                        onClick={() =>handleIconClick(index)}
+                                    >
+                                        <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
                                     </div>
-                                    )}
+                                    <div>{(rotatedIndex === index) &&
+                                        (<div className='device_action_dropdown'>
+                                            <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                                <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
+                                                <div className='device_content_dropdown display-flex'
+                                                    onClick={() => Distributer_Detials_edit_page()}
+                                                >Edit Distributer Detials</div>
+                                            </div>
+                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
+                                                <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
+                                                <div className='device_content_dropdown display-flex'
+                                                >Remove Distributer</div>
+                                            </div>
+                                        </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        ))}
+
                     </div>
                 </div>
             </div>
