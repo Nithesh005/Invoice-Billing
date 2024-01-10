@@ -148,7 +148,6 @@ const Add_Customer_Detials = () => {
             try {
                 const response = await axios.post('http://localhost:4000/add/user', postData);
                 alert(response.data.message);
-                // console.log(response.data.status);
                 if (response.data.status) {
                     handleClear()
                 }

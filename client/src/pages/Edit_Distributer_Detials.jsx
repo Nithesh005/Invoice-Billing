@@ -52,11 +52,11 @@ const Edit_Distributer_Detials = () => {
 
     useEffect(() => {
         const device_user_data = async () => {
-            // console.log(API_URL);
+            console.log(userid);
             try {
                 const response = await fetch(`${API_URL}/get/user/${userid}`);
                 const data = await response.json();
-                // console.log(data);
+                console.log(data);
                 all_data_fun(data)
             } catch (error) {
                 console.error(error);
@@ -340,19 +340,6 @@ const Edit_Distributer_Detials = () => {
         setSelected_value(value);
     }
     const inputFields = [
-        // { label: 'Register ID', icon: ic_home_work },
-        // { label: "User ID", name: "userid", value: "postData.userid", icon: ic_home_work },
-        // { label: 'Distributor Name', icon: ic_domain },
-        // { label: 'Aadhar Number', icon: pen_3 },
-        // { label: 'Position', icon: pen_3 },
-        // { label: 'GST Number', icon: pen_3 },
-        // { label: 'Bussiness Type', icon: location },
-        // { label: 'Email', icon: map },
-        // { label: 'Account Number', icon: map },
-        // { label: 'Contact Number', icon: map },
-        // { label: 'PAN Number', icon: map },
-        // { label: 'Organization Name', icon: map },
-        // { label: 'UPI ID', icon: map },
         { label: "User ID", name: "userid", value: inputValues.userid, icon: ic_home_work },
         { label: "Organization Name", name: "OrganizationName", value: inputValues.OrganizationName, icon: person },
         { label: "Bussiness Type", name: "bussinessType", value: inputValues.bussinessType, icon: person },

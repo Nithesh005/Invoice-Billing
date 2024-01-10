@@ -14,10 +14,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const Products = () => {
     //states
-    const [alldata, setalldata] = useState([]);
     const [allnetdata, setnetwork] = useState([]);
     const [allupdatedata, setdevice_updated_on] = useState([]);
     const [isOpen1, setIsOpen1] = useState(false);
@@ -66,15 +66,16 @@ const Products = () => {
     }
 
     // //rotate the arrow in the device action
-    const handleIconClick = () => {
-        const sts = document.getElementsByClassName('device_active');
-        if (sts === 'Active') {
-            setdevice_active('Active')
-        }
-        if (sts === 'Inactive') {
-            setdevice_active('Inactive')
-        }
-        setRotatedIndex(!rotatedIndex);
+    const handleIconClick = (index) => {
+        setRotatedIndex(rotatedIndex === index ? null : index);
+        // const sts = document.getElementsByClassName('device_active');
+        // if (sts === 'Active') {
+        //     setdevice_active('Active')
+        // }
+        // if (sts === 'Inactive') {
+        //     setdevice_active('Inactive')
+        // }
+        // setRotatedIndex(!rotatedIndex);
     };
 
 
@@ -110,6 +111,42 @@ const Products = () => {
     //navigate to edit page
     const Products_edit_page = async () => {
         navigate(`/Edit_Products`);
+    }
+    const Product_edit_page = (data) =>{
+        navigate(`/Edit_Product_Detials/${data}`);
+    }
+    const [alldata, setAlldate] = useState([]);
+    useEffect(() => {
+        const userid = JSON.parse(sessionStorage.getItem("UserInfo")).userid;
+        // console.log(userid);
+        axios.post('http://localhost:4000/get/products', { userid })
+            .then(response => {
+                setAlldate(response.data.data);
+            })
+            .catch(error => {
+                console.error("Error fetching user data:", error);
+            });
+    }, []);
+    // console.log(alldata);
+
+    const updateUserStatus = async (productid, currentstatus, index) => {
+        try {
+            console.log(productid);
+            const response = await axios.put(`${API_URL}/update/productremove`, {
+                productid: productid, status: currentstatus
+            });
+            console.log(response.data.resStatus); // Assuming the API sends back a response
+            if (response.data.qos === "success") {
+                setAlldate((prevData) => {
+                    const newData = [...prevData];
+                    newData[index].status = response.data.resStatus;
+                    return newData;
+                });
+                console.log("success : ", alldata)
+            }
+        } catch (error) {
+            console.error('Error updating user status:', error);
+        }
     }
 
     return (
@@ -233,25 +270,18 @@ const Products = () => {
                     <div className='col-headings'>
                         <div className="col-head">HSN Code</div>
                         <div className="col-head">Product Name</div>
-                        <div className="col-head">Category</div>
-                        <div className="col-head">Description</div>
                         <div className="col-head">Product Count</div>
                         <div className="col-head">Product Price</div>
                         <div className="col-head">Action</div>
                     </div>
                     <div className="scroll_div">
-                        <div className="datas skeleton-block">
+                        {/* <div className="datas skeleton-block">
                             <div className="col-head">84199090</div>
                             <div className="col-head">Ink Machine</div>
                             <div className="col-head">Education</div>
                             <div className="col-head">Reuseability</div>
                             <div className="col-head">507</div>
                             <div className="col-head">$1500</div>
-
-                            {/* <div className="col-head display-flex">
-                                    <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
-                                    <div className={`device_active`} style={{ color: data.device_status === 1 ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
-                                </div> */}
                             <div className="col-head display-flex device_action_dropdown_parent">
                                 <div className="sts_icon"
                                     onClick={() => true && handleIconClick()}
@@ -274,80 +304,73 @@ const Products = () => {
                                         </div>
                                     </div>)}
                                 </div>
-                                {/* <div>{(rotatedIndex) &&
-                                        (<div className='device_action_dropdown'>
-                                            <div className='display-flex device_action_dropdown1 dropdown_action'>
-                                                <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                                <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action"
-                                                // onClick={() => { get_device_data(index); get_device1_data(index); }}
-                                                >Device Details</div>
-
-                                            </div>
-                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
-                                                <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                                <div className='device_content_dropdown display-flex'
-                                                // onClick={() => { Editactivedata(data, index) }}
-                                                >Activate Device</div>
-                                            </div>
-                                        </div>)}
-                                    </div> */}
                             </div>
-                        </div>
-                        {/* {alldata.map((data, index) => (
+                        </div> */}
+                        {alldata.map((data, index) => (
                             <div className="datas skeleton-block">
-                                <div className="col-head" key={index}>{data.device_id}</div>
-                                <div className="col-head" key={index}>{data.device_name}</div>
-                                <div className="col-head" key={index}>{data.device_model}</div>
-                                <div className="col-head" key={index}>{data.last_updated_on}</div>
-                                <div className="col-head">Quantanics</div>
-
-                                <div className="col-head display-flex">
-                                    <FontAwesomeIcon icon={faDiamond} style={{ color: data.device_status === 1 ? 'green' : 'red', paddingTop: '7px' }} size="xs" />
-                                    <div className={`device_active`} style={{ color: data.device_status === 1 ? 'green' : 'red' }}>{data.device_status === 1 ? 'Active' : 'Inactive'}</div>
-                                </div>
+                                {/* {JSON.stringify(data)} */}
+                                <div className="col-head" key={index}>{data.productid}</div>
+                                <div className="col-head" key={index}>{data.productname}</div>
+                                <div className="col-head" key={index}>{data.quantity}</div>
+                                <div className="col-head" key={index}>{data.priceperitem}</div>
                                 <div className="col-head display-flex device_action_dropdown_parent">
                                     <div className="sts_icon"
-                                    // onClick={() => access_to_editStatus && handleIconClick(index)}
+                                        onClick={() => handleIconClick(index)}
                                     >
                                         <Icon icon={ic_label_important} style={{ transform: rotatedIndex === index ? 'rotate(90deg)' : 'rotate(0)', color: rotatedIndex === index ? '#08c6cd' : 'lightgray', }} className='device_content_arrow' size={25} />
                                     </div>
-                                    <div key={index}>{(rotatedIndex === index && data.device_status === 1) &&
+                                    {/* <div key={index}>{(rotatedIndex === index) &&
                                         (<div className='device_action_dropdown'>
                                             <div className='display-flex device_action_dropdown1 dropdown_action'>
                                                 <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                                 <div className='device_content_dropdown display-flex'
                                                 // onClick={() => Device_edit_page(data)}
+                                                onClick={() => Product_edit_page(data.productid)}
+
                                                 >Edit Detials</div>
                                             </div>
                                             <div className='display-flex device_action_dropdown2 dropdown_action'>
                                                 <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
                                                 <div className='device_content_dropdown display-flex'
                                                 // onClick={() => { Editinactivedata(data, index) }}
-                                                >Inactivate Device</div>
+                                                >Remove Product</div>
                                             </div>
                                         </div>)}
-                                    </div>
-                                    <div key={index}>{(rotatedIndex === index && data.device_status != 1) &&
+                                    </div> */}
+                                    <div key={index}>{(rotatedIndex === index) &&
                                         (<div className='device_action_dropdown'>
                                             <div className='display-flex device_action_dropdown1 dropdown_action'>
                                                 <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
-                                                <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action"
-                                                // onClick={() => { get_device_data(index); get_device1_data(index); }}
-                                                >Device Details</div>
-
+                                                {/* <div className='device_content_dropdown display-flex' data-bs-toggle="modal" data-bs-target="#device_status_action"
+                                                onClick={() => Product_edit_page(data.productid)}
+                                                >Edit Product Details</div> */}
+                                                 <div className='device_content_dropdown display-flex'
+                                                //    onClick={() => Product_edit_page(data.productid)}
+                                                >Edit Product Detials</div>
                                             </div>
                                             <div className='display-flex device_action_dropdown2 dropdown_action'>
                                                 <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                                <div className='device_content_dropdown display-flex'
+                                                {data.status == 1 ? (
+                                                    <div className='device_content_dropdown display-flex'
+                                                        onClick={() => updateUserStatus(data.productid, 0, index)}
+                                                    >Inactivate Product
+                                                    </div>
+                                                ) : (
+                                                    <div className='device_content_dropdown display-flex'
+                                                        onClick={() => updateUserStatus(data.productid, 1, index)}
+                                                    >Activate Product
+                                                    </div>
+                                                )}
+                                                {/* <div className='device_content_dropdown display-flex'
                                                 // onClick={() => { Editactivedata(data, index) }}
-                                                >Activate Device</div>
+                                                >Activate Device</div> */}
                                             </div>
                                         </div>)}
                                     </div>
                                 </div>
                             </div>
 
-                        ))} */}
+                        ))}
                     </div>
                     {/* <div className='device_bottom'>
                         <div className='device_export cursor-pointer'>

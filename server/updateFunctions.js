@@ -46,13 +46,7 @@ async function updateUserDataIndividual(req, res) {
     }
 }
 async function updateStatusToRemove(req, res) {
-    // const {userid,currectStatus} = req.body;
     const {userid,status} = req.body;
-    // if (status == 1) {
-    //     updateStatus = 0;
-    // }else{
-    //     updateStatus = 1;
-    // }
     try {
         const userUpdateResult = await userdbInstance.userdb.query(`UPDATE public."user"
         SET status=$1
@@ -69,6 +63,23 @@ async function updateStatusToRemove(req, res) {
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+async function updateProducts(req, res) {
+    const {productid,status} = req.body;
+    console.log(productid,status);
+    try {
+        const userUpdateResult = await userdbInstance.userdb.query(`UPDATE public.products
+        SET status=$1
+        WHERE productid=$2;`, [status,productid]);
+        if (userUpdateResult.rowCount === 1) {
+            res.json({ resStatus: status, qos:"success" });
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+    } catch (error) {
+        console.error('Error executing database query:', error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
 
 
-module.exports = { updateUserDataIndividual , updateStatusToRemove };
+module.exports = { updateUserDataIndividual , updateStatusToRemove , updateProducts};

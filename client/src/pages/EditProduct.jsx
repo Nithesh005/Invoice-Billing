@@ -25,11 +25,14 @@ import { pen_3 } from 'react-icons-kit/ikons/pen_3'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 
+const EditProduct = () => {
+    const { productid } = useParams();
+    console.log(productid);
 
-const Add_Products = () => {
     // set var
     const [company_name, setcompanyname] = useState("");
     const [role_in_input, setrole_in_input] = useState("");
@@ -80,7 +83,7 @@ const Add_Products = () => {
         hsncode: '',
         quantity: '',
         priceperitem: '',
-        productname:'',
+        productname: '',
     });
     console.log(postData);
     const handleInputChange = (e) => {
@@ -94,13 +97,12 @@ const Add_Products = () => {
     const userInfoString = sessionStorage.getItem("UserInfo");
     const userInfo = JSON.parse(userInfoString);
     const handleClear = () => {
-        // alert("alerting")
         setPostData({
             hsncode: '',
             quantity: '',
             priceperitem: '',
-            productname:'',
-            Addto:''
+            productname: '',
+            Addto: ''
         })
     }
     // validation
@@ -115,7 +117,7 @@ const Add_Products = () => {
                 if (response.data.status) {
                     handleClear()
                     alert(response.data.message);
-                }else{
+                } else {
                     alert("Product Dosn't inserted properly")
                 }
             } catch (error) {
@@ -131,12 +133,59 @@ const Add_Products = () => {
 
 
     const inputFields = [
-        { label: "HSN Code", name: "hsncode",value: postData.hsncode, icon: ic_home_work },
-        { label: "Product Name", name: "productname",value: postData.productname, icon: person },
-        { label: "Quantity", name: "quantity",value: postData.quantity, icon: person },
-        { label: "Price Per Item", name: "priceperitem",value: postData.priceperitem, icon: person },
+        { label: "HSN Code", name: "hsncode", value: postData.hsncode, icon: ic_home_work },
+        { label: "Product Name", name: "productname", value: postData.productname, icon: person },
+        { label: "Quantity", name: "quantity", value: postData.quantity, icon: person },
+        { label: "Price Per Item", name: "priceperitem", value: postData.priceperitem, icon: person },
         // { label: "Add To", name: "Addto",value: postData.Addto, icon: person },
     ]
+
+    useEffect(() => {
+        const device_user_data = async () => {
+            // console.log(API_URL);
+            try {
+                const response = await fetch(`${API_URL}/get/product/${productid}`);
+                const data = await response.json();
+                console.log(data);
+                all_data_fun(data)
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        device_user_data();
+    }, [productid]);
+
+    const [inputValues, setInputValues] = useState({
+        belongsto: "",
+        priceperitem: "",
+        productid: "",
+        productname: "",
+        quantity: "",
+        rno: "",
+        status: "",
+        updatedon: "",
+    });
+
+    const all_data_fun = (data) => {
+        if (data) {
+            const item = data.data;
+            // console.log(item);
+            setInputValues((prevValues) => ({
+                ...prevValues,
+                belongsto: "",
+                priceperitem: item.priceperitem,
+                productid: item.productid,
+                productname: item.productname,
+                quantity: item.quantity,
+                rno: "",
+                status: "",
+                updatedon: ""
+            }));
+        }
+    };
+    
+    console.log("haii",inputValues);
+
 
 
     return (
@@ -172,6 +221,7 @@ const Add_Products = () => {
                         </div>
                         <div className="input-boxes">
                             <div className="cmpny_and_site_name display-flex">
+                                {/* {inputFields} */}
                                 {inputFields.slice(0, 4).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
@@ -228,4 +278,4 @@ const Add_Products = () => {
 
     );
 };
-export default Add_Products;
+export default EditProduct;

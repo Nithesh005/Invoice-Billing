@@ -24,6 +24,8 @@ import Login from './pages/Login';
 import TopNavbar from './TopNavbar';
 import UpdatePassword from './pages/UpdatePassword.jsx';
 import Staff_Detials from './pages/Staff_Detials.jsx';
+import Add_Products from './pages/Add_Products.jsx';
+import EditProduct from './pages/EditProduct.jsx';
 
 const App = () => {
   // const handleLogin = (role) => {
@@ -98,7 +100,7 @@ const App = () => {
                       {/* Customer module */}
                       <Route path='/Customer_Detials' element={<CustomerDetails />}></Route>
                       <Route path='/Add_Customer_Detials' element={<Add_Customer_Detials />}></Route>
-                      <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
+                      <Route path='/Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                     {/* {userdata[0].distributer > 2 && (
                   <div>Create/Delete</div>
@@ -113,8 +115,8 @@ const App = () => {
                     <Routes>
                       {/* Products Module */}
                       <Route path='/Products' element={<Products />}></Route>
-                      <Route path='/Add_Products' element={<Add_site />}></Route>
-                      <Route path='/Edit_Products' element={<Add_site />}></Route>
+                      <Route path='/Add_Products' element={<Add_Products />}></Route>
+                      <Route path='/Edit_Product_Detials/:productid' element={<EditProduct />}></Route>
                     </Routes>
                     {/* {userdata[0].product > 2 && (
                   <div>Create/Delete</div>

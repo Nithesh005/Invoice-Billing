@@ -233,7 +233,7 @@ const Add_Distributer_Detials = () => {
         setSelectedUser(event.target.value);
         if (event.target.value === 'Staff') {
             Positionid_val = 4;
-        }else if (event.target.value === 'Distributor') {
+        } else if (event.target.value === 'Distributor') {
             Positionid_val = 2;
         }
         // console.log("hello : ",Positionid_val);
@@ -242,7 +242,7 @@ const Add_Distributer_Detials = () => {
             Positionid: Positionid_val,
         }));
     };
-    
+
     useEffect(() => {
         console.log("hai : ", postData.Positionid);
     }, [postData.Positionid]);
@@ -287,7 +287,7 @@ const Add_Distributer_Detials = () => {
 
                     <div className="row_two display-flex padding-loc">
                         <div className="device_info uppercase light-grey mb-loc-5">
-                            Distributor info
+                            User info
                         </div>
                         <div className="input-boxes">
                             <div className="cmpny_and_site_name display-flex">

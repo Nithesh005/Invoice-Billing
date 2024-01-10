@@ -28,7 +28,7 @@ app.post('/verify/:entity(user|credentials)', async (req, res) => {
 });
 
 // add into DB
-app.post('/add/:entity(user|products)', async (req, res) => {
+app.post('/add/:entity(user|products|invoice)', async (req, res) => {
     const entity = req.params.entity;
     if (entity === 'user') {
         try {
@@ -40,6 +40,14 @@ app.post('/add/:entity(user|products)', async (req, res) => {
         }
     }
     if (entity === 'products') {
+        try {
+            const addUser = await addData.addProduct(req, res);
+        } catch (error) {
+            console.error('Error Adding products details:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+    if (entity === 'invoice') {
         try {
             const addUser = await addData.addInvoice(req, res);
             // res.json(addUser);
@@ -67,7 +75,7 @@ app.post('/get/:entity(user|credentials|products|state|district|access_control)'
     }
     if (entity === 'products') {
         try {
-            // var userdata = await getdata.getUserData(req, res);
+            var userdata = await getData.getProducts(req, res);
             // res.send(userdata);
         }
         catch (error) {
@@ -80,15 +88,19 @@ app.post('/get/:entity(user|credentials|products|state|district|access_control)'
     // }
 });
 
-app.get('/get/:entity(user|products)/:userid', async (req, res) => {
+app.get('/get/:entity(user|product)/:id', async (req, res) => {
     const entity = req.params.entity;
+    const {id} = req.params;
     // console.log( entity);
     if (entity === 'user') {
+        // console.log("hit",userid);
         var userdata = await getData.getUserDataIndividual(req, res);
         // res.send('Successfully fetched the user detials');
     }
-    else if (entity === 'products') {
-        res.send('Successfully fetched the products detials');
+    else if (entity === 'product') {
+        //  console.log("hit",id);
+        var userdata = await getData.getProductDataIndividual(req, res);
+        // res.send('Successfully fetched the products detials');
     }
     else {
         res.status(400).send('Invalid elements value');
@@ -98,12 +110,15 @@ app.get('/get/:entity(user|products)/:userid', async (req, res) => {
 
 
 // Update Data from DB
-app.put('/update/:entity(user|products|userremove)', async (req, res) => {
+app.put('/update/:entity(user|productremove|userremove)', async (req, res) => {
     const entity = req.params.entity;
     if (entity === 'user') {
         // insertDataIntoTable(requestData);
         var userdata = await updateData.updateUserDataIndividual(req, res);
         // res.send('Data insertion initiated');
+    }
+    else if (entity === 'productremove') {
+        var userdata = await updateData.updateProducts(req, res);
     }
     else if (entity === 'userremove') {
         var userdata = await updateData.updateStatusToRemove(req, res);

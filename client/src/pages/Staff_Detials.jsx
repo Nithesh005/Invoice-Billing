@@ -11,6 +11,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const Staff_Detials = () => {
     //states
@@ -77,6 +78,25 @@ const Staff_Detials = () => {
     //navigate to edit page
     const Staff_Detials_edit_page = async (data) => {
         navigate(`/Edit_Staff_Detials/${data}`);
+    }
+
+    const updateUserStatus = async (userid, currentstatus, index) => {
+        try {
+            const response = await axios.put(`${API_URL}/update/userremove`, {
+                userid: userid, status: currentstatus
+            });
+            console.log(response.data.resStatus); // Assuming the API sends back a response
+            if (response.data.qos === "success") {
+                setAlldate((prevData) => {
+                    const newData = [...prevData];
+                    newData[index].status = response.data.resStatus;
+                    return newData;
+                });
+                console.log("success : ", alldata)
+            }
+        } catch (error) {
+            console.error('Error updating user status:', error);
+        }
     }
 
     return (
@@ -205,8 +225,17 @@ const Staff_Detials = () => {
                                             </div>
                                             <div className='display-flex device_action_dropdown2 dropdown_action'>
                                                 <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
-                                                <div className='device_content_dropdown display-flex'
-                                                >Remove Distributer</div>
+                                                {data.status == 1 ? (
+                                                    <div className='device_content_dropdown display-flex'
+                                                        onClick={() => updateUserStatus(data.userid, 0, index)}
+                                                    >Inactivate Distributer
+                                                    </div>
+                                                ) : (
+                                                    <div className='device_content_dropdown display-flex'
+                                                        onClick={() => updateUserStatus(data.userid, 1, index)}
+                                                    >Activate Distributer
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                         )}

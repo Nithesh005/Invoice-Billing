@@ -72,13 +72,10 @@ const Distributer_Detials_content = () => {
             });
     }, []);
     const updateUserStatus = async (userid, currentstatus, index) => {
-        // console.log(userid,currentstatus);
         try {
             const response = await axios.put(`${API_URL}/update/userremove`, {
                 userid: userid, status: currentstatus
             });
-
-
             console.log(response.data.resStatus); // Assuming the API sends back a response
             if (response.data.qos === "success") {
                 setAlldate((prevData) => {
@@ -88,11 +85,8 @@ const Distributer_Detials_content = () => {
                 });
                 console.log("success : ", alldata)
             }
-
-            // Handle the response or update UI accordingly
         } catch (error) {
             console.error('Error updating user status:', error);
-            // Handle errors or show an error message to the user
         }
     }
 

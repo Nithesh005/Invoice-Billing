@@ -107,5 +107,35 @@ async function addInvoice(req, res) {
         }
     }
 }
+async function addProduct(req, res) {
+    // const { hsncode,quantity,priceperitem,userid } = req.body;
+    const {hsncode,quantity,priceperitem,productname} = req.body.productdetial;
+    const {updator} = req.body;
+    console.log(hsncode,quantity,priceperitem,productname,updator);
 
-module.exports = { addUser, addInvoice };
+    try {
+        await userdbInstance.userdb.query('BEGIN');
+        const insertProductResult = await userdbInstance.userdb.query(`INSERT INTO public.products(
+            productid, quantity, priceperitem, "Lastupdatedby",productname,belongsto,status)
+            VALUES ($1, $2, $3, $4,$5,$6,$7);`, [hsncode,quantity,priceperitem,updator,productname,updator,'1']);
+        await userdbInstance.userdb.query('COMMIT');
+        if (insertProductResult.rowCount === 1) {
+            // console.log(insertProductResult);
+            res.json({ message: "Data inserted Successfully", status: true });
+            // res.json({ message: "Successfully Updated" });
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
+
+    } catch (error) {
+        console.error('Error executing database query:', error);
+        // throw error; 
+        // if (error.message.includes('unique constraint')) {
+        //     return res.json({ message: "User Already Exist", status: false });
+        // } else {
+        //     return 'Failed to add user: ' + error.message;
+        // }
+    }
+}
+
+module.exports = { addUser, addInvoice , addProduct};
