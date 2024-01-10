@@ -28,6 +28,17 @@ async function getUserData(req, res) {
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+async function getUserDataIndividual(req, res) {
+    try {
+        // const { adminid ,position} = req.body;
+        const { userid } = req.params
+        const userDeleteResult = await userdbInstance.userdb.query('select * from public."user" where userid=$1;', [userid]);
+        res.json({ message: "Successfully Data Fetched", data: userDeleteResult.rows[0] });
+    } catch (error) {
+        console.error('Error executing database query:', error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
 
 
-module.exports = {getUserData};
+module.exports = {getUserData , getUserDataIndividual};

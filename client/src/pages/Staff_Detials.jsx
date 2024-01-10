@@ -32,7 +32,7 @@ const Staff_Detials = () => {
     // //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
-        navigate('/Add_Staff_Detials');
+        navigate(`/Add_Staff_Detials`);
     }
     const [alldata, setAlldate] = useState([]);
     useEffect(() => {
@@ -76,7 +76,7 @@ const Staff_Detials = () => {
 
     //navigate to edit page
     const Staff_Detials_edit_page = async (data) => {
-        navigate(`/Edit_Staff_Detials`);
+        navigate(`/Edit_Staff_Detials/${data}`);
     }
 
     return (
@@ -162,7 +162,7 @@ const Staff_Detials = () => {
                         </div>
 
                         <div className='filters2 display-flex' onClick={handleclick}>
-                            <button className='btn btn-fill'>Add Staff</button>
+                            <button className='btn btn-fill'>Add User</button>
                         </div>
                     </div>
 
@@ -200,7 +200,7 @@ const Staff_Detials = () => {
                                             <div className='display-flex device_action_dropdown1 dropdown_action'>
                                                 <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                                 <div className='device_content_dropdown display-flex'
-                                                    onClick={() => Staff_Detials_edit_page()}
+                                                    onClick={() => Staff_Detials_edit_page(data.userid)}
                                                 >Edit Distributer Detials</div>
                                             </div>
                                             <div className='display-flex device_action_dropdown2 dropdown_action'>

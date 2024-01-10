@@ -10,6 +10,7 @@ const addData = require('./insertFunctions');
 const verifyData = require('./verifyFunction');
 const deleteData = require('./deletefunctions');
 const getData = require('./getFunctions');
+const updateData = require('./updateFunctions');
 
 
 app.post('/verify/:entity(user|credentials)', async (req, res) => {
@@ -26,7 +27,7 @@ app.post('/verify/:entity(user|credentials)', async (req, res) => {
 
 });
 
-// Insert into DB
+// add into DB
 app.post('/add/:entity(user|products)', async (req, res) => {
     const entity = req.params.entity;
     if (entity === 'user') {
@@ -79,33 +80,49 @@ app.post('/get/:entity(user|credentials|products|state|district|access_control)'
     // }
 });
 
-
-// Update Data from DB
-app.get('/update/:elements', async (req, res) => {
-    const elements = req.params.elements;
-    const requestData = req.body; // Assuming the data to be inserted is in the request body
-    if (elements === 'user') {
-        insertDataIntoTable(requestData);
-        res.send('Data insertion initiated');
+app.get('/get/:entity(user|products)/:userid', async (req, res) => {
+    const entity = req.params.entity;
+    // console.log( entity);
+    if (entity === 'user') {
+        var userdata = await getData.getUserDataIndividual(req, res);
+        // res.send('Successfully fetched the user detials');
     }
-    else if (elements === 'credentials') {
-        insetintocdential();
-    }
-    else if (elements === 'userdetials') {
-        try {
-            await getdata(req, res);
-        } catch (error) {
-            console.error('Error retrieving user details:', error);
-            res.status(500).send('Internal Server Error');
-        }
+    else if (entity === 'products') {
+        res.send('Successfully fetched the products detials');
     }
     else {
         res.status(400).send('Invalid elements value');
     }
+})
+
+
+
+// Update Data from DB
+app.put('/update/:entity(user|products|userremove)', async (req, res) => {
+    const entity = req.params.entity;
+    if (entity === 'user') {
+        // insertDataIntoTable(requestData);
+        var userdata = await updateData.updateUserDataIndividual(req, res);
+        // res.send('Data insertion initiated');
+    }
+    else if (entity === 'userremove') {
+        var userdata = await updateData.updateStatusToRemove(req, res);
+    }
+    // else if (entity === 'userdetials') {
+    //     try {
+    //         await getdata(req, res);
+    //     } catch (error) {
+    //         console.error('Error retrieving user details:', error);
+    //         res.status(500).send('Internal Server Error');
+    //     }
+    // }
+    // else {
+    //     res.status(400).send('Invalid elements value');
+    // }
 });
 
 // Delete data
-app.post('/delete/:entity(user|products)',async(req,res)=>{
+app.post('/delete/:entity(user|products)', async (req, res) => {
     const entity = req.params.entity;
     if (entity === 'user') {
         try {

@@ -18,7 +18,7 @@ const Sidebar = ({ children, give_auth, handleLogout }) => {
     const navigate = useNavigate();
     const userInfoString = sessionStorage.getItem("UserInfo");
     const userInfo = JSON.parse(userInfoString);
-    console.log(userInfo);
+    // console.log(userInfo);
 
     // sample data
     // const userInfo1 = {

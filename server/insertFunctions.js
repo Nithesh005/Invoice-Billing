@@ -28,11 +28,12 @@ async function addUser(req, res) {
         City2,
         State2,
         PostalCode2 } = req.body;
+        const status = 1;
 
     try {
         await userdbInstance.userdb.query('BEGIN');
-        const ueserTable = await userdbInstance.userdb.query('INSERT INTO public."user" (userid, email, phno, altphoneno, aadhar, pan, name, positionid, adminid, pstreetname, pdistrictid, pstateid, ppostalcode) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)',
-            [userid, email, mobileNo, mobileNo, aadharNo, panNumber, fName, Positionid, adminid, streetAddress, City, State, pCode]);
+        const ueserTable = await userdbInstance.userdb.query('INSERT INTO public."user" (userid, email, phno, altphoneno, aadhar, pan, name, positionid, adminid, pstreetname, pdistrictid, pstateid, ppostalcode,status) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,14)',
+            [userid, email, mobileNo, mobileNo, aadharNo, panNumber, fName, Positionid, adminid, streetAddress, City, State, pCode,status]);
         const credentialTable = await userdbInstance.userdb.query('INSERT INTO credentials (userid,username) VALUES ($1,$2)',
             [userid, email]);
 

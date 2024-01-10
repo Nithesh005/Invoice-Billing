@@ -2,7 +2,8 @@ import React from 'react';
 import '../assets/style/App.css';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
-import {API_URL} from '../config'
+import { API_URL } from '../config'
+import axios from 'axios';
 
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
@@ -25,12 +26,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useParams } from 'react-router-dom';
 
-
-
-
 const Edit_Distributer_Detials = () => {
-    const { user_id } = useParams();
-    console.log(user_id);
+    const { userid } = useParams();
+    // console.log(userid);
     const [admin_value, setadmin] = useState([]);
     const [loc_name, setlocationName] = useState([]);
     const [editable_data, setEditable_data] = useState([]);
@@ -54,42 +52,98 @@ const Edit_Distributer_Detials = () => {
 
     useEffect(() => {
         const device_user_data = async () => {
+            // console.log(API_URL);
             try {
-                const response = await fetch(`${API_URL}/edit_user/${user_id}`);
+                const response = await fetch(`${API_URL}/get/user/${userid}`);
                 const data = await response.json();
+                // console.log(data);
                 all_data_fun(data)
             } catch (error) {
                 console.error(error);
             }
         };
         device_user_data();
-    }, [user_id]);
+    }, [userid]);
 
     const all_data_fun = (data) => {
-        if (data && data.length > 0) {
-            const item = data[0];
-            setfirst_name(item.first_name);
-            setlast_name(item.last_name);
-            setsiteid(item.site_id);
-            setroleid(item.role_id);
-            setcontact(item.contact);
-            setDesignation(item.designation);
-            setemail(item.email);
+        if (data) {
+            const item = data.data;
+            console.log(item);
+            setInputValues((prevValues) => ({
+                ...prevValues,
+                userid: item.userid,
+                OrganizationName: "Quantanics",
+                bussinessType: "",
+                gstNumber: "",
+                panNumber: item.pan,
+                aadharNo: item.aadhar,
+                fName: item.name,
+                lName: "",
+                email: item.email,
+                mobileNo: item.phno,
+                upiPaymentNo: "",
+                accName: "",
+                accNo: "",
+                passbookImg: "",
+                pAddress: "",
+                streetAddress: item.pstreetname,
+                City: item.pdistrictid,
+                State: "",
+                pCode: item.ppostalcode,
+                CommunicationAddress: "",
+                StreetAddress2: item.cstreetname,
+                City2: item.cdistrictid,
+                State2: item.cstateid,
+                PostalCode2: item.cpostalcode
+            }));
+            // setlast_name(item.last_name);
+            // setsiteid(item.site_id);
+            // setroleid(item.role_id);
+            // setcontact(item.contact);
+            // setDesignation(item.designation);
+            // setemail(item.email);
             setSelectedOption_site(item.site_management);
             setSelectedOption_user(item.user_management);
             setSelectedOption_device(item.device_management);
             setSelectedOption_dashboard(item.dashboard);
-
         }
+        // console.log("hai : " , first_name);
     };
 
-    const [first_name, setfirst_name] = useState("");
-    const [last_name, setlast_name] = useState("");
-    const [siteid, setsiteid] = useState("");
-    const [roleid, setroleid] = useState("");
-    const [contact, setcontact] = useState("");
-    const [Designation, setDesignation] = useState("");
-    const [email, setemail] = useState("")
+    // const [first_name, setfirst_name] = useState("");
+    // const [last_name, setlast_name] = useState("");
+    // const [siteid, setsiteid] = useState("");
+    // const [roleid, setroleid] = useState("");
+    // const [contact, setcontact] = useState("");
+    // const [Designation, setDesignation] = useState("");
+    // const [email, setemail] = useState("")
+    const [inputValues, setInputValues] = useState({
+        userid: "",
+        OrganizationName: "",
+        bussinessType: "",
+        gstNumber: "",
+        panNumber: "",
+        aadharNo: "",
+        fName: "",
+        lName: "",
+        email: "",
+        mobileNo: "",
+        upiPaymentNo: "",
+        accName: "",
+        accNo: "",
+        passbookImg: "",
+        pAddress: "",
+        streetAddress: "",
+        City: "",
+        State: "",
+        pCode: "",
+        CommunicationAddress: "",
+        StreetAddress2: "",
+        City2: "",
+        State2: "",
+        PostalCode2: ""
+        // Add more fields as needed
+    });
 
 
     //  validation states
@@ -103,19 +157,19 @@ const Edit_Distributer_Detials = () => {
 
     // cancel script
     function handleCancel() {
-        setfirst_name("");
-        setlast_name("");
-        setsiteid("");
-        setroleid("");
-        setcontact("");
-        setDesignation("");
-        setemail("");
+        // setfirst_name("");
+        // setlast_name("");
+        // setsiteid("");
+        // setroleid("");
+        // setcontact("");
+        // setDesignation("");
+        // setemail("");
         navigate('/Distributer_Detials');
     }
 
     function handle_first_name(event) {
         const value = event.target.value;
-        setfirst_name(value);
+        // setfirst_name(value);
         const isValidcompany_name = /^[a-zA-Z]+$/.test(value);
         if (!isValidcompany_name) {
             setfirst_name_error("*Enter valid First name");
@@ -126,7 +180,7 @@ const Edit_Distributer_Detials = () => {
 
     function handle_last_name(event) {
         const value = event.target.value;
-        setlast_name(value);
+        // setlast_name(value);
         const isValidsite_name = /^[a-zA-Z]+$/.test(value);
         if (!isValidsite_name) {
             setlast_name_error("*Enter valid Last name");
@@ -137,7 +191,7 @@ const Edit_Distributer_Detials = () => {
 
     function handle_siteid(event) {
         const value = event.target.value;
-        setsiteid(value);
+        // setsiteid(value);
         const isValidsite_admin_email = /^[a-zA-Z0-9]+$/.test(value);
         if (!isValidsite_admin_email) {
             setsiteid_error("*Not a valid Site ID");
@@ -148,7 +202,7 @@ const Edit_Distributer_Detials = () => {
 
     function handle_roleid(event) {
         const value = event.target.value;
-        setroleid(value);
+        // setroleid(value);
         const isValidsite_location = /^[a-zA-Z0-9]+$/.test(value);
         if (!isValidsite_location) {
             setroleid_error("*Enter valid Role ID");
@@ -159,7 +213,7 @@ const Edit_Distributer_Detials = () => {
 
     function handle_contact(event) {
         const value = event.target.value;
-        setcontact(value);
+        // setcontact(value);
         const isValidsite_address = /^[0-9]{10}$/.test(value);
         if (!isValidsite_address) {
             setcontact_error("*Enter Proper Bussiness Type");
@@ -172,7 +226,7 @@ const Edit_Distributer_Detials = () => {
 
     function handle_Designation(event) {
         const value = event.target.value;
-        setDesignation(value);
+        // setDesignation(value);
         const isValidnew_site_admin_name = /^[a-zA-Z]+$/.test(value);
         if (!isValidnew_site_admin_name) {
             setDesignation_error("*Enter valid Designation");
@@ -182,7 +236,7 @@ const Edit_Distributer_Detials = () => {
     }
     function handle_email(event) {
         const value = event.target.value;
-        setemail(value);
+        // setemail(value);
         const isValidnew_site_admin_name = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
         if (!isValidnew_site_admin_name) {
             setemail_error("*Enter valid email");
@@ -195,24 +249,36 @@ const Edit_Distributer_Detials = () => {
     const navigate = useNavigate();
     // validation
     const handle_save = async () => {
-        const isValidfirst_name = /^[a-zA-Z]+$/.test(first_name)
-        const isValidlast_name = /^[a-zA-Z]+$/.test(last_name)
-        const isValidsiteid = /^[a-zA-Z0-9]+$/.test(siteid)
-        const isValidroleid = /^[a-zA-Z0-9]+$/.test(roleid)
-        const isValidcontact = /^[0-9]{10}$/.test(contact)
-        const isValidDesignation = /^[a-zA-Z]+$/.test(Designation)
-        const isValidemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-        if ((!isValidfirst_name || !isValidlast_name || !isValidsiteid || !isValidroleid || !isValidcontact || !isValidDesignation || !isValidemail)) {
-            alert("Please out that you have enter all feild correctly")
+        // const isValidfirst_name = /^[a-zA-Z]+$/.test(first_name)
+        // const isValidlast_name = /^[a-zA-Z]+$/.test(last_name)
+        // const isValidsiteid = /^[a-zA-Z0-9]+$/.test(siteid)
+        // const isValidroleid = /^[a-zA-Z0-9]+$/.test(roleid)
+        // const isValidcontact = /^[0-9]{10}$/.test(contact)
+        // const isValidDesignation = /^[a-zA-Z]+$/.test(Designation)
+        const isValidemail = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(inputValues.email)
+        if ((isValidemail)) {
+            console.log("success", inputValues);
+            // const body = { first_name, last_name, siteid, roleid, contact, Designation,email,user_id, selectedOption_site, selectedOption_user, selectedOption_device, selectedOption_dashboard }
+            // fetch(`${API_URL}/update_user`, {
+            //     method: "PUT",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(body),
+            // });
+            try {
+                const response = await axios.put(`${API_URL}/update/user`, {inputValues});
+                alert('API Response:', response.data);
+                // Handle the response as needed
+            } catch (error) {
+                console.error('Error updating data:', error);
+                // Handle the error as needed
+            }
+            // navigate('/User');
         }
         else {
-            const body = { first_name, last_name, siteid, roleid, contact, Designation,email,user_id, selectedOption_site, selectedOption_user, selectedOption_device, selectedOption_dashboard }
-            fetch(`${API_URL}/update_user`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
-            });
-            navigate('/User');
+            if (isValidemail === false) {
+                alert('Please enter a valid Email ID')
+            }
+
         }
     }
 
@@ -266,24 +332,6 @@ const Edit_Distributer_Detials = () => {
             setIsOpen1(false);
         }
     }
-    useEffect(() => {
-        const session_db = localStorage.getItem('session_dbName');
-        setSite_id(session_db);
-        const fetch_site_roles = async () => {
-            try {
-                const roles_name = await fetch(`${API_URL}/role_name`);
-                const rolesName = await roles_name.json();
-                // console.log(rolesName)
-                setrolesName(rolesName);
-            } catch (error) {
-                console.log(error)
-            }
-        };
-        fetch_site_roles();
-        document.addEventListener('click', empty_site_location_target);
-        return () => document.removeEventListener("click", empty_site_location_target);
-
-    }, []);
 
     const [site_id, setSite_id] = useState("")
     const [roles_value, setrolesName] = useState([]);
@@ -291,6 +339,96 @@ const Edit_Distributer_Detials = () => {
     const set_value = (value) => {
         setSelected_value(value);
     }
+    const inputFields = [
+        // { label: 'Register ID', icon: ic_home_work },
+        // { label: "User ID", name: "userid", value: "postData.userid", icon: ic_home_work },
+        // { label: 'Distributor Name', icon: ic_domain },
+        // { label: 'Aadhar Number', icon: pen_3 },
+        // { label: 'Position', icon: pen_3 },
+        // { label: 'GST Number', icon: pen_3 },
+        // { label: 'Bussiness Type', icon: location },
+        // { label: 'Email', icon: map },
+        // { label: 'Account Number', icon: map },
+        // { label: 'Contact Number', icon: map },
+        // { label: 'PAN Number', icon: map },
+        // { label: 'Organization Name', icon: map },
+        // { label: 'UPI ID', icon: map },
+        { label: "User ID", name: "userid", value: inputValues.userid, icon: ic_home_work },
+        { label: "Organization Name", name: "OrganizationName", value: inputValues.OrganizationName, icon: person },
+        { label: "Bussiness Type", name: "bussinessType", value: inputValues.bussinessType, icon: person },
+        { label: "GST Number", name: "gstNumber", value: inputValues.gstNumber, icon: pen_3 },
+        { label: "PAN Number", name: "panNumber", value: inputValues.panNumber, icon: ic_wysiwyg },
+        // Add more input field objects as needed
+        { label: "Aadhar Number", name: "aadharNo", value: inputValues.aadharNo, icon: pen_3 },
+        { label: "First Name", name: "fName", value: inputValues.fName, icon: pen_3 },
+        { label: "Last Name", name: "lName", value: inputValues.lName, icon: pen_3 },
+        // { label: "Position", name: "Position", value: inputValues, icon: pen_3 },
+        // row 3
+        { label: "Email", name: "email", value: inputValues.email, icon: pen_3 },
+        { label: "Mobile Number", name: "mobileNo", value: inputValues.mobileNo, icon: pen_3 },
+        // 2. UPI Payment Details:
+        { label: "UPI Payment Mobile No", name: "upiPaymentNo", value: inputValues.upiPaymentNo, icon: pen_3 },
+        { label: "UPI - Bank Account Name", name: "accName", value: inputValues.accName, icon: pen_3 },
+        { label: "UPI - Bank Account Number", name: "accNo", value: inputValues.accNo, icon: pen_3 },
+        { label: "Pass Book image", name: "passbookImg", value: inputValues.passbookImg, icon: pen_3, inputType: "file" },
+        // 3. Address Details:
+        { label: "Permanent Address", name: "pAddress", value: inputValues.pAddress, icon: pen_3 },
+        { label: "Street Address", name: "streetAddress", value: inputValues.streetAddress, icon: pen_3 },
+        { label: "City", name: "City", value: inputValues.City, icon: pen_3 },
+        { label: "State", name: "State", value: inputValues.State, icon: pen_3 },
+
+        { label: "Postal Code", name: "pCode", value: inputValues.pCode, icon: pen_3 },
+        { label: "Communication Address", name: "CommunicationAddress", value: inputValues.CommunicationAddress, icon: pen_3 },
+        { label: "Street Address", name: "StreetAddress2", value: inputValues.StreetAddress2, icon: pen_3 },
+        { label: "City", name: "City2", value: inputValues.City2, icon: pen_3 },
+        { label: "State", name: "State2", value: inputValues.State2, icon: pen_3 },
+        { label: "Postal Code", name: "PostalCode2", value: inputValues.PostalCode2, icon: pen_3 },
+    ];
+    // const [inputValues, setInputValues] = useState({
+    //     userid: first_name,
+    //     OrganizationName: ""
+    //     // Add more fields as needed
+    //   });
+    const handleInputChange = (index, value) => {
+        // Update the inputValues state based on the index
+        setInputValues((prevValues) => {
+            const updatedValues = { ...prevValues, [inputFields[index].name]: value };
+            return updatedValues;
+        });
+        // Add your custom logic here based on the input field
+    };
+    const handleInputChange2 = (index, value) => {
+        // Update the inputValues state based on the index
+        index = index + 4
+        setInputValues((prevValues) => {
+            const updatedValues = { ...prevValues, [inputFields[index].name]: value };
+            return updatedValues;
+        });
+    };
+    const handleInputChange3 = (index, value) => {
+        // Update the inputValues state based on the index
+        index = index + 8
+        setInputValues((prevValues) => {
+            const updatedValues = { ...prevValues, [inputFields[index].name]: value };
+            return updatedValues;
+        });
+    };
+    const handleInputChange4 = (index, value) => {
+        // Update the inputValues state based on the index
+        index = index + 12
+        setInputValues((prevValues) => {
+            const updatedValues = { ...prevValues, [inputFields[index].name]: value };
+            return updatedValues;
+        });
+    };
+    const handleInputChange5 = (index, value) => {
+        // Update the inputValues state based on the index
+        index = index + 16
+        setInputValues((prevValues) => {
+            const updatedValues = { ...prevValues, [inputFields[index].name]: value };
+            return updatedValues;
+        });
+    };
 
     return (
         <div className='Add_device1 '>
@@ -368,7 +506,7 @@ const Edit_Distributer_Detials = () => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="user_acc_head display-flex">
                                     <div className="u_a_head">
                                         <div className="head">Device</div>
@@ -442,166 +580,143 @@ const Edit_Distributer_Detials = () => {
                 </div>
             </div>
             <div className="row_with_count_status">
-                <span className='module_tittle'>Distributer Detials</span>
+                <span className='module_tittle'>User Detials</span>
             </div>
             <div className="add_device_container1">
                 <div className="new_device_content scroll_div">
                     <div className="row_one display-flex">
-                        <div className="adding_new_device uppercase bold">Edit Distributer Detials </div>
+                        <div className="adding_new_device uppercase bold">Edit User Detials </div>
                     </div>
-
                     <div className="row_two display-flex padding-loc">
                         <div className="device_info uppercase light-grey mb-loc-5">
-                        Distributor info
+                            User info
                         </div>
                         <div className="input-boxes">
                             <div className="cmpny_and_site_name display-flex">
-                                <div class="dsa_row_1 inputbox display-flex input">
-                                    <div class="dsa_1st_input">
-                                        <label for="input1">Register ID</label>
-                                        <div class="inputs-group display-flex">
-                                            <span class="input-group-loc"><Icon icon={ic_home_work} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input type="text" class="form-control-loc" value={first_name} onChange={handle_first_name} id="company_name" />
-                                            <div className="error-message"><span className={first_name_error ? "error" : ""}>{first_name_error}</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="dsa_2nd_input inputbox display-flex input">
-
-                                    <label for="input1">Distributer Name</label>
-                                    <div className="inputs-group display-flex">
-                                        <span class="input-group-loc"><Icon icon={ic_domain} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={last_name} onChange={handle_last_name} id="site_name" />
-                                        <div className="error-message"><span className={last_name_error ? "error" : ""}>{last_name_error}</span></div>
-                                    </div>
-                                </div>
-                                <div className="dsa_3rd_input inputbox display-flex input">
-                                    <div class="dropdown-filter" ref={dropdownRef3}>
-                                        <div className="name_row">
-                                            <label for="input1">Aadhar Number</label>
-                                            <div class="inputs-group relative-loc arrow_inside_input_box">
-                                                <span class="input-group-loc"><Icon icon={pen_3} size={20} style={{ color: "lightgray" }} /></span>
-                                                <input type="text" className="form-control-loc" id="site_admin_name" onChange={handle_siteid} />
-                                                {/* <FontAwesomeIcon
-                                                    icon={faChevronDown}
-                                                    class="dropdown-icon down_arrow arrow_inside_input"
-                                                /> */}
+                                {inputFields.slice(0, 4).map((field, index) => (
+                                    <div className="inputbox display-flex input" key={index}>
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc">
+                                                    <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control-loc"
+                                                    id={`input${index + 1}`}
+                                                    value={field.value}
+                                                    // disabled
+                                                    onChange={(e) => handleInputChange(index, e.target.value)}
+                                                // Add value and onChange as needed
+                                                />
+                                                <div className="error-message">
+                                                    {/* Add error display logic here */}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="dsa_3rd_input inputbox display-flex input">
-                                    <div class="dropdown-filter" ref={dropdownRef3}>
-                                        <div className="name_row" >
-                                            <label for="input1">Position</label>
-                                            <div class="inputs-group relative-loc arrow_inside_input_box">
-                                                <span class="input-group-loc"><Icon icon={pen_3} size={20} style={{ color: "lightgray" }} /></span>
-                                                <input type="text"  className="form-control-loc" id="site_admin_name" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
-
-
-                            <div className="dsa_row_3 display-flex">
-
-                                <div class="dropdown-filter" ref={dropdownRef3}>
-                                    <div className="name_row">
-                                        <label for="input1">GST Number</label>
-                                        <div class="inputs-group relative-loc arrow_inside_input_box" onClick={dropdown3} >
-                                            <span class="input-group-loc"><Icon icon={pen_3} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input type="text" class="form-control-loc" id="site_admin_name"/>
-                                        </div>
-                                    </div>
-
-                                    {isOpen3 && (
-                                        <div class="dropdown_menu2 dashboard_dropdown-menu heights dropdown-colors" style={{ cursor: "pointer", width: "230px" }}>
-                                            <div className='device_scroll'>
-                                                {roles_value.map((data, index) => (
-                                                    <div className='device_scroll' key={index}>
-                                                        {/* <div><div className='device_dropdown' onClick={() => handlesiteadminname(data)}><div className="div_sts"> {data.role}</div></div> */}
-                                                        <div>
-                                                            <div className='device_dropdown' key={index} onClick={() => set_value(data.role)}>
-                                                                <div className="div_sts"> {data.role}</div>
-                                                            </div>
-                                                            {index !== data.length - 1 && <hr className='hrs'></hr>}
-                                                        </div>
-                                                    </div>
-                                                ))}
+                            <div className="cmpny_and_site_name display-flex">
+                                {inputFields.slice(4, 8).map((field, index) => (
+                                    <div className="inputbox display-flex input" key={index}>
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc">
+                                                    <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control-loc"
+                                                    id={`input${index + 1}`}
+                                                    value={field.value}
+                                                    onChange={(e) => handleInputChange2(index, e.target.value)}
+                                                // Add value and onChange as needed
+                                                />
+                                                <div className="error-message">
+                                                    {/* Add error display logic here */}
+                                                </div>
                                             </div>
                                         </div>
-
-                                    )
-                                    }
-                                    
-                                </div>
-                                
-
-                                <div className="dsa_3rd_input inputbox display-flex input">
-                                    <label for="input1">Bussiness Type</label>
-                                    <div className="inputs-group display-flex">
-                                        <span class="input-group-loc"><Icon icon={location} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={contact} onChange={handle_contact} id="site_address" />
-                                        <div className="error-message"><span className={contact_error ? "error" : ""}>{contact_error}</span></div>
                                     </div>
-                                </div>
-                                <div className="dsa_3rd_input inputbox display-flex input">
-                                    <label for="input1">Email</label>
-                                    <div className="inputs-group display-flex">
-                                        <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={Designation} onChange={handle_Designation} id="site_address" />
-                                        <div className="error-message"><span className={designation_error ? "error" : ""}>{designation_error}</span></div>
-                                    </div>
-                                </div>
-                                <div className="dsa_3rd_input inputbox display-flex input">
-                                    <label for="input1">Account Number</label>
-                                    <div className="inputs-group display-flex">
-                                        <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={Designation} onChange={handle_Designation} id="site_address" />
-                                        <div className="error-message"><span className={designation_error ? "error" : ""}>{designation_error}</span></div>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
-                            <div className="dsa_row_3 display-flex">
-                                <div className="dsa_3rd_input inputbox display-flex input">
-                                    <label for="input1">Contact Number</label>
-                                    <div className="inputs-group display-flex">
-                                        <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={email} onChange={handle_email} id="site_address" />
-                                        <div className="error-message"><span className={email_error ? "error" : ""}>{email_error}</span></div>
+                            <div className="cmpny_and_site_name display-flex">
+                                {inputFields.slice(8, 12).map((field, index) => (
+                                    <div className="inputbox display-flex input" key={index}>
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc">
+                                                    <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control-loc"
+                                                    id={`input${index + 1}`}
+                                                    value={field.value}
+                                                    onChange={(e) => handleInputChange3(index, e.target.value)}
+                                                // Add value and onChange as needed
+                                                />
+                                                <div className="error-message">
+                                                    {/* Add error display logic here */}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="dsa_3rd_input inputbox display-flex input">
-                                    <label for="input1">PAN Number</label>
-                                    <div className="inputs-group display-flex">
-                                        <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={email} onChange={handle_email} id="site_address" />
-                                        <div className="error-message"><span className={email_error ? "error" : ""}>{email_error}</span></div>
+                                ))}
+                            </div>
+                            <div className="cmpny_and_site_name display-flex">
+                                {inputFields.slice(12, 16).map((field, index) => (
+                                    <div className="inputbox display-flex input" key={index}>
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc">
+                                                    <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control-loc"
+                                                    id={`input${index + 1}`}
+                                                    value={field.value}
+                                                    onChange={(e) => handleInputChange4(index, e.target.value)}
+                                                // Add value and onChange as needed
+                                                />
+                                                <div className="error-message">
+                                                    {/* Add error display logic here */}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="dsa_3rd_input inputbox display-flex input">
-                                    <label for="input1">Organization Name</label>
-                                    <div className="inputs-group display-flex">
-                                        <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={email} onChange={handle_email} id="site_address" />
-                                        <div className="error-message"><span className={email_error ? "error" : ""}>{email_error}</span></div>
+                                ))}
+                            </div>
+                            <div className="cmpny_and_site_name display-flex">
+                                {inputFields.slice(16, 20).map((field, index) => (
+                                    <div className="inputbox display-flex input" key={index}>
+                                        <div className="dsa_1st_input">
+                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
+                                            <div className="inputs-group display-flex">
+                                                <span className="input-group-loc">
+                                                    <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    className="form-control-loc"
+                                                    id={`input${index + 1}`}
+                                                    value={field.value}
+                                                    onChange={(e) => handleInputChange5(index, e.target.value)}
+                                                // Add value and onChange as needed
+                                                />
+                                                <div className="error-message">
+                                                    {/* Add error display logic here */}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="dsa_3rd_input inputbox display-flex input">
-                                    <label for="input1">UPI ID</label>
-                                    <div className="inputs-group display-flex">
-                                        <span class="input-group-loc"><Icon icon={map} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" class="form-control-loc" value={email} onChange={handle_email} id="site_address" />
-                                        <div className="error-message"><span className={email_error ? "error" : ""}>{email_error}</span></div>
-                                    </div>
-                                </div>
-                                {/* <div className="dsa_3rd_input inputbox display-flex input">
-                                    <label for="input1">User Access</label>
-                                    <div className="inputs-group display-flex">
-                                        <input type="button" value="Access Credentials" data-bs-toggle="modal" data-bs-target="#User_Access_Modal" />
-                                    </div>
-                                </div> */}
+                                ))}
                             </div>
                         </div>
                     </div>

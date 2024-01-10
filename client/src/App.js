@@ -72,7 +72,7 @@ const App = () => {
                       {/* Staff module */}
                       <Route path='/Staff_Detials' element={<Staff_Detials />}></Route>
                       <Route path='/Add_Staff_Detials' element={<Add_Distributer_Detials />}></Route>
-                      <Route path='/Edit_Staff_Detials' element={<Edit_Distributer_Detials />}></Route>
+                      <Route path='/Edit_Staff_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                   </div>
                 )}
@@ -82,7 +82,7 @@ const App = () => {
                       {/* Distributer module */}
                       <Route path='/Distributer_Detials' element={<Distributer_Detials />}></Route>
                       <Route path='/Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
-                      <Route path='/Edit_Distributer_Detials' element={<Edit_Distributer_Detials />}></Route>
+                      <Route path='/Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                     {/* {userdata[0].distributer > 2 && (
                   <div>Create/Delete</div>
