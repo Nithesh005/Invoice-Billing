@@ -31,7 +31,7 @@ import { useParams } from 'react-router-dom';
 
 const EditProduct = () => {
     const { productid } = useParams();
-    console.log(productid);
+    // console.log(productid);
 
     // set var
     const [company_name, setcompanyname] = useState("");
@@ -66,59 +66,103 @@ const EditProduct = () => {
 
     // cancel script
     function handleCancel() {
-        setcompanyname("");
-        setsitename("");
-        setemail("");
-        setlocationName("");
-        setsiteaddress("");
-        setDesigination("");
-        setfirstName("");
-        setlastName("");
-        setcontact("");
         navigate('/Products');
     }
     //redirect to device content page
     const navigate = useNavigate();
-    const [postData, setPostData] = useState({
-        hsncode: '',
-        quantity: '',
-        priceperitem: '',
-        productname: '',
+    // const [postData, setPostData] = useState({
+    //     hsncode: '',
+    //     quantity: '',
+    //     priceperitem: '',
+    //     productname: '',
+    // });
+    const [inputValues, setInputValues] = useState({
+        belongsto: "",
+        priceperitem: "",
+        productid: "",
+        productname: "",
+        quantity: "",
+        rno: "",
+        status: "",
+        updatedon: "",
     });
-    console.log(postData);
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        console.log(name);
-        setPostData({
-            ...postData,
-            [name]: value,
-        });
+    useEffect(() => {
+        const device_user_data = async () => {
+            // console.log(API_URL);
+            try {
+                const response = await fetch(`${API_URL}/get/product/${productid}`);
+                const data = await response.json();
+                // console.log(data.data.productid);
+                // all_data_fun(data)
+                const item = data.data;
+                setInputValues((prevValues) => ({
+                    ...prevValues,
+                    belongsto: "",
+                    priceperitem: item.priceperitem,
+                    productid: item.productid,
+                    productname: item.productname,
+                    quantity: item.quantity,
+                    rno: "",
+                    status: "",
+                    updatedon: ""
+                }));
+                // console.log(inputValues);
+
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        device_user_data();
+    }, [productid]);
+
+
+    const inputFields = [
+        { label: "HSN Code", name: "productid", value: inputValues.productid, icon: ic_home_work , readOnly:true},
+        { label: "Product Name", name: "productname", value: inputValues.productname, icon: person },
+        { label: "Quantity", name: "quantity", value: inputValues.quantity, icon: person },
+        { label: "Price Per Item", name: "priceperitem", value: inputValues.priceperitem, icon: person },
+    ]
+
+    // const handleInputChange = (name, value) => {
+    //     setInputValues((prevValues) => ({
+    //         ...prevValues,
+    //         [name]: value,
+    //     }));
+    //     console.log(name, value);
+    // };
+    //  const handleInputChange = (index, value) => {
+    //     const fieldName = inputFields[index].name;
+    //     setInputValues((prevValues) => ({
+    //         ...prevValues,
+    //         [fieldName]: value,
+    //     }));
+    //     console.log(fieldName, value);
+    // };
+    const handleInputChange = (index, value) => {
+        const fieldName = inputFields[index].name;
+        setInputValues((prevValues) => ({
+            ...prevValues,
+            [fieldName]: value,
+        }));
     };
-    const userInfoString = sessionStorage.getItem("UserInfo");
-    const userInfo = JSON.parse(userInfoString);
-    const handleClear = () => {
-        setPostData({
-            hsncode: '',
-            quantity: '',
-            priceperitem: '',
-            productname: '',
-            Addto: ''
-        })
-    }
+    // console.log(inputValues);
+    
+    
     // validation
     const handleClick = async () => {
 
-        const isValidhsncode = /^[0-9]+$/.test(postData.hsncode);
+        const isValidhsncode = /^[0-9]+$/.test(inputValues.productid);
 
-        // console.log(isValidhsncode, userInfo.userid);
+        // console.log(isValidhsncode);
         if (isValidhsncode) {
             try {
-                const response = await axios.post('http://localhost:4000/add/products', { productdetial: postData, updator: userInfo.userid });
+                // console.log(inputValues);
+                const response = await axios.put(`${API_URL}/update/product`, {inputValues});
                 if (response.data.status) {
-                    handleClear()
+                    // handleClear()
                     alert(response.data.message);
                 } else {
-                    alert("Product Dosn't inserted properly")
+                    alert("Product Dosn't Updated properly")
                 }
             } catch (error) {
                 console.error('Error sending data:', error);
@@ -130,61 +174,6 @@ const EditProduct = () => {
             }
         }
     }
-
-
-    const inputFields = [
-        { label: "HSN Code", name: "hsncode", value: postData.hsncode, icon: ic_home_work },
-        { label: "Product Name", name: "productname", value: postData.productname, icon: person },
-        { label: "Quantity", name: "quantity", value: postData.quantity, icon: person },
-        { label: "Price Per Item", name: "priceperitem", value: postData.priceperitem, icon: person },
-        // { label: "Add To", name: "Addto",value: postData.Addto, icon: person },
-    ]
-
-    useEffect(() => {
-        const device_user_data = async () => {
-            // console.log(API_URL);
-            try {
-                const response = await fetch(`${API_URL}/get/product/${productid}`);
-                const data = await response.json();
-                console.log(data);
-                all_data_fun(data)
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        device_user_data();
-    }, [productid]);
-
-    const [inputValues, setInputValues] = useState({
-        belongsto: "",
-        priceperitem: "",
-        productid: "",
-        productname: "",
-        quantity: "",
-        rno: "",
-        status: "",
-        updatedon: "",
-    });
-
-    const all_data_fun = (data) => {
-        if (data) {
-            const item = data.data;
-            // console.log(item);
-            setInputValues((prevValues) => ({
-                ...prevValues,
-                belongsto: "",
-                priceperitem: item.priceperitem,
-                productid: item.productid,
-                productname: item.productname,
-                quantity: item.quantity,
-                rno: "",
-                status: "",
-                updatedon: ""
-            }));
-        }
-    };
-    
-    console.log("haii",inputValues);
 
 
 
@@ -232,9 +221,12 @@ const EditProduct = () => {
                                                     type="text"
                                                     className="form-control-loc"
                                                     value={field.value}
-                                                    onChange={handleInputChange}
+                                                    // onChange={handleInputChange}
+                                                    onChange={(e) => handleInputChange(index, e.target.value)}
                                                     name={field.name}
                                                     id={`input${index + 1}`}
+                                                    readOnly={field.readOnly || false}
+                                                    // style={field.readOnly ? { cursor: "not-allowed" } : {}}
                                                 />
                                                 {/* Add error handling if needed */}
                                             </div>
@@ -242,7 +234,7 @@ const EditProduct = () => {
                                     </div>
                                 ))}
                             </div>
-                            <div className="cmpny_and_site_name display-flex">
+                            {/* <div className="cmpny_and_site_name display-flex">
                                 {inputFields.slice(4, 8).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
@@ -257,18 +249,19 @@ const EditProduct = () => {
                                                     name={field.name}
                                                     id={`input${index + 1}`}
                                                 />
-                                                {/* Add error handling if needed */}
                                             </div>
                                         </div>
                                     </div>
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
                     <div className="operating_buttons display-flex padding-loc">
                         <div className="save_cancel_btn display-flex site_button">
-                            <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handleClick()}>Save</button>
+                            <button className="btn-loc active-loc btn btn-outline-success"
+                                onClick={() => handleClick()}
+                            >Save</button>
                             <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
                         </div>
                     </div>

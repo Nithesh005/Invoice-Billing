@@ -345,7 +345,7 @@ const Products = () => {
                                                 onClick={() => Product_edit_page(data.productid)}
                                                 >Edit Product Details</div> */}
                                                  <div className='device_content_dropdown display-flex'
-                                                //    onClick={() => Product_edit_page(data.productid)}
+                                                   onClick={() => Product_edit_page(data.productid)}
                                                 >Edit Product Detials</div>
                                             </div>
                                             <div className='display-flex device_action_dropdown2 dropdown_action'>

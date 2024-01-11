@@ -340,7 +340,7 @@ const Edit_Distributer_Detials = () => {
         setSelected_value(value);
     }
     const inputFields = [
-        { label: "User ID", name: "userid", value: inputValues.userid, icon: ic_home_work },
+        { label: "User ID", name: "userid", value: inputValues.userid, icon: ic_home_work , readOnly:true},
         { label: "Organization Name", name: "OrganizationName", value: inputValues.OrganizationName, icon: person },
         { label: "Bussiness Type", name: "bussinessType", value: inputValues.bussinessType, icon: person },
         { label: "GST Number", name: "gstNumber", value: inputValues.gstNumber, icon: pen_3 },
@@ -595,6 +595,7 @@ const Edit_Distributer_Detials = () => {
                                                     value={field.value}
                                                     // disabled
                                                     onChange={(e) => handleInputChange(index, e.target.value)}
+                                                    readOnly={field.readOnly || false}
                                                 // Add value and onChange as needed
                                                 />
                                                 <div className="error-message">

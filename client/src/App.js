@@ -151,7 +151,7 @@ const App = () => {
         <>
           <Routes>
             <Route path='/' element={<Login />}></Route>
-            <Route path='/UpdatePassword' element={<UpdatePassword />}></Route>
+            <Route path='UpdatePassword' element={<UpdatePassword />}></Route>
           </Routes>
         </>
       )}

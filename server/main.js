@@ -110,12 +110,15 @@ app.get('/get/:entity(user|product)/:id', async (req, res) => {
 
 
 // Update Data from DB
-app.put('/update/:entity(user|productremove|userremove)', async (req, res) => {
+app.put('/update/:entity(user|product|productremove|userremove)', async (req, res) => {
     const entity = req.params.entity;
     if (entity === 'user') {
         // insertDataIntoTable(requestData);
         var userdata = await updateData.updateUserDataIndividual(req, res);
         // res.send('Data insertion initiated');
+    }
+    else if (entity === 'product') {
+        var userdata = await updateData.updateProductDataIndividual(req, res);
     }
     else if (entity === 'productremove') {
         var userdata = await updateData.updateProducts(req, res);
