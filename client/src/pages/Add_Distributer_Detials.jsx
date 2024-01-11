@@ -151,11 +151,12 @@ const Add_Distributer_Detials = () => {
         ) {
             // alert("Insert Properly");
         } else {
-            // console.log(postData);
+            console.log(postData);
             if (postData.Positionid==undefined) {
                 alert("Select user");
             }else{
                 try {
+                    alert("entering")
                     const response = await axios.post(`${API_URL}add/user`, postData);
                     alert(response.data.message);
                     if (response.data.status) {
@@ -226,9 +227,9 @@ const Add_Distributer_Detials = () => {
         setemail("");
         // check condition and navigate
         if (userInfo.position == 'distributor'){
-            navigate('Customer_Detials');
+            navigate('/Customer_Detials');
         }else{
-            navigate('Distributer_Detials');
+            navigate('/Distributer_Detials');
         }
     }
 

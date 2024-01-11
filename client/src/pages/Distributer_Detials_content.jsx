@@ -32,9 +32,9 @@ const Distributer_Detials_content = () => {
     const navigate = useNavigate();
     const handleclick = () => {
         if (userInfo.position == 'distributor') {
-            navigate('Add_Customer_Detials');
+            navigate('/Add_Customer_Detials');
         }else{
-            navigate('Add_Distributer_Detials');
+            navigate('/Add_Distributer_Detials');
         }
     }
     // const [rotatedIndex, setRotatedIndex] = useState(null);

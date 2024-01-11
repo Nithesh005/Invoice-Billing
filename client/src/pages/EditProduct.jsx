@@ -66,7 +66,7 @@ const EditProduct = () => {
 
     // cancel script
     function handleCancel() {
-        navigate('Products');
+        navigate('/Products');
     }
     //redirect to device content page
     const navigate = useNavigate();
@@ -146,7 +146,8 @@ const EditProduct = () => {
         }));
     };
     // console.log(inputValues);
-    
+    const userInfoString = sessionStorage.getItem("UserInfo");
+    const userInfo = JSON.parse(userInfoString);
     
     // validation
     const handleClick = async () => {
@@ -156,7 +157,7 @@ const EditProduct = () => {
         // console.log(isValidhsncode);
         if (isValidhsncode) {
             try {
-                const response = await axios.post(`${API_URL}add/products`, { productdetial: postData, updator: userInfo.userid });
+                const response = await axios.post(`${API_URL}add/products`, { productdetial: inputValues, updator: userInfo.userid });
                 if (response.data.status) {
                     // handleClear()
                     alert(response.data.message);
