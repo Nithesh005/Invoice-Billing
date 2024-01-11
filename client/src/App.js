@@ -60,8 +60,10 @@ const App = () => {
   // console.log(userInfo.distributer);
 
   return (
+    // http://localhost:3001/
+    // https://terion.quantanics.in/
     <BrowserRouter>
-      {window.location.href !== 'https://terion.quantanics.in/' ? (
+      {window.location.href !== 'http://localhost:3001/' ? (
         <>
           {userInfo.isLoggedIn && (
             <div>
@@ -98,8 +100,8 @@ const App = () => {
                   <div>
                     <Routes>
                       {/* Customer module */}
-                      <Route path='/Customer_Detials' element={<CustomerDetails />}></Route>
-                      <Route path='/Add_Customer_Detials' element={<Add_Customer_Detials />}></Route>
+                      <Route path='/Customer_Detials' element={<Distributer_Detials />}></Route>
+                      <Route path='/Add_Customer_Detials' element={<Add_Distributer_Detials />}></Route>
                       <Route path='/Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                     {/* {userdata[0].distributer > 2 && (

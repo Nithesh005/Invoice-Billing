@@ -19,7 +19,7 @@ app.post('/verify/:entity(user|credentials)', async (req, res) => {
     // console.log(entity);
     if (entity === 'credentials') {
         let result = await verifyData.checkCredentials(req, res);
-        res.json(result);
+        // res.json(result);
     }
     else {
         res.status(400).send('Invalid elements value');

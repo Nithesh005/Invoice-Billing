@@ -28,12 +28,16 @@ async function addUser(req, res) {
         City2,
         State2,
         PostalCode2 } = req.body;
-        const status = 1;
+    const status = 1;
+
+    console.log(
+        Positionid,
+    );
 
     try {
         await userdbInstance.userdb.query('BEGIN');
-        const ueserTable = await userdbInstance.userdb.query('INSERT INTO public."user" (userid, email, phno, altphoneno, aadhar, pan, name, positionid, adminid, pstreetname, pdistrictid, pstateid, ppostalcode,status) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,14)',
-            [userid, email, mobileNo, mobileNo, aadharNo, panNumber, fName, Positionid, adminid, streetAddress, City, State, pCode,status]);
+        const ueserTable = await userdbInstance.userdb.query('INSERT INTO public."user" (userid, email, phno, altphoneno, aadhar, pan, name, positionid, adminid, pstreetname, pdistrictid, pstateid, ppostalcode,status) VALUES($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)',
+            [userid, email, mobileNo, mobileNo, aadharNo, panNumber, fName, Positionid, adminid, streetAddress, City, State, pCode, status]);
         const credentialTable = await userdbInstance.userdb.query('INSERT INTO credentials (userid,username) VALUES ($1,$2)',
             [userid, email]);
 
@@ -57,10 +61,10 @@ async function addUser(req, res) {
         else if (Positionid == 4) {
             customer_ac = staff_ac = '0';
             distributor_ac = '2';
-            products_ac = Invoice_ac ='3';
+            products_ac = Invoice_ac = '3';
         }
         const access_controlTable = await userdbInstance.userdb.query('insert into accesscontroll (distributer,product,invoice,userid,customer,staff) values ($1,$2,$3,$4,$5,$6)',
-            [distributor_ac, products_ac, Invoice_ac, userid, customer_ac,staff_ac]);
+            [distributor_ac, products_ac, Invoice_ac, userid, customer_ac, staff_ac]);
         await userdbInstance.userdb.query('COMMIT');
         return res.json({ message: "Data inserted Successfully", status: true });
 
@@ -109,15 +113,15 @@ async function addInvoice(req, res) {
 }
 async function addProduct(req, res) {
     // const { hsncode,quantity,priceperitem,userid } = req.body;
-    const {hsncode,quantity,priceperitem,productname} = req.body.productdetial;
-    const {updator} = req.body;
-    console.log(hsncode,quantity,priceperitem,productname,updator);
+    const { hsncode, quantity, priceperitem, productname } = req.body.productdetial;
+    const { updator } = req.body;
+    console.log(hsncode, quantity, priceperitem, productname, updator);
 
     try {
         await userdbInstance.userdb.query('BEGIN');
         const insertProductResult = await userdbInstance.userdb.query(`INSERT INTO public.products(
             productid, quantity, priceperitem, "Lastupdatedby",productname,belongsto,status)
-            VALUES ($1, $2, $3, $4,$5,$6,$7);`, [hsncode,quantity,priceperitem,updator,productname,updator,'1']);
+            VALUES ($1, $2, $3, $4,$5,$6,$7);`, [hsncode, quantity, priceperitem, updator, productname, updator, '1']);
         await userdbInstance.userdb.query('COMMIT');
         if (insertProductResult.rowCount === 1) {
             // console.log(insertProductResult);
@@ -138,4 +142,4 @@ async function addProduct(req, res) {
     }
 }
 
-module.exports = { addUser, addInvoice , addProduct};
+module.exports = { addUser, addInvoice, addProduct };

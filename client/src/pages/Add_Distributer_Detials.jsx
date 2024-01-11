@@ -142,6 +142,8 @@ const Add_Distributer_Detials = () => {
             alert("enter valid Account Number");
         }
 
+        // console.log(postData);
+        // console.log(postData.Positionid==undefined);
 
         // alert(isValidpanNumber);
         if (!isValidgstNumber || !isValidpanNumber || !isValidaadharNo
@@ -149,15 +151,22 @@ const Add_Distributer_Detials = () => {
         ) {
             // alert("Insert Properly");
         } else {
-            try {
-                const response = await axios.post(`${API_URL}add/user`, postData);
-                alert(response.data.message);
-                if (response.data.status) {
-                    handleClear()
+            // console.log(postData);
+            if (postData.Positionid==undefined) {
+                alert("Select user");
+            }else{
+                try {
+                    const response = await axios.post(`${API_URL}add/user`, postData);
+                    alert(response.data.message);
+                    if (response.data.status) {
+                        handleClear()
+                    }
+                } catch (error) {
+                    console.error('Error sending data:', error);
                 }
-            } catch (error) {
-                console.error('Error sending data:', error);
+
             }
+            
         }
 
     };
@@ -216,7 +225,11 @@ const Add_Distributer_Detials = () => {
         setDesignation("");
         setemail("");
         // check condition and navigate
-        navigate('/Distributer_Detials');
+        if (userInfo.position == 'distributor'){
+            navigate('/Customer_Detials');
+        }else{
+            navigate('/Distributer_Detials');
+        }
     }
 
 
@@ -232,22 +245,32 @@ const Add_Distributer_Detials = () => {
     var Positionid_val;
     const handleUserChange = async (event) => {
         setSelectedUser(event.target.value);
-        if (event.target.value === 'Staff') {
+        // console.log(event.target.value);
+        if (event.target.value == "select user") {
+            // alert("Please Select user");
+            Positionid_val="null"
+        }
+        else if (event.target.value === 'Staff') {
             Positionid_val = 4;
         } else if (event.target.value === 'Distributor') {
             Positionid_val = 2;
         }
+        else if (event.target.value === 'Customer') {
+            Positionid_val = 3;
+        }
         // console.log("hello : ",Positionid_val);
-        await setPostData(prevData => ({
+        setPostData(prevData => ({
             ...prevData,
             Positionid: Positionid_val,
         }));
+        // console.log(postData);
     };
+
 
     useEffect(() => {
         console.log("hai : ", postData.Positionid);
     }, [postData.Positionid]);
-
+    console.log("haiiii",userInfo.position);
 
     return (
         <div className='Add_device1 '>
@@ -279,11 +302,24 @@ const Add_Distributer_Detials = () => {
                     <div className="row_one display-flex">
                         <div className="adding_new_device uppercase bold">Add User Detials </div>
                         <select value={selectedUser} onChange={handleUserChange}>
-                            <option defaultValue={"select user"} disabled>Select a User</option>
-                            <option value="Staff">Staff</option>
-                            <option value="Distributor">Distributor</option>
+                            <option value={"select user"}>Select a User</option>
+                            {userInfo.position === 'manifacture' && (
+                                <>
+                                    <option value="Staff">Staff</option>
+                                    <option value="Distributor">Distributor</option>
+                                </>
+                            )}
+                            {userInfo.position === 'staff' && (
+                                <>
+                                    <option value="Distributor">Distributor</option>
+                                </>
+                            )}
+                            {userInfo.position === 'distributor' && (
+                                <option value="Customer" >Customer</option>
+                            )}
                             {/* Add more options as needed */}
                         </select>
+                        {/* {JSON.stringify()} */}
                     </div>
 
                     <div className="row_two display-flex padding-loc">

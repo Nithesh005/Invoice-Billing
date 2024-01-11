@@ -69,9 +69,12 @@ const Login = () => {
                 console.log(response.data);
                 if (response.data.data.position === "manifacture") {
                     navigate("/Distributer_Detials");
-                } else if (response.data.data.position === "distributor") {
+                } 
+                else if (response.data.data.position === "staff") {
+                    navigate('/Distributer_Detials');
+                }
+                else if (response.data.data.position === "distributor") {
                     navigate('/Customer_Detials');
-
                 }
                 else {
                     navigate('/profilePage');

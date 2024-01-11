@@ -30,9 +30,9 @@ async function checkCredentials(req, res) {
           if (rowCount === 1) {
             const result = data.rows[0];
             console.log(result);
-            return { success: true, data: result };
+            res.json({ success: true, data: result });
           } else {
-            return { success: false, message: 'Invalid username or password' };
+            res.json({ success: false, message: 'Invalid username or password' });
           }
         }
       }

@@ -28,12 +28,14 @@ const Distributer_Detials_content = () => {
         setIsOpen3(!isOpen3);
         setIsDropdownOpen3(!isDropdownOpen3);
     };
-
-
     // //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
-        navigate('/Add_Distributer_Detials');
+        if (userInfo.position == 'distributor') {
+            navigate('/Add_Customer_Detials');
+        }else{
+            navigate('/Add_Distributer_Detials');
+        }
     }
     // const [rotatedIndex, setRotatedIndex] = useState(null);
 
@@ -61,8 +63,15 @@ const Distributer_Detials_content = () => {
     const [alldata, setAlldate] = useState([]);
     useEffect(() => {
         const adminid = JSON.parse(sessionStorage.getItem("UserInfo")).userid;
+        if (userInfo.position == 'manifacture') {
+            var position = 2;
+        } else if (userInfo.position == 'staff') {
+            var position = 2;
+        } else if (userInfo.position == 'distributor') {
+            var position = 3;
+        }
 
-        axios.post(`${API_URL}get/user`, { adminid: adminid, position: 2 })
+        axios.post(`${API_URL}get/user`, { adminid: adminid, position: position })
             .then(response => {
                 console.log(response.data.data);
                 setAlldate(response.data.data);
@@ -89,13 +98,23 @@ const Distributer_Detials_content = () => {
             console.error('Error updating user status:', error);
         }
     }
-
+    const userInfoString = sessionStorage.getItem("UserInfo");
+    const userInfo = JSON.parse(userInfoString);
+    console.log("haiiii", userInfo.position);
     return (
         <div className='bar'>
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
                     <div className="row_with_count_status">
-                        <span className='module_tittle'>Distributor Detials</span>
+                        {userInfo.position == 'distributor' ? (
+                            <>
+                                <span className='module_tittle'>Customer Detials</span>
+                            </>
+                        ) : (
+                            <>
+                                <span className='module_tittle'>Distributor Detials</span>
+                            </>
+                        )}
                     </div>
 
                     <div className='filters display-flex' >
