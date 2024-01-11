@@ -164,7 +164,7 @@ const Edit_Distributer_Detials = () => {
         // setcontact("");
         // setDesignation("");
         // setemail("");
-        navigate('/Distributer_Detials');
+        navigate('Distributer_Detials');
     }
 
     function handle_first_name(event) {

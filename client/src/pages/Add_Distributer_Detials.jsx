@@ -226,9 +226,9 @@ const Add_Distributer_Detials = () => {
         setemail("");
         // check condition and navigate
         if (userInfo.position == 'distributor'){
-            navigate('/Customer_Detials');
+            navigate('Customer_Detials');
         }else{
-            navigate('/Distributer_Detials');
+            navigate('Distributer_Detials');
         }
     }
 

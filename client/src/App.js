@@ -74,9 +74,9 @@ const App = () => {
                   <div>
                     <Routes>
                       {/* Staff module */}
-                      <Route path='/Staff_Detials' element={<Staff_Detials />}></Route>
-                      <Route path='/Add_Staff_Detials' element={<Add_Distributer_Detials />}></Route>
-                      <Route path='/Edit_Staff_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
+                      <Route path='Staff_Detials' element={<Staff_Detials />}></Route>
+                      <Route path='Add_Staff_Detials' element={<Add_Distributer_Detials />}></Route>
+                      <Route path='Edit_Staff_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                   </div>
                 )}
@@ -84,9 +84,9 @@ const App = () => {
                   <div>
                     <Routes>
                       {/* Distributer module */}
-                      <Route path='/Distributer_Detials' element={<Distributer_Detials />}></Route>
-                      <Route path='/Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
-                      <Route path='/Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
+                      <Route path='Distributer_Detials' element={<Distributer_Detials />}></Route>
+                      <Route path='Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
+                      <Route path='Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                     {/* {userdata[0].distributer > 2 && (
                   <div>Create/Delete</div>
@@ -100,9 +100,9 @@ const App = () => {
                   <div>
                     <Routes>
                       {/* Customer module */}
-                      <Route path='/Customer_Detials' element={<Distributer_Detials />}></Route>
-                      <Route path='/Add_Customer_Detials' element={<Add_Distributer_Detials />}></Route>
-                      <Route path='/Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
+                      <Route path='Customer_Detials' element={<Distributer_Detials />}></Route>
+                      <Route path='Add_Customer_Detials' element={<Add_Distributer_Detials />}></Route>
+                      <Route path='Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                     {/* {userdata[0].distributer > 2 && (
                   <div>Create/Delete</div>
@@ -116,9 +116,9 @@ const App = () => {
                   <div>
                     <Routes>
                       {/* Products Module */}
-                      <Route path='/Products' element={<Products />}></Route>
-                      <Route path='/Add_Products' element={<Add_Products />}></Route>
-                      <Route path='/Edit_Product_Detials/:productid' element={<EditProduct />}></Route>
+                      <Route path='Products' element={<Products />}></Route>
+                      <Route path='Add_Products' element={<Add_Products />}></Route>
+                      <Route path='Edit_Product_Detials/:productid' element={<EditProduct />}></Route>
                     </Routes>
                     {/* {userdata[0].product > 2 && (
                   <div>Create/Delete</div>
@@ -132,10 +132,10 @@ const App = () => {
                   <div>
                     <Routes>
                       {/* Invoice Module */}
-                      <Route path='/Invoice' element={<Invoice />}></Route>
-                      <Route path='/InvoiceGenerator' element={<InvoiceGenerator />}></Route>
-                      <Route path='/ProfilePage' element={<ProfilePage />}></Route>
-                      <Route path='/TransactionHistory' element={<TransactionHistory />}></Route>
+                      <Route path='Invoice' element={<Invoice />}></Route>
+                      <Route path='InvoiceGenerator' element={<InvoiceGenerator />}></Route>
+                      <Route path='ProfilePage' element={<ProfilePage />}></Route>
+                      <Route path='TransactionHistory' element={<TransactionHistory />}></Route>
                     </Routes>
                     {/* {userdata[0].product > 2 && (
                   <div>Create/Delete</div>

@@ -62,7 +62,7 @@ const Products = () => {
     // //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
-        navigate('/Add_Products');
+        navigate('Add_Products');
     }
 
     // //rotate the arrow in the device action

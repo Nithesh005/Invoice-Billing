@@ -66,7 +66,7 @@ const EditProduct = () => {
 
     // cancel script
     function handleCancel() {
-        navigate('/Products');
+        navigate('Products');
     }
     //redirect to device content page
     const navigate = useNavigate();

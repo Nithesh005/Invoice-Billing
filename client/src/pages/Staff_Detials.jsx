@@ -77,7 +77,7 @@ const Staff_Detials = () => {
 
     //navigate to edit page
     const Staff_Detials_edit_page = async (data) => {
-        navigate(`/Edit_Staff_Detials/${data}`);
+        navigate(`Edit_Staff_Detials/${data}`);
     }
 
     const updateUserStatus = async (userid, currentstatus, index) => {
