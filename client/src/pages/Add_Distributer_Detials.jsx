@@ -42,7 +42,7 @@ const Add_Distributer_Detials = () => {
         aadharNo: '',
         fName: '',
         lName: '',
-        Positionid: '4',
+        Positionid: null,
         adminid: userInfo.userid,
         email: '',
         mobileNo: '',
@@ -152,21 +152,19 @@ const Add_Distributer_Detials = () => {
             // alert("Insert Properly");
         } else {
             console.log(postData);
-            if (postData.Positionid==undefined) {
+            if (postData.Positionid==undefined || postData.Positionid==null) {
                 alert("Select user");
             }else{
-                // try {
-                //     const response = await axios.post(`${API_URL}add/user`, postData);
-                //     alert(response.data.message);
-                //     if (response.data.status) {
-                //         handleClear()
-                //     }
-                // } catch (error) {
-                //     console.error('Error sending data:', error);
-                // }
-
-            }
-            
+                try {
+                    const response = await axios.post(`${API_URL}add/user`, postData);
+                    alert(response.data.message);
+                    if (response.data.status) {
+                        handleClear()
+                    }
+                } catch (error) {
+                    console.error('Error sending data:', error);
+                }
+            }  
         }
 
     };
