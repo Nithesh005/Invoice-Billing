@@ -155,16 +155,15 @@ const Add_Distributer_Detials = () => {
             if (postData.Positionid==undefined) {
                 alert("Select user");
             }else{
-                try {
-                    alert("entering")
-                    const response = await axios.post(`${API_URL}add/user`, postData);
-                    alert(response.data.message);
-                    if (response.data.status) {
-                        handleClear()
-                    }
-                } catch (error) {
-                    console.error('Error sending data:', error);
-                }
+                // try {
+                //     const response = await axios.post(`${API_URL}add/user`, postData);
+                //     alert(response.data.message);
+                //     if (response.data.status) {
+                //         handleClear()
+                //     }
+                // } catch (error) {
+                //     console.error('Error sending data:', error);
+                // }
 
             }
             
