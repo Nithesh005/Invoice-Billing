@@ -38,7 +38,7 @@ const Staff_Detials = () => {
     const [alldata, setAlldate] = useState([]);
     useEffect(() => {
         const adminid = JSON.parse(sessionStorage.getItem("UserInfo")).userid;
-        axios.post('http://localhost:4000/get/user', { adminid: adminid, position: 4 })
+        axios.post(`${API_URL}get/user`, { adminid: adminid, position: 4 })
             .then(response => {
                 console.log(response.data.data);
                 setAlldate(response.data.data)
@@ -82,7 +82,7 @@ const Staff_Detials = () => {
 
     const updateUserStatus = async (userid, currentstatus, index) => {
         try {
-            const response = await axios.put(`${API_URL}/update/userremove`, {
+            const response = await axios.put(`${API_URL}update/userremove`, {
                 userid: userid, status: currentstatus
             });
             console.log(response.data.resStatus); // Assuming the API sends back a response

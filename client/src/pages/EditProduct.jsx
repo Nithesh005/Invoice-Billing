@@ -113,7 +113,7 @@ const EditProduct = () => {
         // console.log(isValidhsncode, userInfo.userid);
         if (isValidhsncode) {
             try {
-                const response = await axios.post('http://localhost:4000/add/products', { productdetial: postData, updator: userInfo.userid });
+                const response = await axios.post(`${API_URL}add/products`, { productdetial: postData, updator: userInfo.userid });
                 if (response.data.status) {
                     handleClear()
                     alert(response.data.message);
@@ -144,7 +144,7 @@ const EditProduct = () => {
         const device_user_data = async () => {
             // console.log(API_URL);
             try {
-                const response = await fetch(`${API_URL}/get/product/${productid}`);
+                const response = await fetch(`${API_URL}get/product/${productid}`);
                 const data = await response.json();
                 console.log(data);
                 all_data_fun(data)

@@ -55,7 +55,7 @@ const UpdatePassword = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:4000/verify/credentials',
+                `${API_URL}verify/credentials`,
                 {
                     username: username,
                     password: password,

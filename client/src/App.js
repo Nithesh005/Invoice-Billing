@@ -61,7 +61,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      {window.location.href !== 'http://localhost:3001/' ? (
+      {window.location.href !== 'https://terion.quantanics.in/' ? (
         <>
           {userInfo.isLoggedIn && (
             <div>

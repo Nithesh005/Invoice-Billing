@@ -54,7 +54,7 @@ const InvoiceGenerator = () => {
   const [invoiceData,setinvoicedata] = useState(<Invoice/>)
   const GenerateBill = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/send-email', {
+      const response = await axios.post(`${API_URL}send-email`, {
         data: invoiceData,
         to:'nitheshwaran003@gmail.com'
       });

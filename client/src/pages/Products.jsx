@@ -119,7 +119,7 @@ const Products = () => {
     useEffect(() => {
         const userid = JSON.parse(sessionStorage.getItem("UserInfo")).userid;
         // console.log(userid);
-        axios.post('http://localhost:4000/get/products', { userid })
+        axios.post(`${API_URL}get/products`, { userid })
             .then(response => {
                 setAlldate(response.data.data);
             })
@@ -132,7 +132,7 @@ const Products = () => {
     const updateUserStatus = async (productid, currentstatus, index) => {
         try {
             console.log(productid);
-            const response = await axios.put(`${API_URL}/update/productremove`, {
+            const response = await axios.put(`${API_URL}update/productremove`, {
                 productid: productid, status: currentstatus
             });
             console.log(response.data.resStatus); // Assuming the API sends back a response

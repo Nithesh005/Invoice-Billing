@@ -54,7 +54,7 @@ const Edit_Distributer_Detials = () => {
         const device_user_data = async () => {
             console.log(userid);
             try {
-                const response = await fetch(`${API_URL}/get/user/${userid}`);
+                const response = await fetch(`${API_URL}get/user/${userid}`);
                 const data = await response.json();
                 console.log(data);
                 all_data_fun(data)
@@ -259,13 +259,13 @@ const Edit_Distributer_Detials = () => {
         if ((isValidemail)) {
             console.log("success", inputValues);
             // const body = { first_name, last_name, siteid, roleid, contact, Designation,email,user_id, selectedOption_site, selectedOption_user, selectedOption_device, selectedOption_dashboard }
-            // fetch(`${API_URL}/update_user`, {
+            // fetch(`${API_URL}update_user`, {
             //     method: "PUT",
             //     headers: { "Content-Type": "application/json" },
             //     body: JSON.stringify(body),
             // });
             try {
-                const response = await axios.put(`${API_URL}/update/user`, {inputValues});
+                const response = await axios.put(`${API_URL}update/user`, {inputValues});
                 alert('API Response:', response.data);
                 // Handle the response as needed
             } catch (error) {

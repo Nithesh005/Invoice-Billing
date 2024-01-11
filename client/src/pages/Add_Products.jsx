@@ -111,7 +111,7 @@ const Add_Products = () => {
         // console.log(isValidhsncode, userInfo.userid);
         if (isValidhsncode) {
             try {
-                const response = await axios.post('http://localhost:4000/add/products', { productdetial: postData, updator: userInfo.userid });
+                const response = await axios.post(`${API_URL}add/products`, { productdetial: postData, updator: userInfo.userid });
                 if (response.data.status) {
                     handleClear()
                     alert(response.data.message);

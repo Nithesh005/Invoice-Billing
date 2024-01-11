@@ -23,6 +23,7 @@ import { followers } from 'react-icons-kit/ikons/followers';
 import { pen_3 } from 'react-icons-kit/ikons/pen_3';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import { API_URL } from '../config';
 
 
 
@@ -146,7 +147,7 @@ const Add_Customer_Detials = () => {
             // alert("Insert Properly");
         } else {
             try {
-                const response = await axios.post('http://localhost:4000/add/user', postData);
+                const response = await axios.post(`${API_URL}add/user`, postData);
                 alert(response.data.message);
                 if (response.data.status) {
                     handleClear()

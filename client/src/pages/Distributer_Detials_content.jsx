@@ -62,7 +62,7 @@ const Distributer_Detials_content = () => {
     useEffect(() => {
         const adminid = JSON.parse(sessionStorage.getItem("UserInfo")).userid;
 
-        axios.post('http://localhost:4000/get/user', { adminid: adminid, position: 2 })
+        axios.post(`${API_URL}get/user`, { adminid: adminid, position: 2 })
             .then(response => {
                 console.log(response.data.data);
                 setAlldate(response.data.data);
