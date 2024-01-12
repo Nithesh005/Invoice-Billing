@@ -110,10 +110,10 @@ const Products = () => {
 
     //navigate to edit page
     const Products_edit_page = async () => {
-        navigate(`/Edit_Products`);
+        navigate(`Edit_Products`);
     }
     const Product_edit_page = (data) =>{
-        navigate(`/Edit_Product_Detials/${data}`);
+        navigate(`Edit_Product_Detials/${data}`);
     }
     const [alldata, setAlldate] = useState([]);
     useEffect(() => {

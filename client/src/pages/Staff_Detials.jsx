@@ -33,7 +33,7 @@ const Staff_Detials = () => {
     // //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
-        navigate(`/Add_Staff_Detials`);
+        navigate(`Add_Staff_Detials`);
     }
     const [alldata, setAlldate] = useState([]);
     useEffect(() => {
@@ -243,81 +243,6 @@ const Staff_Detials = () => {
                                 </div>
                             </div>
                         ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* Edit Device detials */}
-            <div class="modal fade device_status_action" id="device_status_action" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="device_status_header">
-                            <h5 class="modal-title" id="exampleModalLabel">EDIT DEVICE DETAILS
-                            </h5>
-                            {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
-                        </div>
-                        <div class="device_status_body">
-                            <div className="dsa_row1">
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Device Name</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" value={"device_name"} class="form-control-loc" id="input1" />
-                                    </div>
-                                </div>
-                                <div className="dsa_1st_input">
-                                    <label for="input1">Client ID</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" value={"client_id"} class="form-control-loc" id="input1" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="dsa_row2">
-                                <div className="dsa_2nd_input">
-                                    <label for="input1">Device MAC Address</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" value={"device_mac_address"} class="form-control-loc" id="input1" />
-                                    </div>
-                                </div>
-                                <div className="dsa_2nd_input">
-                                    <label for="input1">Firmware Version</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" value={"device_firmware_version"} class="form-control-loc" id="input1" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="dsa_row3">
-                                <div className="dsa_3rd_input">
-                                    <label for="input1">Device Model</label>
-                                    <div className="inputs-group">
-                                        <span class="input-group-loc"><Icon icon={ic_label_important} size={20} style={{ color: "lightgray" }} /></span>
-                                        <input type="text" value={"device_model"} class="form-control-loc" id="input1" />
-                                    </div>
-                                </div>
-                                <div className="dsa_3rd_input">
-                                    <div className="dsa_updates">
-                                        <div className="updated_by">
-                                            <label htmlFor="updated_by_name" className='dsa_updates_heading'>Last Updated By
-                                            </label>
-                                            <div id="updated_by_name">Quantanics</div>
-                                        </div>
-                                        <div className="updated_on">
-                                            <label htmlFor="updated_by_date" className='dsa_updates_heading'>Last Updated On
-                                            </label>
-                                            <div id="updated_by_date">20 march 2023, 12:57</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="device_status_footer">
-                            <button type="button" class="btn-loc inactive-loc" data-bs-dismiss="modal">Close</button>
-                        </div>
                     </div>
                 </div>
             </div>

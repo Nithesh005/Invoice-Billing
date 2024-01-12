@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../assets/style/App.css';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 //import icons from fontawesome and react icon kit
 import { Icon } from 'react-icons-kit';
@@ -24,7 +25,6 @@ import { pen_3 } from 'react-icons-kit/ikons/pen_3';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { API_URL } from '../config';
-// import { handleSubmit } from '../assets/hooksFunctions/validations';
 
 
 
@@ -152,9 +152,9 @@ const Add_Distributer_Detials = () => {
             // alert("Insert Properly");
         } else {
             console.log(postData);
-            if (postData.Positionid==undefined || postData.Positionid==null) {
+            if (postData.Positionid == undefined || postData.Positionid == null) {
                 alert("Select user");
-            }else{
+            } else {
                 try {
                     const response = await axios.post(`${API_URL}add/user`, postData);
                     alert(response.data.message);
@@ -164,7 +164,7 @@ const Add_Distributer_Detials = () => {
                 } catch (error) {
                     console.error('Error sending data:', error);
                 }
-            }  
+            }
         }
 
     };
@@ -222,12 +222,7 @@ const Add_Distributer_Detials = () => {
         setcontact("");
         setDesignation("");
         setemail("");
-        // check condition and navigate
-        if (userInfo.position == 'distributor'){
-            navigate('/Customer_Detials');
-        }else{
-            navigate('/Distributer_Detials');
-        }
+        navigate(-1);
     }
 
 
@@ -246,7 +241,7 @@ const Add_Distributer_Detials = () => {
         // console.log(event.target.value);
         if (event.target.value == "select user") {
             // alert("Please Select user");
-            Positionid_val="null"
+            Positionid_val = "null"
         }
         else if (event.target.value === 'Staff') {
             Positionid_val = 4;
@@ -268,7 +263,7 @@ const Add_Distributer_Detials = () => {
     useEffect(() => {
         console.log("hai : ", postData.Positionid);
     }, [postData.Positionid]);
-    console.log("haiiii",userInfo.position);
+    console.log("haiiii", userInfo.position);
 
     return (
         <div className='Add_device1 '>

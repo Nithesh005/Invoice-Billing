@@ -157,14 +157,7 @@ const Edit_Distributer_Detials = () => {
 
     // cancel script
     function handleCancel() {
-        // setfirst_name("");
-        // setlast_name("");
-        // setsiteid("");
-        // setroleid("");
-        // setcontact("");
-        // setDesignation("");
-        // setemail("");
-        navigate('Distributer_Detials');
+        navigate(-1);
     }
 
     function handle_first_name(event) {
@@ -258,21 +251,12 @@ const Edit_Distributer_Detials = () => {
         const isValidemail = /^[A-Za-z0-9._%+-]+@gmail\.com$/.test(inputValues.email)
         if ((isValidemail)) {
             console.log("success", inputValues);
-            // const body = { first_name, last_name, siteid, roleid, contact, Designation,email,user_id, selectedOption_site, selectedOption_user, selectedOption_device, selectedOption_dashboard }
-            // fetch(`${API_URL}update_user`, {
-            //     method: "PUT",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify(body),
-            // });
             try {
                 const response = await axios.put(`${API_URL}update/user`, {inputValues});
                 alert('API Response:', response.data);
-                // Handle the response as needed
             } catch (error) {
                 console.error('Error updating data:', error);
-                // Handle the error as needed
             }
-            // navigate('/User');
         }
         else {
             if (isValidemail === false) {

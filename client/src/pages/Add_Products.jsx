@@ -72,7 +72,7 @@ const Add_Products = () => {
         setfirstName("");
         setlastName("");
         setcontact("");
-        navigate('Products');
+        navigate(-1);
     }
     //redirect to device content page
     const navigate = useNavigate();

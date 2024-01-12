@@ -31,11 +31,7 @@ const Distributer_Detials_content = () => {
     // //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
-        if (userInfo.position == 'distributor') {
-            navigate('/Add_Customer_Detials');
-        }else{
-            navigate('/Add_Distributer_Detials');
-        }
+        navigate('Add_Distributer_Detials');
     }
     // const [rotatedIndex, setRotatedIndex] = useState(null);
 
@@ -58,7 +54,7 @@ const Distributer_Detials_content = () => {
     //navigate to edit page
     const Distributer_Detials_edit_page = async (data) => {
         console.log("id", data);
-        navigate(`/Edit_Distributer_Detials/${data}`);
+        navigate(`Edit_Distributer_Detials/${data}`);
     }
     const [alldata, setAlldate] = useState([]);
     useEffect(() => {
