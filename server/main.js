@@ -6,20 +6,17 @@ const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
-const addData = require('./insertFunctions');
-const verifyData = require('./verifyFunction');
-const deleteData = require('./deletefunctions');
-const getData = require('./getFunctions');
-const updateData = require('./updateFunctions');
+const addData = require('./Functions/insertFunctions');
+const verifyData = require('./Functions/verifyFunction');
+const deleteData = require('./Functions/deletefunctions');
+const getData = require('./Functions/getFunctions');
+const updateData = require('./Functions/updateFunctions');
 
 
 app.post('/verify/:entity(user|credentials)', async (req, res) => {
-    const entity = req.params.entity; // Corrected from req.params.elements
-    const dataFromClient = req.body; // Assuming the data to be inserted is in the request body
-    // console.log(entity);
+    const entity = req.params.entity;
     if (entity === 'credentials') {
         let result = await verifyData.checkCredentials(req, res);
-        // res.json(result);
     }
     else {
         res.status(400).send('Invalid elements value');
@@ -33,7 +30,6 @@ app.post('/add/:entity(user|products|invoice)', async (req, res) => {
     if (entity === 'user') {
         try {
             const addUser = await addData.addUser(req, res);
-            // res.json(addUser);
         } catch (error) {
             console.error('Error retrieving user details:', error);
             res.status(500).send('Internal Server Error');
@@ -50,7 +46,6 @@ app.post('/add/:entity(user|products|invoice)', async (req, res) => {
     if (entity === 'invoice') {
         try {
             const addUser = await addData.addInvoice(req, res);
-            // res.json(addUser);
         } catch (error) {
             console.error('Error retrieving products details:', error);
             res.status(500).send('Internal Server Error');
@@ -62,11 +57,9 @@ app.post('/add/:entity(user|products|invoice)', async (req, res) => {
 app.post('/get/:entity(user|credentials|products|state|district|access_control)', async (req, res) => {
     const entity = req.params.entity;
     const requestData = req.body;
-    // console.log(entity);
     if (entity === 'user') {
         try {
             var userdata = await getData.getUserData(req, res);
-            // res.send(userdata);
         }
         catch (error) {
             res.send("error");
@@ -76,7 +69,6 @@ app.post('/get/:entity(user|credentials|products|state|district|access_control)'
     if (entity === 'products') {
         try {
             var userdata = await getData.getProducts(req, res);
-            // res.send(userdata);
         }
         catch (error) {
             res.send("error");
@@ -91,16 +83,11 @@ app.post('/get/:entity(user|credentials|products|state|district|access_control)'
 app.get('/get/:entity(user|product)/:id', async (req, res) => {
     const entity = req.params.entity;
     const {id} = req.params;
-    // console.log( entity);
     if (entity === 'user') {
-        // console.log("hit",userid);
         var userdata = await getData.getUserDataIndividual(req, res);
-        // res.send('Successfully fetched the user detials');
     }
     else if (entity === 'product') {
-        //  console.log("hit",id);
         var userdata = await getData.getProductDataIndividual(req, res);
-        // res.send('Successfully fetched the products detials');
     }
     else {
         res.status(400).send('Invalid elements value');
@@ -113,9 +100,7 @@ app.get('/get/:entity(user|product)/:id', async (req, res) => {
 app.put('/update/:entity(user|product|productremove|userremove)', async (req, res) => {
     const entity = req.params.entity;
     if (entity === 'user') {
-        // insertDataIntoTable(requestData);
         var userdata = await updateData.updateUserDataIndividual(req, res);
-        // res.send('Data insertion initiated');
     }
     else if (entity === 'product') {
         var userdata = await updateData.updateProductDataIndividual(req, res);
@@ -126,17 +111,6 @@ app.put('/update/:entity(user|product|productremove|userremove)', async (req, re
     else if (entity === 'userremove') {
         var userdata = await updateData.updateStatusToRemove(req, res);
     }
-    // else if (entity === 'userdetials') {
-    //     try {
-    //         await getdata(req, res);
-    //     } catch (error) {
-    //         console.error('Error retrieving user details:', error);
-    //         res.status(500).send('Internal Server Error');
-    //     }
-    // }
-    // else {
-    //     res.status(400).send('Invalid elements value');
-    // }
 });
 
 // Delete data
@@ -145,7 +119,6 @@ app.post('/delete/:entity(user|products)', async (req, res) => {
     if (entity === 'user') {
         try {
             const deleteUser = await deleteData.deleteUser(req, res);
-            // res.json(deleteUser);
         } catch (error) {
             console.error('Error retrieving user details:', error);
             res.status(500).send('Internal Server Error');
@@ -154,7 +127,6 @@ app.post('/delete/:entity(user|products)', async (req, res) => {
     if (entity === 'products') {
         try {
             const deleteUser = await deleteData.deleteInvoice(req, res);
-            // res.json(deleteUser);
         } catch (error) {
             console.error('Error retrieving user details:', error);
             res.status(500).send('Internal Server Error');
@@ -162,39 +134,10 @@ app.post('/delete/:entity(user|products)', async (req, res) => {
     }
 })
 
-
 app.post('/send-email', async (req, res) => {
-    // console.log("Sss");
-    const { to, data, subject } = req.body;
-    console.log(data);
-    const filePath = path.join(__dirname, 'mail-template.html');
-    const htmlContent = fs.readFileSync(filePath, 'utf-8');
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'terionorganization@gmail.com', // Replace with your Gmail email
-            pass: 'imkq rydg xtla lvmx', // Replace with your Gmail password or app-specific password
-        },
-    });
-    const mailOptions = {
-        from: 'terionorganization@gmail.com',
-        to: to,
-        subject: "Official mail from Terion Organization",
-        html: htmlContent, // Include HTML content in the email body
-    };
-
-    try {
-        // Send email
-        await transporter.sendMail(mailOptions);
-        res.status(200).json({ message: 'Email sent successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Failed to send email' });
-    }
+    console.log("mail service");
+    res.send("mail service")
 });
-
-
-
 
 app.listen(4000, () => {
     console.log("server is running on port 4000");
