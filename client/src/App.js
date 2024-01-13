@@ -64,7 +64,7 @@ const App  = () => {
               <Sidebar handleLogout={handleLogout}>
                 {/* userInfo.staff */}
                 {userInfo.staff  > 0 && (
-                  <div style={{ marginLeft: "60px" }}>
+                  <div>
                     <Routes>
                       {/* Staff module */}
                       <Route path='Staff_Detials' element={<Staff_Detials position={4}/>}></Route>
