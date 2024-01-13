@@ -13,7 +13,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../config';
 
-const Distributer_Detials_content = () => {
+const Distributer_Detials_content = (props) => {
+    console.log('Props in ChildComponent:', props);
+
     //states
     const [rotatedIndex, setRotatedIndex] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -31,7 +33,7 @@ const Distributer_Detials_content = () => {
     // //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
-        navigate('Add_Distributer_Detials');
+        navigate('Add_User_Detials');
     }
     // const [rotatedIndex, setRotatedIndex] = useState(null);
 
@@ -59,15 +61,15 @@ const Distributer_Detials_content = () => {
     const [alldata, setAlldate] = useState([]);
     useEffect(() => {
         const adminid = JSON.parse(sessionStorage.getItem("UserInfo")).userid;
-        if (userInfo.position == 'manifacture') {
-            var position = 2;
-        } else if (userInfo.position == 'staff') {
-            var position = 2;
-        } else if (userInfo.position == 'distributor') {
-            var position = 3;
-        }
+        // if (userInfo.position == 'manifacture') {
+        //     var position = 2;
+        // } else if (userInfo.position == 'staff') {
+        //     var position = 2;
+        // } else if (userInfo.position == 'distributor') {
+        //     var position = 3;
+        // }
 
-        axios.post(`${API_URL}get/user`, { adminid: adminid, position: position })
+        axios.post(`${API_URL}get/user`, { adminid: adminid, position: props.position })
             .then(response => {
                 console.log(response.data.data);
                 setAlldate(response.data.data);
@@ -96,12 +98,13 @@ const Distributer_Detials_content = () => {
     }
     const userInfoString = sessionStorage.getItem("UserInfo");
     const userInfo = JSON.parse(userInfoString);
-    console.log("haiiii", userInfo.position);
     return (
         <div className='bar'>
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
                     <div className="row_with_count_status">
+
+
                         {userInfo.position == 'distributor' ? (
                             <>
                                 <span className='module_tittle'>Customer Detials</span>

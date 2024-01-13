@@ -3,7 +3,6 @@ const setPasswordMailing = require('../services/emailservice');
 
 async function checkCredentials(req, res) {
   const { username, password } = req.body;
-  console.log(username, password);
   try {
     const checkIsUsernameExist = await userdbInstance.userdb.query('select username from public.credentials where username=$1;', [username]);
     if (checkIsUsernameExist.rows != 0) {
@@ -25,7 +24,8 @@ async function checkCredentials(req, res) {
         const rowCount = data.rows.length;
         if (rowCount === 1) {
           const result = data.rows[0];
-          console.log(result);
+          // console.log(result);
+          console.log(username, password);
           res.json({ success: true, data: result });
         } else {
           res.json({ success: false, message: 'Enter Valid Username and Password' });

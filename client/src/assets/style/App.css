@@ -160,6 +160,11 @@
     position: relative;
 }
 
+.required::after {
+    content: ' *';
+    color: red;
+}
+
 .credentials {
     width: "100%";
     display: "flex";
@@ -2447,12 +2452,16 @@ input[type='number'] {
     flex-direction: column;
     gap: 1rem;
 }
-.first-div, .second-div, .third-div{
+
+.first-div,
+.second-div,
+.third-div {
     width: 80%;
     border: var(--OUTLINE_BORDERS);
     border-radius: 7px;
 }
-.addInvoiceHead{
+
+.addInvoiceHead {
     font-size: larger;
     font-weight: 700;
     display: flex;
@@ -2461,28 +2470,36 @@ input[type='number'] {
     padding: 1rem;
     text-shadow: #8c8c8c;
 }
-.addIncoiveText{
+
+.addIncoiveText {
     margin-left: 2rem;
 
 }
-.bottomBorder{
+
+.bottomBorder {
     border-bottom: var(--OUTLINE_BORDERS);
 }
-.cutomerName{
+
+.cutomerName {
     display: flex;
     /* width: 80%; */
 }
-.contentLeft , .contentRight{
+
+.contentLeft,
+.contentRight {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.contentLeft{
+
+.contentLeft {
     width: 40%;
 }
-.contentRight{
+
+.contentRight {
     width: 60%;
 }
+
 /* .first-div {
     height: 90vh;
     margin-bottom: 20px;
@@ -2546,4 +2563,5 @@ footer {
     font-weight: 700;
     font-size: 20px;
 }
+
 /* End Invoice Generator */

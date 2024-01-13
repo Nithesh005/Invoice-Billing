@@ -4,10 +4,11 @@ import Navbar from '../TopNavbar';
 import Distributer_Detials_content from './Distributer_Detials_content';
 
 
-function Distributer_Detials(){
+function Distributer_Detials(props){
+    // alert(props.age);
     return (
         <div className='device-page'>
-            <Distributer_Detials_content/>
+            <Distributer_Detials_content position={props.position}/>
         </div>
     );
 };

@@ -25,6 +25,8 @@ import { pen_3 } from 'react-icons-kit/ikons/pen_3'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useParams } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+
 
 const Edit_Distributer_Detials = () => {
     const { userid } = useParams();
@@ -252,8 +254,8 @@ const Edit_Distributer_Detials = () => {
         if ((isValidemail)) {
             console.log("success", inputValues);
             try {
-                const response = await axios.put(`${API_URL}update/user`, {inputValues});
-                alert('API Response:', response.data);
+                const response = await axios.put(`${API_URL}update/user`, { inputValues });
+                alert(response.data.message);
             } catch (error) {
                 console.error('Error updating data:', error);
             }
@@ -324,7 +326,7 @@ const Edit_Distributer_Detials = () => {
         setSelected_value(value);
     }
     const inputFields = [
-        { label: "User ID", name: "userid", value: inputValues.userid, icon: ic_home_work , readOnly:true},
+        { label: "User ID", name: "userid", value: inputValues.userid, icon: ic_home_work, readOnly: true },
         { label: "Organization Name", name: "OrganizationName", value: inputValues.OrganizationName, icon: person },
         { label: "Bussiness Type", name: "bussinessType", value: inputValues.bussinessType, icon: person },
         { label: "GST Number", name: "gstNumber", value: inputValues.gstNumber, icon: pen_3 },
@@ -335,7 +337,7 @@ const Edit_Distributer_Detials = () => {
         { label: "Last Name", name: "lName", value: inputValues.lName, icon: pen_3 },
         // { label: "Position", name: "Position", value: inputValues, icon: pen_3 },
         // row 3
-        { label: "Email", name: "email", value: inputValues.email, icon: pen_3 },
+        { label: "Email", name: "email", value: inputValues.email, icon: pen_3, readOnly: true },
         { label: "Mobile Number", name: "mobileNo", value: inputValues.mobileNo, icon: pen_3 },
         // 2. UPI Payment Details:
         { label: "UPI Payment Mobile No", name: "upiPaymentNo", value: inputValues.upiPaymentNo, icon: pen_3 },
@@ -403,136 +405,6 @@ const Edit_Distributer_Detials = () => {
 
     return (
         <div className='Add_device1 '>
-            {/*user access control model */}
-            <div className="modal fade boot-modals" id="User_Access_Modal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                    <div className="modal-content width_of_model user_access_model">
-                        <div className="user_access">
-                            <div className="modal-header-confirm">
-                                <h5 className="modal-title" id="exampleModalLabel">User Access Control</h5>
-                            </div>
-                            <div className="access_priority display-flex">
-                                <div className="no_access access">No Access</div>
-                                <div className="view access">View</div>
-                                <div className="edit access">Create/Edit</div>
-                                <div className="Full access">Full</div>
-                            </div>
-                            <div className="all_management">
-                                <div className="management">
-                                    <div className="management_txt">Management</div>
-                                </div>
-
-                                <div className="user_acc_head display-flex">
-                                    <div className="u_a_head">
-                                        <div className="head">Site</div>
-                                        <div className="all_radio_btns">
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="0"
-                                                    checked={selectedOption_site === "0"}
-                                                    onChange={handleOptionChange_site} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="1"
-                                                    checked={selectedOption_site === "1"}
-                                                    onChange={handleOptionChange_site} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="2"
-                                                    checked={selectedOption_site === "2"}
-                                                    onChange={handleOptionChange_site} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="3"
-                                                    checked={selectedOption_site === "3"}
-                                                    onChange={handleOptionChange_site} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="user_acc_head display-flex">
-                                    <div className="u_a_head">
-                                        <div className="head">User</div>
-                                        <div className="all_radio_btns">
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="0"
-                                                    checked={selectedOption_user === "0"}
-                                                    onChange={handleOptionChange_user} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="1"
-                                                    checked={selectedOption_user === "1"}
-                                                    onChange={handleOptionChange_user} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="2"
-                                                    checked={selectedOption_user === "2"}
-                                                    onChange={handleOptionChange_user} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="3"
-                                                    checked={selectedOption_user === "3"}
-                                                    onChange={handleOptionChange_user} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="user_acc_head display-flex">
-                                    <div className="u_a_head">
-                                        <div className="head">Device</div>
-                                        <div className="all_radio_btns">
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="0"
-                                                    checked={selectedOption_device === "0"}
-                                                    onChange={handleOptionChange_device} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="1"
-                                                    checked={selectedOption_device === "1"}
-                                                    onChange={handleOptionChange_device} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="2"
-                                                    checked={selectedOption_device === "2"}
-                                                    onChange={handleOptionChange_device} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="3"
-                                                    checked={selectedOption_device === "3"}
-                                                    onChange={handleOptionChange_device} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="user_acc_head display-flex">
-                                    <div className="u_a_head">
-                                        <div className="head">Dashboard</div>
-                                        <div className="all_radio_btns">
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="0"
-                                                    checked={selectedOption_dashboard === "0"}
-                                                    onChange={handleOptionChange_dashboard} />
-                                            </div>
-                                            <div className="input_radio">
-                                                <input className="access_radio" type='radio' value="1"
-                                                    checked={selectedOption_dashboard === "1"}
-                                                    onChange={handleOptionChange_dashboard} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="modal-footer-confirm">
-                                <button type="button" className="btn-loc active-loc" data-bs-dismiss="modal">Save</button>
-                                <button type="button" className="btn-loc inactive-loc" data-bs-dismiss="modal">Cancel</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
             <div className="modal fade boot-modals" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content width_of_model height_of_modal_content">
@@ -567,20 +439,19 @@ const Edit_Distributer_Detials = () => {
                                 {inputFields.slice(0, 4).map((field, index) => (
                                     <div className="inputbox display-flex input" key={index}>
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
+                                            {/* <label htmlFor={`input${index + 1}`}>{field.label}</label> */}
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc">
                                                     <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
                                                 </span>
-                                                <input
+                                                <TextField
+                                                    label={field.label}
                                                     type="text"
                                                     className="form-control-loc"
                                                     id={`input${index + 1}`}
                                                     value={field.value}
-                                                    // disabled
                                                     onChange={(e) => handleInputChange(index, e.target.value)}
-                                                    readOnly={field.readOnly || false}
-                                                // Add value and onChange as needed
+                                                    inputProps={{ readOnly: field.readOnly || false }}
                                                 />
                                                 <div className="error-message">
                                                     {/* Add error display logic here */}
@@ -594,17 +465,18 @@ const Edit_Distributer_Detials = () => {
                                 {inputFields.slice(4, 8).map((field, index) => (
                                     <div className="inputbox display-flex input" key={index}>
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc">
                                                     <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
                                                 </span>
-                                                <input
+                                                <TextField
+                                                    label={field.label}
                                                     type="text"
                                                     className="form-control-loc"
                                                     id={`input${index + 1}`}
                                                     value={field.value}
                                                     onChange={(e) => handleInputChange2(index, e.target.value)}
+                                                    inputProps={{ readOnly: field.readOnly || false }}
                                                 // Add value and onChange as needed
                                                 />
                                                 <div className="error-message">
@@ -619,17 +491,18 @@ const Edit_Distributer_Detials = () => {
                                 {inputFields.slice(8, 12).map((field, index) => (
                                     <div className="inputbox display-flex input" key={index}>
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc">
                                                     <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
                                                 </span>
-                                                <input
+                                                <TextField
+                                                    label={field.label}
                                                     type="text"
                                                     className="form-control-loc"
                                                     id={`input${index + 1}`}
                                                     value={field.value}
                                                     onChange={(e) => handleInputChange3(index, e.target.value)}
+                                                    inputProps={{ readOnly: field.readOnly || false }}
                                                 // Add value and onChange as needed
                                                 />
                                                 <div className="error-message">
@@ -644,17 +517,18 @@ const Edit_Distributer_Detials = () => {
                                 {inputFields.slice(12, 16).map((field, index) => (
                                     <div className="inputbox display-flex input" key={index}>
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc">
                                                     <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
                                                 </span>
-                                                <input
+                                                <TextField
+                                                    label={field.label}
                                                     type="text"
                                                     className="form-control-loc"
                                                     id={`input${index + 1}`}
                                                     value={field.value}
                                                     onChange={(e) => handleInputChange4(index, e.target.value)}
+                                                    inputProps={{ readOnly: field.readOnly || false }}
                                                 // Add value and onChange as needed
                                                 />
                                                 <div className="error-message">
@@ -669,17 +543,18 @@ const Edit_Distributer_Detials = () => {
                                 {inputFields.slice(16, 20).map((field, index) => (
                                     <div className="inputbox display-flex input" key={index}>
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}</label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc">
                                                     <Icon icon={field.icon} size={20} style={{ color: "lightgray" }} />
                                                 </span>
-                                                <input
+                                                <TextField
+                                                    label={field.label}
                                                     type="text"
                                                     className="form-control-loc"
                                                     id={`input${index + 1}`}
                                                     value={field.value}
                                                     onChange={(e) => handleInputChange5(index, e.target.value)}
+                                                    inputProps={{ readOnly: field.readOnly || false }}
                                                 // Add value and onChange as needed
                                                 />
                                                 <div className="error-message">

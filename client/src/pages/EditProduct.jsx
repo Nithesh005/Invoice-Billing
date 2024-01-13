@@ -90,7 +90,7 @@ const EditProduct = () => {
         const device_user_data = async () => {
             // console.log(API_URL);
             try {
-                const response = await fetch(`${API_URL}/get/product/${productid}`);
+                const response = await fetch(`${API_URL}get/product/${productid}`);
                 const data = await response.json();
                 // console.log(data.data.productid);
                 // all_data_fun(data)
@@ -151,13 +151,12 @@ const EditProduct = () => {
     
     // validation
     const handleClick = async () => {
-
         const isValidhsncode = /^[0-9]+$/.test(inputValues.productid);
-
         // console.log(isValidhsncode);
         if (isValidhsncode) {
             try {
-                const response = await axios.post(`${API_URL}add/products`, { productdetial: inputValues, updator: userInfo.userid });
+                console.log("hai",inputValues);
+                const response = await axios.put(`${API_URL}update/product`, { productdetial: inputValues, updator: userInfo.userid });
                 if (response.data.status) {
                     // handleClear()
                     alert(response.data.message);

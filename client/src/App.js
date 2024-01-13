@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 //Managements
 import Distributer_Detials from './pages/Distributer_Detials.jsx';
 import Products from './pages/Products.jsx';
-import Add_Distributer_Detials from './pages/Add_Distributer_Detials';
+import Add_User_Detials from './pages/Add_User_Detials';
 import Edit_Distributer_Detials from './pages/Edit_Distributer_Detials';
 import CustomerDetails from './pages/CustomerDetails';
 import Add_Customer_Detials from './pages/Add_Customer_Detials';
@@ -27,7 +27,7 @@ import Staff_Detials from './pages/Staff_Detials.jsx';
 import Add_Products from './pages/Add_Products.jsx';
 import EditProduct from './pages/EditProduct.jsx';
 
-const App = () => {
+const App  = () => {
   const handleLogout = () => {
     sessionStorage.removeItem('userType');
     sessionStorage.removeItem('session_dbName');
@@ -56,7 +56,7 @@ const App = () => {
     // http://localhost:3001/
     // https://terion.quantanics.in/
     <BrowserRouter>
-      {window.location.href !== 'https://terion.quantanics.in/' ? (
+      {window.location.href !== 'http://localhost:3001/' ? (
         <>
           {userInfo.isLoggedIn && (
             <div>
@@ -64,12 +64,12 @@ const App = () => {
               <Sidebar handleLogout={handleLogout}>
                 {/* userInfo.staff */}
                 {userInfo.staff  > 0 && (
-                  <div>
+                  <div style={{ marginLeft: "60px" }}>
                     <Routes>
                       {/* Staff module */}
-                      <Route path='Staff_Detials' element={<Staff_Detials />}></Route>
+                      <Route path='Staff_Detials' element={<Staff_Detials position={4}/>}></Route>
                       <Route path='Staff_Detials/Edit_Staff_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
-                      <Route path='Staff_Detials/Add_Staff_Detials' element={<Add_Distributer_Detials />}></Route>
+                      <Route path='Staff_Detials/Add_User_Detials' element={<Add_User_Detials />}></Route>
                     </Routes>
                   </div>
                 )}
@@ -77,9 +77,9 @@ const App = () => {
                   <div>
                     <Routes>
                       {/* Distributer module */}
-                      <Route path='Distributer_Detials' element={<Distributer_Detials />}></Route>
+                      <Route path='Distributer_Detials' element={<Distributer_Detials position={2} />}></Route>
                       <Route path='Distributer_Detials/Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
-                      <Route path='Distributer_Detials/Add_Distributer_Detials' element={<Add_Distributer_Detials />}></Route>
+                      <Route path='Distributer_Detials/Add_User_Detials' element={<Add_User_Detials />}></Route>
                     </Routes>
                   </div>
                 )}
@@ -88,7 +88,7 @@ const App = () => {
                     <Routes>
                       {/* Customer module */}
                       <Route path='Customer_Detials' element={<Distributer_Detials />}></Route>
-                      <Route path='Add_Customer_Detials' element={<Add_Distributer_Detials />}></Route>
+                      <Route path='Add_Customer_Detials' element={<Add_User_Detials />}></Route>
                       <Route path='Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
                     </Routes>
                   </div>
@@ -121,8 +121,8 @@ const App = () => {
       ) : (
         <>
           <Routes>
-            <Route path='/' element={<Login />}></Route>
-            <Route path='UpdatePassword' element={<UpdatePassword />}></Route>
+            <Route path='/' element={<Login age={3} />}></Route>
+            <Route path='UpdatePassword' element={<UpdatePassword age={3} />}></Route>
           </Routes>
         </>
       )}

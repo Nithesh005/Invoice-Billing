@@ -25,10 +25,11 @@ import { pen_3 } from 'react-icons-kit/ikons/pen_3';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { API_URL } from '../config';
+import TextField from '@mui/material/TextField';
 
 
 
-const Add_Distributer_Detials = () => {
+const Add_User_Detials = () => {
     const userInfoString = sessionStorage.getItem("UserInfo");
     const userInfo = JSON.parse(userInfoString);
     // for invoice
@@ -116,55 +117,64 @@ const Add_Distributer_Detials = () => {
         const isValidupiPaymentNo = /^\d{10}$/.test(postData.upiPaymentNo)
         const isValidaccName = /^[A-Za-z\s'-]+$/.test(postData.accName)
         const isValidaccNo = /^\d*$/.test(postData.accNo)
+        const isValidpostid = postData.Positionid !== undefined && postData.Positionid !== null;
 
-        if (!isValidgstNumber) {
-            alert("enter valid GST Number");
-        }
-        else if (!isValidpanNumber) {
-            alert("enter valid PAN Number");
-        }
-        else if (!isValidaadharNo) {
-            alert("enter valid Aadhar Number");
-        }
-        else if (!isValidfName) {
-            alert("enter valid First Name");
-        }
-        else if (!isValidemail) {
-            alert("enter valid Email");
-        }
-        else if (!isValidupiPaymentNo) {
-            alert("enter valid UPI payment Number");
-        }
-        else if (!isValidaccName) {
-            alert("enter valid Account Name");
-        }
-        else if (!isValidaccNo) {
-            alert("enter valid Account Number");
-        }
-
-        // console.log(postData);
         // console.log(postData.Positionid==undefined);
-
-        // alert(isValidpanNumber);
-        if (!isValidgstNumber || !isValidpanNumber || !isValidaadharNo
-            || !isValidfName || !isValidemail || !isValidupiPaymentNo || !isValidaccName || !isValidaccNo
+        if (isValidgstNumber & isValidpanNumber & isValidaadharNo
+            & isValidfName & isValidemail & isValidupiPaymentNo & isValidaccName & isValidaccNo & isValidpostid
         ) {
-            // alert("Insert Properly");
-        } else {
-            console.log(postData);
-            if (postData.Positionid == undefined || postData.Positionid == null) {
-                alert("Select user");
-            } else {
-                try {
-                    const response = await axios.post(`${API_URL}add/user`, postData);
-                    alert(response.data.message);
-                    if (response.data.status) {
-                        handleClear()
-                    }
-                } catch (error) {
-                    console.error('Error sending data:', error);
+            // console.log("Properly inserted",postData);
+            try {
+                const response = await axios.post(`${API_URL}add/user`, postData);
+                alert(response.data.message);
+                if (response.data.status) {
+                    handleClear()
                 }
+            } catch (error) {
+                console.error('Error sending data:', error);
             }
+        } else {
+            if (!isValidgstNumber) {
+                alert("enter valid GST Number");
+            }
+            else if (!isValidpanNumber) {
+                alert("enter valid PAN Number");
+            }
+            else if (!isValidaadharNo) {
+                alert("enter valid Aadhar Number");
+            }
+            else if (!isValidfName) {
+                alert("enter valid First Name");
+            }
+            else if (!isValidemail) {
+                alert("enter valid Email");
+            }
+            else if (!isValidupiPaymentNo) {
+                alert("enter valid UPI payment Number");
+            }
+            else if (!isValidaccName) {
+                alert("enter valid Account Name");
+            }
+            else if (!isValidaccNo) {
+                alert("enter valid Account Number");
+            } else if (!isValidpostid) {
+                alert("Enter User Type");
+            }
+
+            // console.log(postData);
+            // if (postData.Positionid == undefined || postData.Positionid == null) {
+            //     alert("Select user");
+            // } else {
+            //     try {
+            //         const response = await axios.post(`${API_URL}add/user`, postData);
+            //         alert(response.data.message);
+            //         if (response.data.status) {
+            //             handleClear()
+            //         }
+            //     } catch (error) {
+            //         console.error('Error sending data:', error);
+            //     }
+            // }
         }
 
     };
@@ -241,7 +251,7 @@ const Add_Distributer_Detials = () => {
         // console.log(event.target.value);
         if (event.target.value == "select user") {
             // alert("Please Select user");
-            Positionid_val = "null"
+            Positionid_val = null
         }
         else if (event.target.value === 'Staff') {
             Positionid_val = 4;
@@ -260,10 +270,10 @@ const Add_Distributer_Detials = () => {
     };
 
 
-    useEffect(() => {
-        console.log("hai : ", postData.Positionid);
-    }, [postData.Positionid]);
-    console.log("haiiii", userInfo.position);
+    // useEffect(() => {
+    //     console.log("hai : ", postData.Positionid);
+    // }, [postData.Positionid]);
+    // console.log("haiiii", userInfo.position);
 
     return (
         <div className='Add_device1 '>
@@ -324,10 +334,11 @@ const Add_Distributer_Detials = () => {
                                 {inputFields.slice(0, 4).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
+                                            {/* <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label> */}
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
-                                                <input
+                                                <TextField
+                                                    label={`${field.label} *`}
                                                     type="text"
                                                     className="form-control-loc"
                                                     value={field.value}
@@ -337,6 +348,8 @@ const Add_Distributer_Detials = () => {
                                                 />
                                                 {/* Add error handling if needed */}
                                             </div>
+                                            {/* <TextField label="Full name" fullWidth variant="outlined" margin="dense" /> */}
+
                                         </div>
                                     </div>
                                 ))}
@@ -348,17 +361,20 @@ const Add_Distributer_Detials = () => {
                                 {inputFields.slice(4, 8).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
-                                                <input
+                                                <TextField
+                                                    label={`${field.label} *`}
                                                     type="text"
                                                     className="form-control-loc"
                                                     value={field.value}
                                                     onChange={(e) => handleInputChange(e, field.name)}
                                                     name={field.name}
                                                     id={`input${index + 1}`}
+                                                    labelClassName="required"
                                                 />
+                                                {field.error ? 'Error' : ''}`
+
                                                 {/* Add error handling if needed */}
                                             </div>
                                         </div>
@@ -370,11 +386,10 @@ const Add_Distributer_Detials = () => {
                                 {inputFields.slice(8, 9).map((field, index) => (
                                     <div key={index} className="inputbox display-flex input">
                                         <div className="dsa_1st_input">
-                                            <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
                                             <div className="inputs-group display-flex">
                                                 <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
-                                                <input
-                                                    type="text"
+                                                <TextField
+                                                    label={`${field.label} *`}
                                                     className="form-control-loc"
                                                     value={field.value}
                                                     onChange={(e) => handleInputChange(e, field.name)}
@@ -395,10 +410,10 @@ const Add_Distributer_Detials = () => {
                             {inputFields.slice(9, 13).map((field, index) => (
                                 <div key={index} className="inputbox display-flex input">
                                     <div className="dsa_1st_input">
-                                        <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
                                         <div className="inputs-group display-flex">
                                             <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input
+                                            <TextField
+                                                label={`${field.label} *`}
                                                 type={field.inputType || "text"}
                                                 className="form-control-loc"
                                                 value={field.value}
@@ -419,10 +434,10 @@ const Add_Distributer_Detials = () => {
                             {inputFields.slice(13, 18).map((field, index) => (
                                 <div key={index} className="inputbox display-flex input">
                                     <div className="dsa_1st_input">
-                                        <label htmlFor={`input${index + 1}`}>{field.label}<span className='required'>*</span></label>
                                         <div className="inputs-group display-flex">
                                             <span className="input-group-loc"><Icon icon={field.icon} size={20} style={{ color: "lightgray" }} /></span>
-                                            <input
+                                            <TextField
+                                                label={`${field.label} *`}
                                                 type="text"
                                                 className="form-control-loc"
                                                 value={field.value}
@@ -453,4 +468,4 @@ const Add_Distributer_Detials = () => {
 
     );
 };
-export default Add_Distributer_Detials;
+export default Add_User_Detials;

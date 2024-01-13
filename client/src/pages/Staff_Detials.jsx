@@ -13,7 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../config';
 
-const Staff_Detials = () => {
+const Staff_Detials = (props) => {
+    // console.log(props.position);
     //states
     const [rotatedIndex, setRotatedIndex] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -33,12 +34,12 @@ const Staff_Detials = () => {
     // //Navigate to Add Device Page
     const navigate = useNavigate();
     const handleclick = () => {
-        navigate(`Add_Staff_Detials`);
+        navigate(`Add_User_Detials`);
     }
     const [alldata, setAlldate] = useState([]);
     useEffect(() => {
         const adminid = JSON.parse(sessionStorage.getItem("UserInfo")).userid;
-        axios.post(`${API_URL}get/user`, { adminid: adminid, position: 4 })
+        axios.post(`${API_URL}get/user`, { adminid: adminid, position: props.position })
             .then(response => {
                 console.log(response.data.data);
                 setAlldate(response.data.data)

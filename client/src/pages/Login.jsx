@@ -4,7 +4,8 @@ import { API_URL } from '../config'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Login = () => {
+const Login = (props) => {
+    console.log("props : ",props);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [invalid_state, setinvalidstate] = useState(false);
@@ -58,7 +59,7 @@ const Login = () => {
                 sessionStorage.setItem("UserInfo", JSON.stringify({ ...response.data.data, "isLoggedIn": true }));
                 console.log(response.data);
                 if (response.data.data.position === "manifacture") {
-                    navigate("/Distributer_Detials");
+                    navigate("/Staff_Detials");
                 } 
                 else if (response.data.data.position === "staff") {
                     navigate('/Distributer_Detials');

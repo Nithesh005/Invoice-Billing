@@ -7,7 +7,8 @@ import { API_URL } from '../config'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const UpdatePassword = () => {
+const UpdatePassword = (props) => {
+    console.log("props : ",props);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [invalid_state, setinvalidstate] = useState(false);
