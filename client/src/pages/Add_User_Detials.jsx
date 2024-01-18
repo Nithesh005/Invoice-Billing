@@ -26,9 +26,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { API_URL } from '../config';
 import TextField from '@mui/material/TextField';
-
-
-
+import { Button } from '@mui/material';
+import { CancelBtn, SaveBtn } from '../assets/style/cssInlineConfig';
+import { AddUserBtn, SaveBtnComp } from '../components/AddUserBtn';
+import {CancelBtnComp} from '../components/AddUserBtn'
 const Add_User_Detials = () => {
     const userInfoString = sessionStorage.getItem("UserInfo");
     const userInfo = JSON.parse(userInfoString);
@@ -157,7 +158,8 @@ const Add_User_Detials = () => {
             }
             else if (!isValidaccNo) {
                 alert("enter valid Account Number");
-            } else if (!isValidpostid) {
+            } 
+            else if (!isValidpostid) {
                 alert("Enter User Type");
             }
 
@@ -180,7 +182,7 @@ const Add_User_Detials = () => {
     };
 
     const inputFields = [
-        { label: "User ID", name: "userid", value: postData.userid, icon: ic_home_work },
+        // { label: "User ID", name: "userid", value: postData.userid, icon: ic_home_work },
         { label: "Organization Name", name: "OrganizationName", value: postData.OrganizationName, icon: person },
         { label: "Bussiness Type", name: "bussinessType", value: postData.bussinessType, icon: person },
         { label: "GST Number", name: "gstNumber", value: postData.gstNumber, icon: pen_3 },
@@ -455,11 +457,12 @@ const Add_User_Detials = () => {
                     </div>
 
                     <div className="operating_buttons display-flex padding-loc">
-                        <div className="save_cancel_btn display-flex site_button">
-                            <button className="btn-loc active-loc btn btn-outline-success" onClick={(e) => handleSubmit(e)}>Save</button>
-                            {/* <button type="button" class="btn-loc inactive-loc btn btn-outline-danger" data-bs-dismiss="modal">Close</button> */}
-
-                            <button className="btn-loc inactive-loc btn " style={cancel_btn} data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
+                        <div className="save_cancel_btn display-flex site_button gap-4">
+                            <CancelBtnComp CancelBtnFun={handleCancel}/>
+                            <SaveBtnComp SaveBtnFun={(e) => handleSubmit(e)}/>
+                            {/* <button className="btn-loc active-loc btn btn-outline-success" onClick={(e) => handleSubmit(e)}>Save</button>
+                            <button type="button" class="btn-loc inactive-loc btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                            <button className="btn-loc inactive-loc btn " style={cancel_btn} data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button> */}
                         </div>
                     </div>
                 </div>

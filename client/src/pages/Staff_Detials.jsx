@@ -12,6 +12,11 @@ import { useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../config';
+import { Button } from '@mui/material';
+import { UserActionBtn } from '../assets/style/cssInlineConfig';
+import { AddUserBtn } from '../components/AddUserBtn';
+import Example from '../components/Example';
+import EditDistributerDetails from './Edit_Distributer_Detials';
 
 const Staff_Detials = (props) => {
     // console.log(props.position);
@@ -64,7 +69,7 @@ const Staff_Detials = (props) => {
             setRotatedIndex(!rotatedIndex);
             setRotatedIndex(rotatedIndex === index ? null : index);
         } else {
-            alert("Option Disabled for Staff")
+            alert("Option Disabled")
         }
     };
 
@@ -78,34 +83,96 @@ const Staff_Detials = (props) => {
 
     //navigate to edit page
     const Staff_Detials_edit_page = async (data) => {
-        navigate(`Edit_Staff_Detials/${data}`);
+        if (props.position === 4) {
+            navigate(`Edit_Staff_Detials/${data}`);
+        }
+        if (props.position === 2) {
+            navigate(`Edit_Distributer_Detials/${data}`);
+        }
+
     }
+    const [inactivateAlert, setInactivateAlert] = useState(false);
+
+    const modalRef = useRef(null);
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                setInactivateAlert(false);
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [setInactivateAlert]);
 
     const updateUserStatus = async (userid, currentstatus, index) => {
         try {
-            const response = await axios.put(`${API_URL}update/userremove`, {
-                userid: userid, status: currentstatus
-            });
-            console.log(response.data.resStatus); // Assuming the API sends back a response
-            if (response.data.qos === "success") {
-                setAlldate((prevData) => {
-                    const newData = [...prevData];
-                    newData[index].status = response.data.resStatus;
-                    return newData;
+            const statusApiAction = async () => {
+                const response = await axios.put(`${API_URL}update/userremove`, {
+                    userid: userid, status: currentstatus
                 });
-                console.log("success : ", alldata)
+                console.log(response.data.resStatus);
+                if (response.data.qos === "success") {
+                    setAlldate((prevData) => {
+                        const newData = [...prevData];
+                        newData[index].status = response.data.resStatus;
+                        return newData;
+                    });
+                    console.log("success : ", alldata)
+                }
+            }
+            if (currentstatus == 1) {
+                currentstatus = 0;
+                const confirmed = window.confirm("Are you sure?");
+                // setInactivateAlert(true)
+                if (confirmed) {
+                    statusApiAction();
+                }
+            }
+            else {
+                currentstatus = 1
+                statusApiAction();
             }
         } catch (error) {
             console.error('Error updating user status:', error);
         }
     }
-
+    // alert(props.position===4)
     return (
         <div className='bar'>
+            {/* Start Modal */}
+            <div class="modal fade modal-lg" id="EditDetials" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {/* <EditDistributerDetails /> */}
+                            h
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* End Modal */}
             <div className='status-bar'>
                 <div className="device_mangement_main_content">
                     <div className="row_with_count_status">
-                        <span className='module_tittle'>Staff Detials</span>
+                        <span className='module_tittle'>
+                            {props.position === 4 &&
+                                "Staff Detials"
+                            }
+                            {props.position === 2 &&
+                                "Distibutor Detials"
+                            }
+                        </span>
                     </div>
 
                     <div className='filters display-flex' >
@@ -181,10 +248,17 @@ const Staff_Detials = (props) => {
                                 </div>
                             </div> */}
                         </div>
+                        {/* <Button variant="contained"
+                            onClick={handleclick}
+                            style={UserActionBtn}
+                        >
+                            Add User
+                        </Button> */}
+                        <AddUserBtn adduserFun={handleclick} />
 
-                        <div className='filters2 display-flex' onClick={handleclick}>
+                        {/* <div className='filters2 display-flex' onClick={handleclick}>
                             <button className='btn btn-fill'>Add User</button>
-                        </div>
+                        </div> */}
                     </div>
 
 
@@ -218,25 +292,53 @@ const Staff_Detials = (props) => {
                                     </div>
                                     <div>{(rotatedIndex === index) &&
                                         (<div className='device_action_dropdown'>
-                                            <div className='display-flex device_action_dropdown1 dropdown_action'>
+                                            <div className='display-flex device_action_dropdown1 dropdown_action'
+                                                // data-bs-toggle="modal" data-bs-target="#EditDetials"
+                                                onClick={() => Staff_Detials_edit_page(data.userid)}
+                                            >
                                                 <FontAwesomeIcon className='device_content_arrows' icon={faAnglesDown} size='lg' />
                                                 <div className='device_content_dropdown display-flex'
-                                                    onClick={() => Staff_Detials_edit_page(data.userid)}
-                                                >Edit Distributer Detials</div>
+
+                                                >Edit {props.position === 4 &&
+                                                    "Staff "
+                                                    }
+                                                    {props.position === 2 &&
+                                                        "Distibutor "
+                                                    }
+                                                    Detials</div>
                                             </div>
-                                            <div className='display-flex device_action_dropdown2 dropdown_action'>
+
+                                            <div className='display-flex device_action_dropdown2 dropdown_action'
+                                                onClick={() => updateUserStatus(data.userid, data.status, index)}
+                                                ref={modalRef}>
                                                 <FontAwesomeIcon icon={faAnglesDown} className='device_content_arrows' size='lg' />
                                                 {data.status == 1 ? (
                                                     <div className='device_content_dropdown display-flex'
-                                                        onClick={() => updateUserStatus(data.userid, 0, index)}
-                                                    >Inactivate Distributer
+                                                    // onClick={() => setInactivateAlert(true)}
+                                                    // updateUserStatus(data.userid, 0, index
+                                                    >Inactivate {props.position === 4 &&
+                                                        "Staff "
+                                                        }
+                                                        {props.position === 2 &&
+                                                            "Distibutor "
+                                                        }
+                                                        {inactivateAlert && (
+                                                            <Example />
+                                                            // ConformMsg={() => updateUserStatus(data.userid, 1, index)}
+                                                        )}
                                                     </div>
                                                 ) : (
                                                     <div className='device_content_dropdown display-flex'
-                                                        onClick={() => updateUserStatus(data.userid, 1, index)}
-                                                    >Activate Distributer
+                                                    // onClick={() => updateUserStatus(data.userid, 1, index)}
+                                                    >Activate {props.position === 4 &&
+                                                        "Staff "
+                                                        }
+                                                        {props.position === 2 &&
+                                                            "Distibutor "
+                                                        }
                                                     </div>
                                                 )}
+
                                             </div>
                                         </div>
                                         )}

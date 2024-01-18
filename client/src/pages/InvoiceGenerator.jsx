@@ -10,23 +10,39 @@ import {
     TableHead,
     TableRow,
 } from '@mui/material';
+import { CancelBtnComp } from '../components/AddUserBtn';
+import axios from 'axios';
+import { API_URL } from '../config';
 
 const StyledPaper = styled(Paper)({
     padding: '20px',
     margin: '20px',
 });
 
+const thead = {
+    textAlign: "center",
+    color: "white"
+}
+
 const InvoiceGenerator = () => {
     const theme = useTheme();
     const customerNames = ['INVOICE', 'ORDER NUMBER', 'INVOICE DATE'];
+    const [inputValues, setInputValues] = useState({});
+
+    const handleInputChangeInvoice = (fieldName, value) => {
+        setInputValues((prevValues) => ({
+            ...prevValues,
+            [fieldName]: value,
+        }));
+    };
 
     // content for table
     const [rows, setRows] = useState([
-        { id: 1, col1: '', col2: '', col3: '', col4: '', col5: '' },
+        { id: 1, productid: '', productName: '', Quantity: '', Discount: '', Total: '' },
     ]);
 
     const addRow = () => {
-        const newRow = { id: rows.length + 1, col1: '', col2: '', col3: '', col4: '', col5: '' };
+        const newRow = { id: rows.length + 1, productid: '', productName: '', Quantity: '', Discount: '', Total: '' };
         setRows([...rows, newRow]);
     };
 
@@ -39,7 +55,20 @@ const InvoiceGenerator = () => {
             row.id === id ? { ...row, [column]: value } : row
         );
         setRows(updatedRows);
+        // console.log(updatedRows);
     };
+
+    const handleSubmit = async() =>{
+        console.log(rows);
+        console.log(inputValues);
+        try {
+            const response = await axios.post(`${API_URL}add/invoice`, {invoice:inputValues,invoiceitem:rows});
+            alert(response.data.message);
+        } catch (error) {
+            console.error('Error sending data:', error);
+        }
+    }
+
     return (
         <div className='innercontent'>
             <StyledPaper elevation={3}>
@@ -56,7 +85,10 @@ const InvoiceGenerator = () => {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField fullWidth label={customerName} />
+                                    <TextField fullWidth label={customerName}
+                                    onChange={(e) => handleInputChangeInvoice(customerName, e.target.value)}
+                                    value={inputValues[customerName] || ''}
+                                    />
                                 </Grid>
                             </React.Fragment>
                         ))}
@@ -66,7 +98,7 @@ const InvoiceGenerator = () => {
             </StyledPaper>
             {/* Table content */}
             <StyledPaper>
-                <div className="addrow" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' , padding:'0.5rem'}}>
+                <div className="addrow" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', padding: '0.5rem' }}>
                     <Button onClick={addRow} variant="contained" color="primary">
                         Add Row
                     </Button>
@@ -75,13 +107,12 @@ const InvoiceGenerator = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Column 1</TableCell>
-                                <TableCell>Column 2</TableCell>
-                                <TableCell>Column 3</TableCell>
-                                <TableCell>Column 4</TableCell>
-                                <TableCell>Column 5</TableCell>
-                                <TableCell>Action</TableCell>
-
+                                <TableCell style={thead}>HSN Code</TableCell>
+                                <TableCell style={thead}>Product Name</TableCell>
+                                <TableCell style={thead}>Quantity</TableCell>
+                                <TableCell style={thead}>Discount</TableCell>
+                                <TableCell style={thead}>Total</TableCell>
+                                <TableCell style={thead}>Action</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -90,31 +121,31 @@ const InvoiceGenerator = () => {
                                     <TableCell>
                                         <TextField
                                             value={row.col1}
-                                            onChange={(e) => handleInputChange(row.id, 'col1', e.target.value)}
+                                            onChange={(e) => handleInputChange(row.id, 'productid', e.target.value)}
                                         />
                                     </TableCell>
                                     <TableCell>
                                         <TextField
                                             value={row.col2}
-                                            onChange={(e) => handleInputChange(row.id, 'col2', e.target.value)}
+                                            onChange={(e) => handleInputChange(row.id, 'productName', e.target.value)}
                                         />
                                     </TableCell>
                                     <TableCell>
                                         <TextField
                                             value={row.col3}
-                                            onChange={(e) => handleInputChange(row.id, 'col3', e.target.value)}
+                                            onChange={(e) => handleInputChange(row.id, 'Quantity', e.target.value)}
                                         />
                                     </TableCell>
                                     <TableCell>
                                         <TextField
                                             value={row.col4}
-                                            onChange={(e) => handleInputChange(row.id, 'col4', e.target.value)}
+                                            onChange={(e) => handleInputChange(row.id, 'Discount', e.target.value)}
                                         />
                                     </TableCell>
                                     <TableCell>
                                         <TextField
                                             value={row.col5}
-                                            onChange={(e) => handleInputChange(row.id, 'col5', e.target.value)}
+                                            onChange={(e) => handleInputChange(row.id, 'Total', e.target.value)}
                                         />
                                     </TableCell>
                                     <TableCell>
@@ -137,15 +168,11 @@ const InvoiceGenerator = () => {
 
             <footer>
                 <Grid container justifyContent="space-between" alignItems="center" style={{ width: "80%" }}>
-                    <Grid item>
-                        <Button variant="outlined" color="primary">
-                            Save as Draft
-                        </Button>
-                        <Button variant="contained" color="primary" style={{ marginLeft: theme.spacing(2) }}>
-                            Save
-                        </Button>
-                        <Button variant="outlined" color="secondary" style={{ marginLeft: theme.spacing(2) }}>
-                            Cancel
+                    <Grid item className='gap-4 d-flex'>
+                    <CancelBtnComp/>
+
+                        <Button variant="outlined" color="primary" onClick={handleSubmit}>
+                            Generate Invoice
                         </Button>
                     </Grid>
                     <Grid item>

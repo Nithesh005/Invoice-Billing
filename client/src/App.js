@@ -6,10 +6,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 
 //Managements
-import Distributer_Detials from './pages/Distributer_Detials.jsx';
+import DistributerDetails from './pages/Distributer_Detials.jsx';
 import Products from './pages/Products.jsx';
-import Add_User_Detials from './pages/Add_User_Detials';
-import Edit_Distributer_Detials from './pages/Edit_Distributer_Detials';
+import AddUserDetails from './pages/Add_User_Detials';
+import EditDistributerDetails from './pages/Edit_Distributer_Detials';
 import CustomerDetails from './pages/CustomerDetails';
 import Add_Customer_Detials from './pages/Add_Customer_Detials';
 import Add_site from './pages/Add_Products.jsx';
@@ -23,11 +23,11 @@ import Sidebar from './components/Sidebar';
 import Login from './pages/Login';
 import TopNavbar from './TopNavbar';
 import UpdatePassword from './pages/UpdatePassword.jsx';
-import Staff_Detials from './pages/Staff_Detials.jsx';
-import Add_Products from './pages/Add_Products.jsx';
+import StaffDetails from './pages/Staff_Detials.jsx';
+import AddProducts from './pages/Add_Products.jsx';
 import EditProduct from './pages/EditProduct.jsx';
 
-const App  = () => {
+const App = () => {
   const handleLogout = () => {
     sessionStorage.removeItem('userType');
     sessionStorage.removeItem('session_dbName');
@@ -56,78 +56,80 @@ const App  = () => {
     // http://localhost:3001/
     // https://terion.quantanics.in/
     <BrowserRouter>
-      {window.location.href !== 'http://localhost:3001/' ? (
-        <>
-          {userInfo.isLoggedIn && (
-            <div>
-              <TopNavbar />
-              <Sidebar handleLogout={handleLogout}>
-                {/* userInfo.staff */}
-                {userInfo.staff  > 0 && (
-                  <div>
-                    <Routes>
-                      {/* Staff module */}
-                      <Route path='Staff_Detials' element={<Staff_Detials position={4}/>}></Route>
-                      <Route path='Staff_Detials/Edit_Staff_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
-                      <Route path='Staff_Detials/Add_User_Detials' element={<Add_User_Detials />}></Route>
-                    </Routes>
-                  </div>
-                )}
-                {userInfo.distributer > 0 && (
-                  <div>
-                    <Routes>
-                      {/* Distributer module */}
-                      <Route path='Distributer_Detials' element={<Distributer_Detials position={2} />}></Route>
-                      <Route path='Distributer_Detials/Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
-                      <Route path='Distributer_Detials/Add_User_Detials' element={<Add_User_Detials />}></Route>
-                    </Routes>
-                  </div>
-                )}
-                {userInfo.customer > 0 && (
-                  <div>
-                    <Routes>
-                      {/* Customer module */}
-                      <Route path='Customer_Detials' element={<Distributer_Detials />}></Route>
-                      <Route path='Add_Customer_Detials' element={<Add_User_Detials />}></Route>
-                      <Route path='Edit_Distributer_Detials/:userid' element={<Edit_Distributer_Detials />}></Route>
-                    </Routes>
-                  </div>
-                )}
-                {userInfo.product > 0 && (
-                  <div>
-                    <Routes>
-                      {/* Products Module */}
-                      <Route path='Products' element={<Products />}></Route>
-                      <Route path='Products/Add_Products' element={<Add_Products />}></Route>
-                      <Route path='Products/Edit_Product_Detials/:productid' element={<EditProduct />}></Route>
-                    </Routes>
-                  </div>
-                )}
-                {userInfo.invoice > 0 && (
-                  <div>
-                    <Routes>
-                      {/* Invoice Module */}
-                      <Route path='Invoice' element={<Invoice />}></Route>
-                      <Route path='InvoiceGenerator' element={<InvoiceGenerator />}></Route>
-                      <Route path='ProfilePage' element={<ProfilePage />}></Route>
-                      <Route path='TransactionHistory' element={<TransactionHistory />}></Route>
-                    </Routes>
-                  </div>
-                )}
-              </Sidebar>
+      {window.location.href !== 'http://localhost:3001/' && userInfo.isLoggedIn && (
+        <div>
+          <TopNavbar />
+          <Sidebar handleLogout={handleLogout}>
+          </Sidebar>
+          {userInfo.staff > 0 && (
+            <div style={{ marginLeft: '50px' }}>
+              <Routes>
+                {/* Staff module */}
+                <Route path='Staff_Detials' element={<StaffDetails position={4} />} />
+                <Route path='Staff_Detials/Edit_Staff_Detials/:userid' element={<EditDistributerDetails />} />
+                <Route path='Staff_Detials/Add_User_Detials' element={<AddUserDetails />} />
+              </Routes>
             </div>
           )}
-        </>
-      ) : (
-        <>
-          <Routes>
-            <Route path='/' element={<Login age={3} />}></Route>
-            <Route path='UpdatePassword' element={<UpdatePassword age={3} />}></Route>
-          </Routes>
-        </>
+
+
+          {userInfo.distributer > 0 && (
+            <div style={{ marginLeft: '50px' }}>
+              <Routes>
+                {/* Distributer module */}
+                <Route path='Distributer_Detials' element={<StaffDetails position={2} />} />
+                <Route path='Distributer_Detials/Edit_Distributer_Detials/:userid' element={<EditDistributerDetails />} />
+                <Route path='Distributer_Detials/Add_User_Detials' element={<AddUserDetails />} />
+              </Routes>
+            </div>
+          )}
+
+          {userInfo.customer > 0 && (
+            <div style={{ marginLeft: '50px' }}>
+              <Routes>
+                {/* Customer module */}
+                <Route path='Customer_Detials' element={<StaffDetails position={3} />} />
+                <Route path='Customer_Detials/Add_User_Detials' element={<AddUserDetails />} />
+                <Route path='Edit_Distributer_Detials/:userid' element={<EditDistributerDetails />} />
+              </Routes>
+            </div>
+          )}
+
+          {userInfo.product > 0 && (
+            <div style={{ marginLeft: '50px' }}>
+              <Routes>
+                {/* Products Module */}
+                <Route path='Products' element={<Products />} />
+                <Route path='Products/Add_Products' element={<AddProducts />} />
+                <Route path='Products/Edit_Product_Detials/:productid' element={<EditProduct />} />
+              </Routes>
+            </div>
+
+          )}
+
+          {userInfo.invoice > 0 && (
+            <div style={{ marginLeft: '50px'}}>
+              <Routes>
+                {/* Invoice Module */}
+                <Route path='Invoice' element={<Invoice />} />
+                <Route path='InvoiceGenerator' element={<InvoiceGenerator />} />
+                <Route path='ProfilePage' element={<ProfilePage />} />
+                <Route path='TransactionHistory' element={<TransactionHistory />} />
+              </Routes>
+            </div>
+
+          )}
+        </div>
       )}
 
+      {window.location.href === 'http://localhost:3001/' && (
+        <Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='UpdatePassword' element={<UpdatePassword />} />
+        </Routes>
+      )}
     </BrowserRouter>
+
   );
 
 };

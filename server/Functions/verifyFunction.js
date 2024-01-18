@@ -22,9 +22,10 @@ async function checkCredentials(req, res) {
                 WHERE credentials.username=$1 and credentials.password = $2;
                 `, [username, password]);
         const rowCount = data.rows.length;
+        console.log(rowCount);
         if (rowCount === 1) {
           const result = data.rows[0];
-          // console.log(result);
+          console.log(result);
           console.log(username, password);
           res.json({ success: true, data: result });
         } else {

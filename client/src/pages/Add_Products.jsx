@@ -25,6 +25,8 @@ import { pen_3 } from 'react-icons-kit/ikons/pen_3'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import axios from 'axios';
+import { CancelBtnComp, SaveBtnComp } from '../components/AddUserBtn';
+import Example from '../components/Example';
 
 
 
@@ -80,7 +82,7 @@ const Add_Products = () => {
         hsncode: '',
         quantity: '',
         priceperitem: '',
-        productname:'',
+        productname: '',
     });
     console.log(postData);
     const handleInputChange = (e) => {
@@ -99,8 +101,8 @@ const Add_Products = () => {
             hsncode: '',
             quantity: '',
             priceperitem: '',
-            productname:'',
-            Addto:''
+            productname: '',
+            Addto: ''
         })
     }
     // validation
@@ -115,7 +117,7 @@ const Add_Products = () => {
                 if (response.data.status) {
                     handleClear()
                     alert(response.data.message);
-                }else{
+                } else {
                     alert("Product Dosn't inserted properly")
                 }
             } catch (error) {
@@ -131,10 +133,10 @@ const Add_Products = () => {
 
 
     const inputFields = [
-        { label: "HSN Code", name: "hsncode",value: postData.hsncode, icon: ic_home_work },
-        { label: "Product Name", name: "productname",value: postData.productname, icon: person },
-        { label: "Quantity", name: "quantity",value: postData.quantity, icon: person },
-        { label: "Price Per Item", name: "priceperitem",value: postData.priceperitem, icon: person },
+        { label: "HSN Code", name: "hsncode", value: postData.hsncode, icon: ic_home_work },
+        { label: "Product Name", name: "productname", value: postData.productname, icon: person },
+        { label: "Quantity", name: "quantity", value: postData.quantity, icon: person },
+        { label: "Price Per Item", name: "priceperitem", value: postData.priceperitem, icon: person },
         // { label: "Add To", name: "Addto",value: postData.Addto, icon: person },
     ]
 
@@ -165,7 +167,6 @@ const Add_Products = () => {
                     <div className="row_one display-flex">
                         <div className="adding_new_device uppercase bold">Add Product Detials </div>
                     </div>
-
                     <div className="row_two display-flex padding-loc">
                         <div className="device_info uppercase light-grey mb-loc-5">
                             Product info
@@ -217,9 +218,11 @@ const Add_Products = () => {
                     </div>
 
                     <div className="operating_buttons display-flex padding-loc">
-                        <div className="save_cancel_btn display-flex site_button">
-                            <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handleClick()}>Save</button>
-                            <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
+                        <div className="save_cancel_btn display-flex site_button gap-4">
+                            <CancelBtnComp CancelBtnFun={handleCancel} />
+                            <SaveBtnComp SaveBtnFun={() => handleClick()} />
+                            {/* <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handleClick()}>Save</button>
+                            <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button> */}
                         </div>
                     </div>
                 </div>

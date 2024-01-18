@@ -98,7 +98,7 @@ main {
     display: flex;
     background: var(--THEME_COLOUR);
     color: var(--INNER_COLOUR);
-    width: auto;
+    width: 50px;
     min-height: 90vh;
     /* inherit */
     height: auto;
@@ -108,7 +108,7 @@ main {
     justify-content: space-between;
     align-items: center;
     font-family: var(--FONT_FAMILY);
-    position: relative;
+    position: fixed;
     left: 0;
     right: 0;
 }

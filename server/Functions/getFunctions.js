@@ -21,7 +21,7 @@ async function getUserData(req, res) {
     try {
         const { adminid ,position} = req.body;
         // console.log(adminid,position);
-        const userDeleteResult = await userdbInstance.userdb.query('select * from public."user" where adminid=$1 and positionid=$2;', [adminid, position]);
+        const userDeleteResult = await userdbInstance.userdb.query('select * from public."user" where adminid=$1 and positionid=$2 order by rno DESC;', [adminid, position]);
         res.json({ message: "Successfully Data Fetched", data: userDeleteResult.rows });
     } catch (error) {
         console.error('Error executing database query:', error);
@@ -33,7 +33,7 @@ async function getProducts(req, res) {
         const { userid} = req.body;
         // console.log(" userid : ",userid);
         const userDeleteResult = await userdbInstance.userdb.query(`SELECT rno, productid, quantity, priceperitem, "Lastupdatedby", productname,status
-        FROM public.products where belongsto=$1;`, [userid]);
+        FROM public.products where belongsto=$1 order by rno DESC;`, [userid]);
         res.json({ message: "Successfully Data Fetched", data: userDeleteResult.rows });
     } catch (error) {
         console.error('Error executing database query:', error);

@@ -12,6 +12,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../config';
+import { AddUserBtn } from '../components/AddUserBtn';
 
 const Distributer_Detials_content = (props) => {
     console.log('Props in ChildComponent:', props);
@@ -189,10 +190,11 @@ const Distributer_Detials_content = (props) => {
                                 </div>
                             </div>
                         </div>
-
-                        <div className='filters2 display-flex' onClick={handleclick}>
+                        <AddUserBtn adduserFun={handleclick}/>
+                        
+                        {/* <div className='filters2 display-flex' onClick={handleclick}>
                             <button className='btn btn-fill'>Add User</button>
-                        </div>
+                        </div> */}
                     </div>
 
 

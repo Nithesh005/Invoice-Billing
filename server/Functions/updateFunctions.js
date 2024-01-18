@@ -47,21 +47,21 @@ async function updateUserDataIndividual(req, res) {
 
 async function updateProductDataIndividual(req, res) {
     // const {productid} = req.body;
-    const {priceperitem,
+    const { priceperitem,
         productid,
         productname,
-        quantity} = req.body.productdetial;
+        quantity } = req.body.productdetial;
     // console.log(quantity);
     try {
         const userUpdateResult = await userdbInstance.userdb.query(`UPDATE public.products
         SET quantity=$1, priceperitem=$2,productname=$3
-        WHERE productid=$4;`, [quantity,priceperitem,productname,productid]);
+        WHERE productid=$4;`, [quantity, priceperitem, productname, productid]);
         if (userUpdateResult.rowCount === 1) {
             // The update was successful
-            res.json({ message: "Successfully Updated" , status:true});
+            res.json({ message: "Successfully Updated", status: true });
         } else {
             // No rows were updated, handle accordingly
-            res.status(404).json({ message: "User not found",status:false });
+            res.status(404).json({ message: "User not found", status: false });
         }
     } catch (error) {
         console.error('Error executing database query:', error);
@@ -86,6 +86,34 @@ async function updateStatusToRemove(req, res) {
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+
+async function updateUserPassword(req, res) {
+    const {username , password} = req.body;
+    console.log(password, username);
+    try {
+        const checkIsUsernameExist = await userdbInstance.userdb.query('select username from public.credentials where username=$1;', [username]);
+        if (checkIsUsernameExist.rows != 0) {
+            const userUpdateResult = await userdbInstance.userdb.query(`UPDATE public."credentials"
+            SET password=$1
+            WHERE username=$2;`, [password, username]);
+            if (userUpdateResult.rowCount === 1) {
+                // The update was successful
+                res.json({ resStatus: "Password Updated Successfully", qos: "success" });
+            } else {
+                // No rows were updated, handle accordingly
+                res.status(404).json({ message: "Not Updated Properly" });
+            }
+        }
+        else {
+            console.log("Username doesn't exist");
+            res.send({ message: `${username} Username doesn't exist` , status:'notExist'});
+        }
+    } catch (error) {
+        console.error('Error executing database query:', error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
 async function updateProducts(req, res) {
     const { productid, status } = req.body;
     console.log(productid, status);
@@ -105,4 +133,4 @@ async function updateProducts(req, res) {
 }
 
 
-module.exports = { updateUserDataIndividual, updateProductDataIndividual, updateStatusToRemove, updateProducts };
+module.exports = { updateUserDataIndividual, updateProductDataIndividual, updateStatusToRemove, updateProducts, updateUserPassword };

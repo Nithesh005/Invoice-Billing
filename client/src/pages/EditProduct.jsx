@@ -26,6 +26,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { CancelBtnComp, SaveBtnComp } from '../components/AddUserBtn';
 
 
 
@@ -117,7 +118,7 @@ const EditProduct = () => {
 
 
     const inputFields = [
-        { label: "HSN Code", name: "productid", value: inputValues.productid, icon: ic_home_work , readOnly:true},
+        { label: "HSN Code", name: "productid", value: inputValues.productid, icon: ic_home_work, readOnly: true },
         { label: "Product Name", name: "productname", value: inputValues.productname, icon: person },
         { label: "Quantity", name: "quantity", value: inputValues.quantity, icon: person },
         { label: "Price Per Item", name: "priceperitem", value: inputValues.priceperitem, icon: person },
@@ -148,14 +149,14 @@ const EditProduct = () => {
     // console.log(inputValues);
     const userInfoString = sessionStorage.getItem("UserInfo");
     const userInfo = JSON.parse(userInfoString);
-    
+
     // validation
     const handleClick = async () => {
         const isValidhsncode = /^[0-9]+$/.test(inputValues.productid);
         // console.log(isValidhsncode);
         if (isValidhsncode) {
             try {
-                console.log("hai",inputValues);
+                console.log("hai", inputValues);
                 const response = await axios.put(`${API_URL}update/product`, { productdetial: inputValues, updator: userInfo.userid });
                 if (response.data.status) {
                     // handleClear()
@@ -225,7 +226,7 @@ const EditProduct = () => {
                                                     name={field.name}
                                                     id={`input${index + 1}`}
                                                     readOnly={field.readOnly || false}
-                                                    // style={field.readOnly ? { cursor: "not-allowed" } : {}}
+                                                // style={field.readOnly ? { cursor: "not-allowed" } : {}}
                                                 />
                                                 {/* Add error handling if needed */}
                                             </div>
@@ -257,11 +258,9 @@ const EditProduct = () => {
                     </div>
 
                     <div className="operating_buttons display-flex padding-loc">
-                        <div className="save_cancel_btn display-flex site_button">
-                            <button className="btn-loc active-loc btn btn-outline-success"
-                                onClick={() => handleClick()}
-                            >Save</button>
-                            <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
+                        <div className="save_cancel_btn display-flex site_button gap-4">
+                            <CancelBtnComp CancelBtnFun={handleCancel} />
+                            <SaveBtnComp SaveBtnFun={() => handleClick()} />
                         </div>
                     </div>
                 </div>

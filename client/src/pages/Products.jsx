@@ -15,6 +15,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { AddUserBtn } from '../components/AddUserBtn';
 
 const Products = () => {
     //states
@@ -263,12 +264,14 @@ const Products = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='filters2 display-flex' onClick={handleclick}>
+                        <AddUserBtn adduserFun={handleclick} value={"Add Products"}/>
+
+                        {/* <div className='filters2 display-flex' onClick={handleclick}>
                             <button className='btn btn-fill'>Add Products</button>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='col-headings'>
-                        <div className="col-head">HSN Code</div>
+                        <div className="col-head">Product ID</div>
                         <div className="col-head">Product Name</div>
                         <div className="col-head">Product Count</div>
                         <div className="col-head">Product Price</div>

@@ -26,6 +26,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
+import { CancelBtnComp, SaveBtnComp } from '../components/AddUserBtn';
 
 
 const Edit_Distributer_Detials = () => {
@@ -111,14 +112,6 @@ const Edit_Distributer_Detials = () => {
         }
         // console.log("hai : " , first_name);
     };
-
-    // const [first_name, setfirst_name] = useState("");
-    // const [last_name, setlast_name] = useState("");
-    // const [siteid, setsiteid] = useState("");
-    // const [roleid, setroleid] = useState("");
-    // const [contact, setcontact] = useState("");
-    // const [Designation, setDesignation] = useState("");
-    // const [email, setemail] = useState("")
     const [inputValues, setInputValues] = useState({
         userid: "",
         OrganizationName: "",
@@ -147,98 +140,11 @@ const Edit_Distributer_Detials = () => {
         // Add more fields as needed
     });
 
-
-    //  validation states
-    const [first_name_error, setfirst_name_error] = useState("");
-    const [last_name_error, setlast_name_error] = useState("");
-    const [siteid_error, setsiteid_error] = useState("");
-    const [roleid_error, setroleid_error] = useState("");
-    const [contact_error, setcontact_error] = useState("");
-    const [designation_error, setDesignation_error] = useState("");
-    const [email_error, setemail_error] = useState("");
-
     // cancel script
     function handleCancel() {
         navigate(-1);
     }
 
-    function handle_first_name(event) {
-        const value = event.target.value;
-        // setfirst_name(value);
-        const isValidcompany_name = /^[a-zA-Z]+$/.test(value);
-        if (!isValidcompany_name) {
-            setfirst_name_error("*Enter valid First name");
-        } else {
-            setfirst_name_error("");
-        }
-    }
-
-    function handle_last_name(event) {
-        const value = event.target.value;
-        // setlast_name(value);
-        const isValidsite_name = /^[a-zA-Z]+$/.test(value);
-        if (!isValidsite_name) {
-            setlast_name_error("*Enter valid Last name");
-        } else {
-            setlast_name_error("");
-        }
-    }
-
-    function handle_siteid(event) {
-        const value = event.target.value;
-        // setsiteid(value);
-        const isValidsite_admin_email = /^[a-zA-Z0-9]+$/.test(value);
-        if (!isValidsite_admin_email) {
-            setsiteid_error("*Not a valid Site ID");
-        } else {
-            setsiteid_error("");
-        }
-    }
-
-    function handle_roleid(event) {
-        const value = event.target.value;
-        // setroleid(value);
-        const isValidsite_location = /^[a-zA-Z0-9]+$/.test(value);
-        if (!isValidsite_location) {
-            setroleid_error("*Enter valid Role ID");
-        } else {
-            setroleid_error("");
-        }
-    }
-
-    function handle_contact(event) {
-        const value = event.target.value;
-        // setcontact(value);
-        const isValidsite_address = /^[0-9]{10}$/.test(value);
-        if (!isValidsite_address) {
-            setcontact_error("*Enter Proper Bussiness Type");
-        } else {
-            setcontact_error("");
-        }
-
-    }
-
-
-    function handle_Designation(event) {
-        const value = event.target.value;
-        // setDesignation(value);
-        const isValidnew_site_admin_name = /^[a-zA-Z]+$/.test(value);
-        if (!isValidnew_site_admin_name) {
-            setDesignation_error("*Enter valid Designation");
-        } else {
-            setDesignation_error("");
-        }
-    }
-    function handle_email(event) {
-        const value = event.target.value;
-        // setemail(value);
-        const isValidnew_site_admin_name = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-        if (!isValidnew_site_admin_name) {
-            setemail_error("*Enter valid email");
-        } else {
-            setemail_error("");
-        }
-    }
 
     //redirect to device content page
     const navigate = useNavigate();
@@ -357,11 +263,6 @@ const Edit_Distributer_Detials = () => {
         { label: "State", name: "State2", value: inputValues.State2, icon: pen_3 },
         { label: "Postal Code", name: "PostalCode2", value: inputValues.PostalCode2, icon: pen_3 },
     ];
-    // const [inputValues, setInputValues] = useState({
-    //     userid: first_name,
-    //     OrganizationName: ""
-    //     // Add more fields as needed
-    //   });
     const handleInputChange = (index, value) => {
         // Update the inputValues state based on the index
         setInputValues((prevValues) => {
@@ -569,9 +470,11 @@ const Edit_Distributer_Detials = () => {
                     </div>
 
                     <div className="operating_buttons display-flex padding-loc">
-                        <div className="save_cancel_btn display-flex site_button">
-                            <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handle_save()}>Save</button>
-                            <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button>
+                        <div className="save_cancel_btn display-flex site_button gap-4">
+                            <CancelBtnComp CancelBtnFun={handleCancel} />
+                            <SaveBtnComp SaveBtnFun={() => handle_save()} />
+                            {/* <button className="btn-loc active-loc btn btn-outline-success" onClick={() => handle_save()}>Save</button>
+                            <button className="btn-loc inactive-loc btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">cancel</button> */}
                         </div>
                     </div>
                 </div>

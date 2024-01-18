@@ -1,11 +1,15 @@
 import invoiceLogo from '../assets/logo/invoiceLogo.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { API_URL } from '../config'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import TextField from '@mui/material/TextField';
+import { styled, useTheme } from '@mui/system';
+import { Button } from '@mui/material';
+import {UserActionBtn} from '../assets/style/cssInlineConfig';
 const Login = (props) => {
-    console.log("props : ",props);
+    const theme = useTheme();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [invalid_state, setinvalidstate] = useState(false);
@@ -54,13 +58,13 @@ const Login = (props) => {
                     password: password,
                 }
             );
-            console.log(response);
+            // console.log(response);
             if (response.data.success) {
                 sessionStorage.setItem("UserInfo", JSON.stringify({ ...response.data.data, "isLoggedIn": true }));
                 console.log(response.data);
                 if (response.data.data.position === "manifacture") {
                     navigate("/Staff_Detials");
-                } 
+                }
                 else if (response.data.data.position === "staff") {
                     navigate('/Distributer_Detials');
                 }
@@ -71,7 +75,8 @@ const Login = (props) => {
                     navigate('/profilePage');
                 }
                 window.location.reload();
-            } else {
+            }
+            else {
                 if (response.data.password === null) {
                     navigate('/UpdatePassword');
                 }
@@ -81,6 +86,11 @@ const Login = (props) => {
             console.error('Login failed:', error.message);
         }
     };
+    // useEffect(() => {
+    //     validate_login();
+    // }, []);
+    // const btnStyle = { backgroundColor: 'red', color: 'white', borderRadius: '7px', width: '100px' }
+
 
     return (
         <>
@@ -92,13 +102,30 @@ const Login = (props) => {
                         <div className="logo">
                             <img src={invoiceLogo} alt="Logo" />
                         </div>
-                        <div className="credentials" style={{ width: "80%", display: "flex", flexDirection: "column", gap: "1.2rem" }}>
+                        <div className="credentials" >
                             <div className='login_input_div'>
-                                <input type="text" placeholder='Email' className='login_inputs_individual' value={username} onChange={handleUserName} onBlur={LoginUsername} />
+                                {/* <input type="text" placeholder='Email' className='login_inputs_individual' value={username} onChange={handleUserName} onBlur={LoginUsername} /> */}
+                                <TextField
+                                    label="Username"
+                                    type="text"
+                                    className="form-control-loc"
+                                    onBlur={LoginUsername}
+                                    value={username} onChange={handleUserName}
+                                // value={field.value}
+                                // onChange={(e) => handleInputChange(index, e.target.value)}
+                                />
                                 <div className="login_error-message">{username_empty && "Enter Valid Email"}</div>
                             </div>
                             <div className='login_input_div'>
-                                <input type="password" placeholder='Password' className='login_inputs_individual' value={password} onChange={handlepassword} onBlur={LoginPassword} />
+                                {/* <input type="password" placeholder='Password' className='login_inputs_individual' value={password} onChange={handlepassword} onBlur={LoginPassword} /> */}
+                                <TextField
+                                    label="Password"
+                                    type="password"
+                                    className="form-control-loc"
+                                    value={password} onChange={handlepassword} onBlur={LoginPassword}
+                                // value={field.value}
+                                // onChange={(e) => handleInputChange(index, e.target.value)}
+                                />
                                 <div className="login_error-message">{password_empty && "Enter Valid Password"}</div>
                             </div>
                         </div>
@@ -114,13 +141,22 @@ const Login = (props) => {
                                     <span className='display-flex' style={{ justifyContent: "start" }}>Inactive Site</span>
                                 )}
                             </div>
-                            <div className="forget">
+                            <Button color="secondary">
+                                Forgot Password
+                            </Button>
+                            {/* <div className="forget">
                                 <span className='display-flex' style={{ justifyContent: "end" }}>Forgot Password</span>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="login_btn_div" onClick={validate_login} style={{ textAlign: "center" }}>
+                        {/* <div className="login_btn_div" onClick={validate_login} style={{ textAlign: "center" }}>
                             <input type="submit" className='login_btn' value={"Login"} />
-                        </div>
+                        </div> */}
+                        <Button variant="contained"
+                            onClick={validate_login}
+                            style={UserActionBtn}
+                        >
+                            Login
+                        </Button>
                     </div>
 
                 </div>
