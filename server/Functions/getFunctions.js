@@ -40,6 +40,19 @@ async function getProducts(req, res) {
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+async function getTransactionHistory(req, res) {
+
+    try {
+        const { userid} = req.body;
+        console.log(" userid : ",userid);
+        // const userDeleteResult = await userdbInstance.userdb.query(`SELECT rno, productid, quantity, priceperitem, "Lastupdatedby", productname,status
+        // FROM public.products where belongsto=$1 order by rno DESC;`, [userid]);
+        res.json({ message: "Successfully Data Fetched", data: 'userDeleteResult.rows' });
+    } catch (error) {
+        console.error('Error executing database query:', error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
 async function getUserDataIndividual(req, res) {
     try {
         // const { adminid ,position} = req.body;
@@ -67,4 +80,4 @@ async function getProductDataIndividual(req, res) {
 }
 
 
-module.exports = {getUserData ,getProducts, getUserDataIndividual,getProductDataIndividual};
+module.exports = {getUserData ,getProducts,getTransactionHistory, getUserDataIndividual,getProductDataIndividual};

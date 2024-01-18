@@ -58,11 +58,22 @@ const InvoiceGenerator = () => {
         // console.log(updatedRows);
     };
 
-    const handleSubmit = async() =>{
+    const [errorMessage, setErrorMessage] = useState('');
+    const suggestionsArray = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
+    const handleBlur = (rowId, fieldName, value) => {
+        // alert(value)
+        if (!suggestionsArray.includes(value)) {
+            setErrorMessage('Invalid product name');
+        } else {
+            setErrorMessage(''); // Clear the error message if the input is valid
+        }
+    };
+
+    const handleSubmit = async () => {
         console.log(rows);
         console.log(inputValues);
         try {
-            const response = await axios.post(`${API_URL}add/invoice`, {invoice:inputValues,invoiceitem:rows});
+            const response = await axios.post(`${API_URL}add/invoice`, { invoice: inputValues, invoiceitem: rows });
             alert(response.data.message);
         } catch (error) {
             console.error('Error sending data:', error);
@@ -86,8 +97,8 @@ const InvoiceGenerator = () => {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextField fullWidth label={customerName}
-                                    onChange={(e) => handleInputChangeInvoice(customerName, e.target.value)}
-                                    value={inputValues[customerName] || ''}
+                                        onChange={(e) => handleInputChangeInvoice(customerName, e.target.value)}
+                                        value={inputValues[customerName] || ''}
                                     />
                                 </Grid>
                             </React.Fragment>
@@ -125,10 +136,24 @@ const InvoiceGenerator = () => {
                                         />
                                     </TableCell>
                                     <TableCell>
-                                        <TextField
+                                        {/* <TextField
                                             value={row.col2}
                                             onChange={(e) => handleInputChange(row.id, 'productName', e.target.value)}
+                                        /> */}
+                                        <input
+                                            list={`suggestions-${row.id}`}
+                                            value={row.col2}
+                                            onChange={(e) => handleInputChange(row.id, 'productName', e.target.value)}
+                                            onBlur={(e) => handleBlur(row.id, 'productName', e.target.value)}
                                         />
+                                        <datalist id={`suggestions-${row.id}`}
+                                        style={{ position: 'absolute', zIndex: 1, border: '1px solid #ccc', background: '#fff' }}
+                                        >
+                                            {suggestionsArray.map((suggestion, index) => (
+                                                <option key={index} value={suggestion} />
+                                            ))}
+                                        </datalist>
+                                        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                                     </TableCell>
                                     <TableCell>
                                         <TextField
@@ -169,7 +194,7 @@ const InvoiceGenerator = () => {
             <footer>
                 <Grid container justifyContent="space-between" alignItems="center" style={{ width: "80%" }}>
                     <Grid item className='gap-4 d-flex'>
-                    <CancelBtnComp/>
+                        <CancelBtnComp />
 
                         <Button variant="outlined" color="primary" onClick={handleSubmit}>
                             Generate Invoice
